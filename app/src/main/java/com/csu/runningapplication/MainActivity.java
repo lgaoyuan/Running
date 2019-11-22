@@ -13,11 +13,13 @@ import com.csu.runningapplication.ui.RunFragment;
 
 
 public class MainActivity extends FragmentActivity {
+
     private FragmentManager fm;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         fm=getSupportFragmentManager();
         Fragment fragment=fm.findFragmentById(R.id.runfragment);
         if(fragment==null){
@@ -58,6 +60,7 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         });
+
     }
 
 }
