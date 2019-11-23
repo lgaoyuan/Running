@@ -58,6 +58,7 @@ public class RunningActivity extends Activity {
     private long trackId;
     private boolean isServiceRunning;
     private boolean isGatherRunning;
+    private double d;//实时里程
 
 
     final Handler handler = new Handler() {
@@ -83,14 +84,14 @@ public class RunningActivity extends Activity {
         public void onStartTrackCallback(int status, String msg) {
             if (status == ErrorCode.TrackListen.START_TRACK_SUCEE || status == ErrorCode.TrackListen.START_TRACK_SUCEE_NO_NETWORK) {
                 // 成功启动
-                Toast.makeText(RunningActivity.this, "启动服务成功", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(RunningActivity.this, "启动服务成功", Toast.LENGTH_SHORT).show();
                 isServiceRunning = true;
                 //开始采集
                 aMapTrackClient.setTrackId(trackId);
                 aMapTrackClient.startGather(onTrackListener);
             } else if (status == ErrorCode.TrackListen.START_TRACK_ALREADY_STARTED) {
                 // 已经启动
-                Toast.makeText(RunningActivity.this, "服务已经启动", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(RunningActivity.this, "服务已经启动", Toast.LENGTH_SHORT).show();
                 isServiceRunning = true;
                 
             } else {
@@ -105,7 +106,7 @@ public class RunningActivity extends Activity {
         public void onStopTrackCallback(int status, String msg) {
             if (status == ErrorCode.TrackListen.STOP_TRACK_SUCCE) {
                 // 成功停止
-                Toast.makeText(RunningActivity.this, "停止服务成功", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(RunningActivity.this, "停止服务成功", Toast.LENGTH_SHORT).show();
                 isServiceRunning = false;
                 isGatherRunning = false;
 
@@ -121,7 +122,7 @@ public class RunningActivity extends Activity {
         @Override
         public void onStartGatherCallback(int status, String msg) {
             if (status == ErrorCode.TrackListen.START_GATHER_SUCEE) {
-                Toast.makeText(RunningActivity.this, "定位采集开启成功", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(RunningActivity.this, "定位采集开启成功", Toast.LENGTH_SHORT).show();
                 isGatherRunning = true;
                 //定时显示
                 timer=new Timer();
@@ -130,13 +131,13 @@ public class RunningActivity extends Activity {
                     public void run() {
                         Message msg = new Message();
                         msg.what = 1000;
-                        msg.obj=myDistance();
+                        myDistance();
+                        msg.obj=d;
                         handler.sendMessage(msg);
-                        Log.d("distanceMsg",msg.obj.toString());
                     }
                 }, 0, 1000);
             } else if (status == ErrorCode.TrackListen.START_GATHER_ALREADY_STARTED) {
-                Toast.makeText(RunningActivity.this, "定位采集已经开启", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(RunningActivity.this, "定位采集已经开启", Toast.LENGTH_SHORT).show();
                 isGatherRunning = true;
                 
             } else {
@@ -150,7 +151,7 @@ public class RunningActivity extends Activity {
         @Override
         public void onStopGatherCallback(int status, String msg) {
             if (status == ErrorCode.TrackListen.STOP_GATHER_SUCCE) {
-                Toast.makeText(RunningActivity.this, "定位采集停止成功", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(RunningActivity.this, "定位采集停止成功", Toast.LENGTH_SHORT).show();
                 isGatherRunning = false;
                 
             } else {
@@ -166,8 +167,6 @@ public class RunningActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.running_layout);
-
-
 
         // 不要使用Activity作为Context传入
         aMapTrackClient = new AMapTrackClient(getApplicationContext());
@@ -295,46 +294,8 @@ public class RunningActivity extends Activity {
     }
 
 
-    private double myDistance(){
+    private void myDistance(){
         // 查询行驶里程
-        /*final double[] d = new double[1];
-
-        aMapTrackClient.queryTerminal(new QueryTerminalRequest(Constants.SERVICE_ID, Constants.TERMINAL_NAME), new SimpleOnTrackListener() {
-            @Override
-            public void onQueryTerminalCallback(QueryTerminalResponse queryTerminalResponse) {
-                if (queryTerminalResponse.isSuccess()) {
-                    long terminalId = queryTerminalResponse.getTid();
-                    if (terminalId > 0) {
-                        long curr = System.currentTimeMillis();
-                        DistanceRequest distanceRequest = new DistanceRequest(
-                                Constants.SERVICE_ID,
-                                terminalId,
-                                curr - 12 * 60 * 60 * 1000, // 开始时间
-                                curr,   // 结束时间
-                                trackId  // 轨迹id
-                        );
-                        aMapTrackClient.queryDistance(distanceRequest, new SimpleOnTrackListener() {
-                            @Override
-                            public void onDistanceCallback(DistanceResponse distanceResponse) {
-                                if (distanceResponse.isSuccess()) {
-                                    d[0] =distanceResponse.getDistance();
-                                } else {
-                                    //appendLogText("行驶里程查询失败，" + distanceResponse.getErrorMsg());
-                                }
-                            }
-                        });
-                    } else {
-                        //appendLogText("终端不存在，请先使用轨迹上报示例页面创建终端和上报轨迹");
-                    }
-                } else {
-                    //appendLogText("终端查询失败，" + queryTerminalResponse.getErrorMsg());
-                }
-            }
-        });
-        return d[0];*/
-
-        final double[] d = new double[1];
-
         aMapTrackClient.queryTerminal(new QueryTerminalRequest(Constants.SERVICE_ID, Constants.TERMINAL_NAME), new SimpleOnTrackListener() {
             @Override
             public void onQueryTerminalCallback(final QueryTerminalResponse queryTerminalResponse) {
@@ -373,20 +334,13 @@ public class RunningActivity extends Activity {
                                         }
                                         if (allEmpty) {
                                         } else {
-                                            StringBuilder sb = new StringBuilder();
-                                            sb.append("共查询到").append(tracks.size()).append("条轨迹，每条轨迹行驶距离分别为：");
-                                            for (Track track : tracks) {
-                                                d[0] =track.getDistance();
-                                                sb.append(track.getDistance()).append("m,");
-                                            }
-                                            sb.deleteCharAt(sb.length() - 1);
-                                            Toast.makeText(RunningActivity.this, sb.toString(), Toast.LENGTH_SHORT).show();
+                                            d =tracks.get(0).getDistance();
                                         }
                                     } else {
                                         Toast.makeText(RunningActivity.this, "未获取到轨迹", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
-                                    Toast.makeText(RunningActivity.this, "查询历史轨迹失败，" + queryTrackResponse.getErrorMsg(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RunningActivity.this, "查询轨迹失败，" + queryTrackResponse.getErrorMsg(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -397,6 +351,5 @@ public class RunningActivity extends Activity {
                 }
             }
         });
-        return d[0];
     }
 }
