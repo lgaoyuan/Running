@@ -5,9 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/my_text"
+    <WebView
+        android:id="@+id/chartshow_wb"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="my"/>
+        android:layout_height="300dp" />
 </LinearLayout>
