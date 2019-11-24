@@ -31,7 +31,7 @@ public class MainActivity extends FragmentActivity {
         mChat.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Fragment fragment=fm.findFragmentById(R.id.chatfragment);
+                Fragment fragment=fm.findFragmentById(R.id.chat_fragment);
                 if(fragment==null){
                     fragment=new ChatFragment();
                     fm.beginTransaction().replace(R.id.fragmentContainer,fragment).commit();
