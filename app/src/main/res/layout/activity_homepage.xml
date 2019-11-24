@@ -2,17 +2,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clipChildren="false"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    >
 <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.12"
+    android:layout_gravity="bottom"
+    android:background="#1BA7F3"
+    android:orientation="vertical"
+   >
+
+<!--    用于撑起与顶端距离-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+ <LinearLayout
+     android:orientation="horizontal"
+     android:layout_width="match_parent"
+     android:layout_height="50dp">
+     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="关注"
+        android:textColor="#ffffff"
+         android:layout_marginLeft="20dp"
+        android:textSize="30dp"
+         />
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="match_parent"
+         android:textColor="#ffffff"
+         android:text="攻略"
+         android:textSize="30dp"
+         />
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="match_parent"
+         android:textColor="#ffffff"
+         android:text="预告"
+         android:textSize="30dp"/>
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="match_parent"
+         android:textColor="#ffffff"
+         android:text="圈子"
+         android:textSize="30dp"
+         />
+ </LinearLayout>
+
+
+
+</LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_weight="1" />
+       android:layout_weight="1">
 
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+</ListView>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
