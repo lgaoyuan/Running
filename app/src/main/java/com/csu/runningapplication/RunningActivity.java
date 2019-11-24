@@ -41,6 +41,8 @@ import com.csu.runningapplication.util.SimpleOnTrackLifecycleListener;
 import com.csu.runningapplication.util.SimpleOnTrackListener;
 
 
+import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -51,14 +53,24 @@ public class RunningActivity extends Activity {
     private static final String TAG = "RunningActivity";
     private static final String CHANNEL_ID_SERVICE_RUNNING = "CHANNEL_ID_SERVICE_RUNNING";
 
+    private Button mStart;
+    private Button mStop;
+    private Button mPause;
+    private TextView mIsRunning;
+
     private AMapTrackClient aMapTrackClient;
     private Timer timer;
+    private Boolean isTimerRunning=false;//定时器控制
 
     private long terminalId;
     private long trackId;
     private boolean isServiceRunning;
     private boolean isGatherRunning;
-    private double d;//实时里程
+    private double d;//此轨迹实时里程
+    private double allD=0;//累计里程
+
+    private long startTime;
+    private int useTime = 0;//耗时
 
 
     final Handler handler = new Handler() {
@@ -66,9 +78,15 @@ public class RunningActivity extends Activity {
         public void handleMessage(Message msg) {
             // TODO Auto-generated method stub
             super.handleMessage(msg);
-            if (msg.what == 1000) {
-                TextView dis=(TextView)findViewById(R.id.distance);
-                dis.setText(msg.obj.toString()+"m");
+            if (msg.what == 1000) {//路程
+                TextView dis = (TextView) findViewById(R.id.distance);
+                dis.setText(msg.obj.toString());
+            } else if (msg.what == 1001) {//时间
+                TextView time = (TextView) findViewById(R.id.time_text);
+                time.setText(msg.obj.toString());
+            } else if (msg.what == 1001) {//配速
+                TextView speed = (TextView) findViewById(R.id.speed_text);
+                speed.setText(msg.obj.toString());
             }
         }
     };
@@ -93,7 +111,7 @@ public class RunningActivity extends Activity {
                 // 已经启动
                 //Toast.makeText(RunningActivity.this, "服务已经启动", Toast.LENGTH_SHORT).show();
                 isServiceRunning = true;
-                
+
             } else {
                 Log.w(TAG, "error onStartTrackCallback, status: " + status + ", msg: " + msg);
                 Toast.makeText(RunningActivity.this,
@@ -124,22 +142,10 @@ public class RunningActivity extends Activity {
             if (status == ErrorCode.TrackListen.START_GATHER_SUCEE) {
                 //Toast.makeText(RunningActivity.this, "定位采集开启成功", Toast.LENGTH_SHORT).show();
                 isGatherRunning = true;
-                //定时显示
-                timer=new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        Message msg = new Message();
-                        msg.what = 1000;
-                        myDistance();
-                        msg.obj=d;
-                        handler.sendMessage(msg);
-                    }
-                }, 0, 1000);
             } else if (status == ErrorCode.TrackListen.START_GATHER_ALREADY_STARTED) {
                 //Toast.makeText(RunningActivity.this, "定位采集已经开启", Toast.LENGTH_SHORT).show();
                 isGatherRunning = true;
-                
+
             } else {
                 Log.w(TAG, "error onStartGatherCallback, status: " + status + ", msg: " + msg);
                 Toast.makeText(RunningActivity.this,
@@ -153,7 +159,7 @@ public class RunningActivity extends Activity {
             if (status == ErrorCode.TrackListen.STOP_GATHER_SUCCE) {
                 //Toast.makeText(RunningActivity.this, "定位采集停止成功", Toast.LENGTH_SHORT).show();
                 isGatherRunning = false;
-                
+
             } else {
                 Log.w(TAG, "error onStopGatherCallback, status: " + status + ", msg: " + msg);
                 Toast.makeText(RunningActivity.this,
@@ -168,25 +174,66 @@ public class RunningActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.running_layout);
 
+        //载入定时器
+        timeController();
+        //设置按钮
+        mPause = findViewById(R.id.pause_button);
+        mPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPause.setVisibility(View.GONE);
+                mStart.setVisibility(View.VISIBLE);
+                mStop.setVisibility(View.VISIBLE);
+
+                aMapTrackClient.stopGather(onTrackListener);//停止采集
+                aMapTrackClient.stopTrack(new TrackParam(Constants.SERVICE_ID, terminalId), onTrackListener);
+
+                isTimerRunning = false;
+                allD=allD+d;//将最新轨迹里程加入累计
+                d=0;
+                mIsRunning.setText("跑步暂停");
+            }
+        });
+        mStart = findViewById(R.id.start_button);
+        mStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mStart.setVisibility(View.GONE);
+                mStop.setVisibility(View.GONE);
+                mPause.setVisibility(View.VISIBLE);
+
+                startTrack();
+
+                isTimerRunning = true;//启动定时器
+                mIsRunning.setText("跑步进行中...");
+            }
+        });
+        mStop = findViewById(R.id.stop_button);
+        //初始显示的信息
+        mIsRunning = (TextView) findViewById(R.id.isRunning);
+        mIsRunning.setText("跑步进行中...");
+        mStart.setVisibility(View.GONE);
+        mStop.setVisibility(View.GONE);
+
         // 不要使用Activity作为Context传入
         aMapTrackClient = new AMapTrackClient(getApplicationContext());
         aMapTrackClient.setInterval(1, 5);
 
         startTrack();
+        startTime=System.currentTimeMillis();
 
-        Button trackButton=(Button)findViewById(R.id.activity_search_location);
-        trackButton.setOnClickListener(new View.OnClickListener() {
+        mStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //停止服务
-                aMapTrackClient.stopGather(onTrackListener);
-                aMapTrackClient.stopTrack(new TrackParam(Constants.SERVICE_ID, terminalId), onTrackListener);
-                if(timer!=null) {
+                //停止
+                if (timer != null) {
                     timer.cancel();
                 }
-                Intent i=new Intent(RunningActivity.this,TrackSearchActivity.class);
-                i.putExtra("trackId",trackId);
+                Intent i = new Intent(RunningActivity.this, TrackSearchActivity.class);
+                i.putExtra("startTime", startTime);
+                i.putExtra("distance",String.format("%.2f", allD / 1000));
                 startActivity(i);
+                RunningActivity.this.finish();
             }
         });
     }
@@ -205,20 +252,21 @@ public class RunningActivity extends Activity {
                         aMapTrackClient.addTrack(new AddTrackRequest(Constants.SERVICE_ID, terminalId), new SimpleOnTrackListener() {
                             @Override
                             public void onAddTrackCallback(AddTrackResponse addTrackResponse) {
-                            if (addTrackResponse.isSuccess()) {
-                                // trackId需要在启动服务后设置才能生效，因此这里不设置，而是在startGather之前设置了track id
-                                trackId = addTrackResponse.getTrid();
-                                TrackParam trackParam = new TrackParam(Constants.SERVICE_ID, terminalId);
-                                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                    trackParam.setNotification(createNotification());
+                                if (addTrackResponse.isSuccess()) {
+                                    // trackId需要在启动服务后设置才能生效，因此这里不设置，而是在startGather之前设置了track id
+                                    trackId = addTrackResponse.getTrid();
+                                    TrackParam trackParam = new TrackParam(Constants.SERVICE_ID, terminalId);
+                                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        trackParam.setNotification(createNotification());
+                                    }
+                                    aMapTrackClient.startTrack(trackParam, onTrackListener);
+                                    isTimerRunning = true;
+                                } else {
+                                    Toast.makeText(RunningActivity.this, "网络请求失败，" + addTrackResponse.getErrorMsg(), Toast.LENGTH_SHORT).show();
                                 }
-                                aMapTrackClient.startTrack(trackParam, onTrackListener);
-                            } else {
-                                Toast.makeText(RunningActivity.this, "网络请求失败，" + addTrackResponse.getErrorMsg(), Toast.LENGTH_SHORT).show();
-                            }
                             }
                         });
-                        
+
                     } else {
                         // 当前终端是新终端，还未创建过，创建该终端并使用新生成的terminal id
                         aMapTrackClient.addTerminal(new AddTerminalRequest(Constants.TERMINAL_NAME, Constants.SERVICE_ID), new SimpleOnTrackListener() {
@@ -231,6 +279,7 @@ public class RunningActivity extends Activity {
                                         trackParam.setNotification(createNotification());
                                     }
                                     aMapTrackClient.startTrack(trackParam, onTrackListener);
+                                    isTimerRunning = true;
                                 } else {
                                     Toast.makeText(RunningActivity.this, "网络请求失败，" + addTerminalResponse.getErrorMsg(), Toast.LENGTH_SHORT).show();
                                 }
@@ -294,7 +343,7 @@ public class RunningActivity extends Activity {
     }
 
 
-    private void myDistance(){
+    private void myDistance() {
         // 查询行驶里程
         aMapTrackClient.queryTerminal(new QueryTerminalRequest(Constants.SERVICE_ID, Constants.TERMINAL_NAME), new SimpleOnTrackListener() {
             @Override
@@ -334,7 +383,7 @@ public class RunningActivity extends Activity {
                                         }
                                         if (allEmpty) {
                                         } else {
-                                            d =tracks.get(0).getDistance();
+                                            d = tracks.get(0).getDistance();
                                         }
                                     } else {
                                         Toast.makeText(RunningActivity.this, "未获取到轨迹", Toast.LENGTH_SHORT).show();
@@ -351,5 +400,49 @@ public class RunningActivity extends Activity {
                 }
             }
         });
+    }
+
+    /*
+     * 定时器控制
+     * */
+    private void timeController() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (isTimerRunning) {
+                    Message msg = new Message();
+                    msg.what = 1000;
+                    myDistance();
+                    msg.obj = String.format("%.2f", (allD+d) / 1000);//路程，保留两位小数
+                    handler.sendMessage(msg);
+
+                    Message msg1 = new Message();
+                    msg1.what = 1001;
+                    useTime++;
+                    int s = useTime % 60;
+                    int m = useTime / 60;
+                    String ss = String.format("%02d", s);
+                    String mm = String.format("%02d", m);
+                    msg1.obj = mm + ":" + ss;//时间
+                    handler.sendMessage(msg1);
+
+                    Message msg2 = new Message();
+                    msg2.what = 1002;
+                    if (useTime != 0) {//判断时间（分母）是否为0
+                        double speed = d / useTime;
+                        int hourTime = (int) (speed * 1000);
+                        s = hourTime % 60;
+                        m = hourTime / 60;
+                    } else {
+                        s = 0;
+                        m = 0;
+                    }
+                    ss = String.format("%02d", s);
+                    msg2.obj = m + "'" + ss + "''";
+                    handler.sendMessage(msg2);
+                }
+            }
+        }, 0, 1000);
     }
 }

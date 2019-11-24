@@ -9,10 +9,11 @@
         android:layout_height="match_parent"/>
 
     <TextView
+        android:id="@+id/summary_text"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
-        android:text="m"
-        android:background="#FFFFFF"/>
+        android:background="#0B1428"
+        android:textColor="#FFFFFF"/>
 
 </RelativeLayout>

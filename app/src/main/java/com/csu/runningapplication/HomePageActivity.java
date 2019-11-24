@@ -96,6 +96,7 @@ public class HomePageActivity extends Activity {
             public void run() {
                 Intent i=new Intent(HomePageActivity.this,MainActivity.class);
                 startActivity(i);
+                HomePageActivity.this.finish();
             }
         },2000);
     }

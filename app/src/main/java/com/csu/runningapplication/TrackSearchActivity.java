@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.CameraUpdateFactory;
@@ -44,6 +45,7 @@ public class TrackSearchActivity extends Activity {
     private AMapTrackClient aMapTrackClient;
 
     private TextureMapView textureMapView;
+    private TextView mTextView;
     private List<Polyline> polylines = new LinkedList<>();
     private List<Marker> endMarkers = new LinkedList<>();
 
@@ -52,6 +54,10 @@ public class TrackSearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_search);
         aMapTrackClient = new AMapTrackClient(getApplicationContext());
+        Intent i = getIntent();
+        double distance=i.getDoubleExtra("distance",0);
+        mTextView=findViewById(R.id.summary_text);
+        mTextView.setText(distance+"");
 
         textureMapView = findViewById(R.id.activity_track_search_map);
         textureMapView.onCreate(savedInstanceState);
@@ -66,14 +72,14 @@ public class TrackSearchActivity extends Activity {
                 if (queryTerminalResponse.isSuccess()) {
                     if (queryTerminalResponse.isTerminalExist()) {
                         Intent i = getIntent();
-                        long trackId = i.getLongExtra("trackId", -1);
+                        long startTime = i.getLongExtra("startTime", System.currentTimeMillis());
                         long tid = queryTerminalResponse.getTid();
                         // 搜索最近12小时以内上报的属于某个轨迹的轨迹点信息，散点上报不会包含在该查询结果中
                         QueryTrackRequest queryTrackRequest = new QueryTrackRequest(
                                 Constants.SERVICE_ID,
                                 tid,
-                                trackId,     // 轨迹id，不指定，查询所有轨迹，注意分页仅在查询特定轨迹id时生效，查询所有轨迹时无法对轨迹点进行分页
-                                System.currentTimeMillis() - 12 * 60 * 60 * 1000,
+                                -1,     // 轨迹id，不指定，查询所有轨迹，注意分页仅在查询特定轨迹id时生效，查询所有轨迹时无法对轨迹点进行分页
+                                startTime,
                                 System.currentTimeMillis(),
                                 0,      // 不启用去噪
                                 0,   // 绑路
@@ -112,7 +118,7 @@ public class TrackSearchActivity extends Activity {
                                             Toast.makeText(TrackSearchActivity.this, sb.toString(), Toast.LENGTH_SHORT).show();
                                         }
                                     } else {
-                                        Toast.makeText(TrackSearchActivity.this, "未获取到轨迹", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(TrackSearchActivity.this, "你的运动时间太短啦", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
                                     Toast.makeText(TrackSearchActivity.this, "查询历史轨迹失败，" + queryTrackResponse.getErrorMsg(), Toast.LENGTH_SHORT).show();
@@ -166,17 +172,6 @@ public class TrackSearchActivity extends Activity {
         polylines.add(polyline);
         textureMapView.getMap().animateCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 30));
     }
-
-    /*private void clearTracksOnMap() {
-        for (Polyline polyline : polylines) {
-            polyline.remove();
-        }
-        for (Marker marker : endMarkers) {
-            marker.remove();
-        }
-        endMarkers.clear();
-        polylines.clear();
-    }*/
 
     @Override
     protected void onPause() {
