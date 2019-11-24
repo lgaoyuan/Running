@@ -35,7 +35,7 @@
                     android:id="@+id/guanzhu"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="关注,攻略"
+                    android:text="关注"
                     android:padding="2dp"
                     android:textColor="#ffffff"
                     android:layout_marginLeft="20dp"
