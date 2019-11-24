@@ -11,27 +11,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1">
+<!--        用户头像-->
     <ImageView
         android:id="@+id/chat_image"
+        android:layout_marginTop="10dp"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"/>
+<!--        用户ID-->
     <TextView
         android:id="@+id/name1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#727583"
+        android:textSize="50px"/>
     </LinearLayout>
+<!--    关注按钮-->
         <Button
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:id="@+id/guanzhu1"
-            android:layout_width="97dp"
-            android:layout_height="52dp"
+            android:layout_width="62dp"
+            android:layout_height="34dp"
             android:background="@drawable/guanzhubutton"/>
 
 </LinearLayout>
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content">
+     <ImageView
+         android:id="@+id/chat_img"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:src="@drawable/chat_img"/>
 
+ </LinearLayout>
+<!--      说说内容-->
     <TextView
         android:id="@+id/chat_name"
         android:layout_width="wrap_content"
@@ -39,5 +57,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
+        android:textColor="#878686"
+        android:textSize="40px"
         />
 </LinearLayout>
