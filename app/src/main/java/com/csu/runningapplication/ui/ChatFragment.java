@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import java.util.List;
 public class ChatFragment extends Fragment {
 
     private List<Chat> chatlist=new ArrayList<>();
+    private Button add;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -29,6 +31,13 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parents, Bundle savedInstanceState){
         View v=inflater.inflate(R.layout.chat_fragment,parents,false);
+        add=(Button)v.findViewById(R.id.add);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //打开一个发消息的页面 类似说说？
+            }
+        });
         TextView tv=(TextView)v.findViewById(R.id.guanzhu);
         tv.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         initchat();
@@ -38,7 +47,7 @@ public class ChatFragment extends Fragment {
         return v;
     }
     public void initchat(){
-        Chat chat=new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。",R.drawable.w100,"飞飞飞飞");
+        Chat chat=new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。",R.drawable.flyimg,"飞飞飞飞");
         chatlist.add(chat);
         chatlist.add(chat);
         chatlist.add(chat);

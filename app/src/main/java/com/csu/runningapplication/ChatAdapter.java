@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         ImageView ChatImage=(ImageView)view.findViewById(R.id.chat_image);
         TextView ChatName=(TextView) view.findViewById(R.id.chat_name);
         TextView ChatName1=(TextView)view.findViewById(R.id.name1);
+        Button  ChatButton1=(Button)view.findViewById(R.id.guanzhu1);
         ChatImage.setImageResource(chat.getImage());
         ChatName.setText(chat.getName());
         ChatName1.setText(chat.getName1());
