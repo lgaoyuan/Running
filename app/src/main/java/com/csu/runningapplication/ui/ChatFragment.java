@@ -1,5 +1,6 @@
 package com.csu.runningapplication.ui;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.csu.runningapplication.Chat;
 import com.csu.runningapplication.ChatAdapter;
+import com.csu.runningapplication.Chat_dynamicActivity;
 import com.csu.runningapplication.R;
 
 import java.util.ArrayList;
@@ -36,10 +38,11 @@ public class ChatFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //打开一个发消息的页面 类似说说？
+                Intent i=new Intent(getContext(), Chat_dynamicActivity.class);
+                startActivity(i);
             }
         });
         TextView tv=(TextView)v.findViewById(R.id.guanzhu);
-        tv.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         initchat();
         ChatAdapter adapter=new ChatAdapter(getContext(),R.layout.chat_item,chatlist);
         ListView listView=(ListView)v.findViewById(R.id.list_view);
@@ -48,9 +51,10 @@ public class ChatFragment extends Fragment {
     }
     public void initchat(){
         Chat chat=new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。",R.drawable.flyimg,"飞飞飞飞");
+        Chat chat1=new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。",R.drawable.flyimg,"飞飞飞飞",R.drawable.chat_img);
         chatlist.add(chat);
         chatlist.add(chat);
-        chatlist.add(chat);
+        chatlist.add(chat1);
         chatlist.add(chat);
         chatlist.add(chat);
         chatlist.add(chat);

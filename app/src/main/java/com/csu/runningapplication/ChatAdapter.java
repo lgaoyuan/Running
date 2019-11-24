@@ -1,6 +1,7 @@
 package com.csu.runningapplication;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +27,11 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         TextView ChatName=(TextView) view.findViewById(R.id.chat_name);
         TextView ChatName1=(TextView)view.findViewById(R.id.name1);
         Button  ChatButton1=(Button)view.findViewById(R.id.guanzhu1);
+        ImageView ChatImage1=(ImageView)view.findViewById(R.id.chat_img);
         ChatImage.setImageResource(chat.getImage());
         ChatName.setText(chat.getName());
         ChatName1.setText(chat.getName1());
+        ChatImage1.setImageResource(chat.getImage1());
         return view;
     }
 }
