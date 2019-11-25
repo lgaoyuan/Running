@@ -45,7 +45,10 @@ public class TrackSearchActivity extends Activity {
     private AMapTrackClient aMapTrackClient;
 
     private TextureMapView textureMapView;
-    private TextView mTextView;
+    private TextView mDistance;
+    private TextView mSpeed;
+    private TextView mTime;
+    private TextView mCalorie;
     private List<Polyline> polylines = new LinkedList<>();
     private List<Marker> endMarkers = new LinkedList<>();
 
@@ -54,10 +57,23 @@ public class TrackSearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_search);
         aMapTrackClient = new AMapTrackClient(getApplicationContext());
+
         Intent i = getIntent();
-        double distance=i.getDoubleExtra("distance",0);
-        mTextView=findViewById(R.id.summary_text);
-        mTextView.setText(distance+"");
+        double distance=i.getDoubleExtra("distance",0);//数据展示
+        mDistance=findViewById(R.id.distance_summary);
+        mDistance.setText(distance+"");
+
+        String speed=i.getStringExtra("speed");
+        mSpeed=findViewById(R.id.speed_summary);
+        mSpeed.setText(speed);
+
+        String time=i.getStringExtra("time");
+        mTime=findViewById(R.id.time_summary);
+        mTime.setText(time);
+
+        String calorie=i.getStringExtra("calorie");
+        mCalorie=findViewById(R.id.calorie_summary);
+        mCalorie.setText(calorie);
 
         textureMapView = findViewById(R.id.activity_track_search_map);
         textureMapView.onCreate(savedInstanceState);

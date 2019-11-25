@@ -60,33 +60,33 @@ public class RunningActivity extends Activity {
 
     private AMapTrackClient aMapTrackClient;
     private Timer timer;
-    private Boolean isTimerRunning=false;//定时器控制
+    private Boolean isTimerRunning = false;//定时器控制
 
     private long terminalId;
     private long trackId;
     private boolean isServiceRunning;
     private boolean isGatherRunning;
     private double d;//此轨迹实时里程
-    private double allD=0;//累计里程
+    private double allD = 0;//累计里程
 
     private long startTime;
     private int useTime = 0;//耗时
 
+    private TextView mSpeed;
+    private TextView mTime;
+    private TextView mDis;
+    private TextView mCal;
 
     final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            // TODO Auto-generated method stub
             super.handleMessage(msg);
             if (msg.what == 1000) {//路程
-                TextView dis = (TextView) findViewById(R.id.distance);
-                dis.setText(msg.obj.toString());
+                mDis.setText(msg.obj.toString());
             } else if (msg.what == 1001) {//时间
-                TextView time = (TextView) findViewById(R.id.time_text);
-                time.setText(msg.obj.toString());
-            } else if (msg.what == 1001) {//配速
-                TextView speed = (TextView) findViewById(R.id.speed_text);
-                speed.setText(msg.obj.toString());
+                mTime.setText(msg.obj.toString());
+            } else if (msg.what == 1002) {//配速
+                mSpeed.setText(msg.obj.toString());
             }
         }
     };
@@ -173,6 +173,10 @@ public class RunningActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.running_layout);
+        mSpeed = (TextView) findViewById(R.id.speed_text);
+        mTime = (TextView) findViewById(R.id.time_text);
+        mDis = (TextView) findViewById(R.id.distance);
+        mCal=(TextView)findViewById(R.id.calorie_text);
 
         //载入定时器
         timeController();
@@ -189,8 +193,8 @@ public class RunningActivity extends Activity {
                 aMapTrackClient.stopTrack(new TrackParam(Constants.SERVICE_ID, terminalId), onTrackListener);
 
                 isTimerRunning = false;
-                allD=allD+d;//将最新轨迹里程加入累计
-                d=0;
+                allD = allD + d;//将最新轨迹里程加入累计
+                d = 0;
                 mIsRunning.setText("跑步暂停");
             }
         });
@@ -220,7 +224,7 @@ public class RunningActivity extends Activity {
         aMapTrackClient.setInterval(1, 5);
 
         startTrack();
-        startTime=System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
 
         mStop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,7 +235,10 @@ public class RunningActivity extends Activity {
                 }
                 Intent i = new Intent(RunningActivity.this, TrackSearchActivity.class);
                 i.putExtra("startTime", startTime);
-                i.putExtra("distance",String.format("%.2f", allD / 1000));
+                i.putExtra("distance", String.format("%.2f", allD / 1000));
+                i.putExtra("time", useTime);
+                i.putExtra("speed",mSpeed.getText());
+                i.putExtra("calorie",mCal.getText());
                 startActivity(i);
                 RunningActivity.this.finish();
             }
@@ -414,7 +421,7 @@ public class RunningActivity extends Activity {
                     Message msg = new Message();
                     msg.what = 1000;
                     myDistance();
-                    msg.obj = String.format("%.2f", (allD+d) / 1000);//路程，保留两位小数
+                    msg.obj = String.format("%.2f", (allD + d) / 1000);//路程，保留两位小数
                     handler.sendMessage(msg);
 
                     Message msg1 = new Message();
@@ -439,7 +446,7 @@ public class RunningActivity extends Activity {
                         m = 0;
                     }
                     ss = String.format("%02d", s);
-                    msg2.obj = m + "'" + ss + "''";
+                    msg2.obj = m + "'" + ss + "''";//配速
                     handler.sendMessage(msg2);
                 }
             }

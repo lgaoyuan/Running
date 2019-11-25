@@ -33,6 +33,7 @@ public class MyFragment extends Fragment {
      */
     private void initEcharts(View v){
         chartshow_wb=(WebView)v.findViewById(R.id.chartshow_wb);
+        chartshow_wb.setBackgroundColor(0);
         //进行webwiev的一堆设置
         //开启本地文件读取（默认为true，不设置也可以）
         chartshow_wb.getSettings().setAllowFileAccess(true);
