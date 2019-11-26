@@ -12,12 +12,13 @@
         android:layout_height="wrap_content"
         android:layout_weight="1">
 <!--        用户头像-->
-    <ImageView
+    <com.csu.runningapplication.CircleImageView
         android:id="@+id/chat_image"
         android:layout_marginTop="10dp"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginLeft="10dp"
+         />
 <!--        用户ID-->
     <TextView
         android:id="@+id/name1"
