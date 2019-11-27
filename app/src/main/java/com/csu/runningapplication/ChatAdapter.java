@@ -1,6 +1,7 @@
 package com.csu.runningapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.List;
@@ -29,6 +31,15 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         Button  ChatButton1=(Button)view.findViewById(R.id.guanzhu1);
         ImageView ChatImage1=(ImageView)view.findViewById(R.id.chat_img);
         ChatImage.setImageResource(chat.getImage());
+        ChatImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getContext(),Dialog.class);
+                getContext().startActivity(i);
+
+            }
+        });
+
         ChatName.setText(chat.getName());
         ChatName1.setText(chat.getName1());
         ChatImage1.setImageResource(chat.getImage1());
