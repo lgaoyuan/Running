@@ -27,6 +27,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
         android:textColor="#727583"
         android:textSize="50px"/>
     </LinearLayout>
@@ -40,13 +41,19 @@
             android:background="@drawable/guanzhubutton"/>
 
 </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="10dp">
  <LinearLayout
      android:layout_width="match_parent"
      android:layout_height="wrap_content">
      <ImageView
          android:id="@+id/chat_img"
-         android:layout_width="match_parent"
+         android:layout_width="wrap_content"
          android:layout_height="wrap_content"
+         android:adjustViewBounds="true"
          android:src="@drawable/chat_img"/>
 
  </LinearLayout>
@@ -61,4 +68,5 @@
         android:textColor="#878686"
         android:textSize="40px"
         />
+</LinearLayout>
 </LinearLayout>

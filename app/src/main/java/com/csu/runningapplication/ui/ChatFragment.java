@@ -15,7 +15,10 @@ import androidx.fragment.app.Fragment;
 import com.csu.runningapplication.Chat;
 import com.csu.runningapplication.ChatAdapter;
 import com.csu.runningapplication.Chat_dynamicActivity;
+import com.csu.runningapplication.MyApplication;
 import com.csu.runningapplication.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,13 @@ public class ChatFragment extends Fragment {
 
     private List<Chat> chatlist=new ArrayList<>();
     private Button add;
+    private TextView guanzhu;
+    private TextView gonglue;
+    private TextView yugao;
+    private ListView listView;
+    private TextView bottom;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -33,6 +43,36 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parents, Bundle savedInstanceState){
         View v=inflater.inflate(R.layout.chat_fragment,parents,false);
+        initchat();
+        bottom=v.findViewById(R.id.bottom);
+        ChatAdapter adapter=new ChatAdapter(getContext(),R.layout.chat_item,chatlist);
+        listView=(ListView)v.findViewById(R.id.list_view);
+        listView.setAdapter(adapter);
+        guanzhu=v.findViewById(R.id.guanzhu);
+        gonglue=v.findViewById(R.id.gonglue);
+        yugao=v.findViewById(R.id.yugao);
+        guanzhu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChatAdapter adapter=new ChatAdapter(getContext(),R.layout.chat_item,chatlist);
+                listView.setAdapter(adapter);
+                bottom.setText("  ____");
+            }
+        });
+        gonglue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listView.setAdapter(null);
+                bottom.setText("              ____");
+
+            }
+        });
+        yugao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         add=(Button)v.findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,11 +82,7 @@ public class ChatFragment extends Fragment {
                 startActivity(i);
             }
         });
-        TextView tv=(TextView)v.findViewById(R.id.guanzhu);
-        initchat();
-        ChatAdapter adapter=new ChatAdapter(getContext(),R.layout.chat_item,chatlist);
-        ListView listView=(ListView)v.findViewById(R.id.list_view);
-        listView.setAdapter(adapter);
+
         return v;
     }
     public void initchat(){
