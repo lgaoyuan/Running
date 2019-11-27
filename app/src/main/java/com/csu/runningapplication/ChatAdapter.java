@@ -47,6 +47,15 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         ChatName.setText(chat.getName());
         ChatName1.setText(chat.getName1());
         ChatImage1.setImageResource(chat.getImage1());
+        ChatImage1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getContext(),Dialog.class);
+                int ss=R.drawable.chat_img;
+                i.putExtra("data",ss);
+                getContext().startActivity(i);
+            }
+        });
         return view;
     }
 }

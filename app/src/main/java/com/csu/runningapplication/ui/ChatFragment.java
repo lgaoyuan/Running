@@ -1,6 +1,7 @@
 package com.csu.runningapplication.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.csu.runningapplication.Chat;
 import com.csu.runningapplication.ChatAdapter;
@@ -32,6 +34,7 @@ public class ChatFragment extends Fragment {
     private TextView yugao;
     private ListView listView;
     private TextView bottom;
+    private FragmentManager fm;
 
 
 
@@ -55,21 +58,37 @@ public class ChatFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ChatAdapter adapter=new ChatAdapter(getContext(),R.layout.chat_item,chatlist);
-                listView.setAdapter(adapter);
+
                 bottom.setText("  ____");
+                fm=getActivity().getSupportFragmentManager();
+                Fragment fragment=fm.findFragmentById(R.id.chat_fragment);
+                if(fragment==null){
+                    fragment=new ChatFragment();
+                    fm.beginTransaction().replace(R.id.fragmentContainer,fragment).commit();
+                }
             }
         });
         gonglue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listView.setAdapter(null);
-                bottom.setText("              ____");
+
+
+                bottom.setText("               ____");
+
+                fm=getActivity().getSupportFragmentManager();
+                Fragment fragment=fm.findFragmentById(R.id.runfragment);
+                if(fragment==null){
+                    fragment=new RunFragment();
+                    fm.beginTransaction().replace(R.id.fragmentContainer1,fragment).commit();
+                }
 
             }
         });
         yugao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                listView.setAdapter(null);
+                bottom.setText("                           ____");
 
             }
         });
