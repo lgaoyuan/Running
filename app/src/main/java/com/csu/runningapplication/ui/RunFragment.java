@@ -43,6 +43,26 @@ public class RunFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parents, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.run_fragment, parents, false);
 
+        final Button mRun=(Button)v.findViewById(R.id.select_run);
+        final Button mCycle=(Button)v.findViewById(R.id.select_cycle);
+        mRun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCycle.setBackground(getResources().getDrawable(R.drawable.ic_cycle_normal));
+                mRun.setBackground(getResources().getDrawable(R.drawable.ic_run_select));
+                //TODO:select run
+            }
+        });
+        mCycle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCycle.setBackground(getResources().getDrawable(R.drawable.ic_cycle_select));
+                mRun.setBackground(getResources().getDrawable(R.drawable.ic_run_normal));
+                //TODO:select cycle
+            }
+        });
+
+
         Button mStartButton = (Button) v.findViewById(R.id.startButton);
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override

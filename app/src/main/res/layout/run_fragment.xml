@@ -25,10 +25,11 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/select_run"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="50dp"
-                android:background="@drawable/ic_running"/>
+                android:background="@drawable/ic_run_select"/>
 
             <ImageView
                 android:layout_width="3dp"
@@ -36,10 +37,11 @@
                 android:src="@drawable/line"/>
 
             <Button
+                android:id="@+id/select_cycle"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="50dp"
-                android:background="@drawable/ic_cycle"/>
+                android:background="@drawable/ic_cycle_normal"/>
 
         </LinearLayout>
 
