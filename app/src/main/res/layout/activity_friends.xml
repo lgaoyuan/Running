@@ -11,16 +11,29 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:textSize="50px"
             android:text="好友"
-
             android:textColor="#FFFFFF"/>
-
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="-15dp"
+             android:text= "  ____"
+             android:textColor="#ffffff"/>
+<!--        <ImageView-->
+<!--            android:layout_width="90px"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/friend_bottom"/>-->
+        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
