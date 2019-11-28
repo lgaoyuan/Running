@@ -1,6 +1,8 @@
 package com.csu.runningapplication.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,11 +20,16 @@ import androidx.fragment.app.FragmentManager;
 import com.csu.runningapplication.Chat;
 import com.csu.runningapplication.ChatAdapter;
 import com.csu.runningapplication.Chat_dynamicActivity;
+import com.csu.runningapplication.FriendsActivity;
 import com.csu.runningapplication.MyApplication;
 import com.csu.runningapplication.R;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +43,7 @@ public class ChatFragment extends Fragment {
     private ListView listView;
     private TextView bottom;
     private FragmentManager fm;
+    private ImageView friends;
 
 
 
@@ -48,6 +57,7 @@ public class ChatFragment extends Fragment {
         View v=inflater.inflate(R.layout.chat_fragment,parents,false);
         initchat();
         bottom=v.findViewById(R.id.bottom);
+        friends=(ImageView)v.findViewById(R.id.friends);
         ChatAdapter adapter=new ChatAdapter(getContext(),R.layout.chat_item,chatlist);
         listView=(ListView)v.findViewById(R.id.list_view);
         listView.setAdapter(adapter);
@@ -71,16 +81,15 @@ public class ChatFragment extends Fragment {
         gonglue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+                listView.setAdapter(null);
                 bottom.setText("               ____");
-
-                fm=getActivity().getSupportFragmentManager();
-                Fragment fragment=fm.findFragmentById(R.id.runfragment);
-                if(fragment==null){
-                    fragment=new RunFragment();
-                    fm.beginTransaction().replace(R.id.fragmentContainer1,fragment).commit();
-                }
+                //嵌入fragment
+//                fm=getActivity().getSupportFragmentManager();
+//                Fragment fragment=fm.findFragmentById(R.id.runfragment);
+//                if(fragment==null){
+//                    fragment=new RunFragment();
+//                    fm.beginTransaction().replace(R.id.fragmentContainer1,fragment).commit();
+//                }
 
             }
         });
@@ -89,7 +98,6 @@ public class ChatFragment extends Fragment {
             public void onClick(View view) {
                 listView.setAdapter(null);
                 bottom.setText("                           ____");
-
             }
         });
         add=(Button)v.findViewById(R.id.add);
@@ -98,6 +106,13 @@ public class ChatFragment extends Fragment {
             public void onClick(View view) {
                 //打开一个发消息的页面 类似说说？
                 Intent i=new Intent(getContext(), Chat_dynamicActivity.class);
+                startActivity(i);
+            }
+        });
+        friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getContext(), FriendsActivity.class);
                 startActivity(i);
             }
         });
@@ -113,5 +128,24 @@ public class ChatFragment extends Fragment {
         chatlist.add(chat);
         chatlist.add(chat);
         chatlist.add(chat);
+    }
+    //获得bitmap
+    //ImageView.setImageBitmap(bitmap);
+    public Bitmap getBitmap(String path) throws IOException {
+        try {
+            URL url = new URL(path);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setRequestMethod("GET");
+            if (conn.getResponseCode() == 200) {
+                InputStream inputStream = conn.getInputStream();
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                return bitmap;
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 }
