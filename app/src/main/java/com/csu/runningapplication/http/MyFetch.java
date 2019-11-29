@@ -1,4 +1,5 @@
 package com.csu.runningapplication.http;
 
-public class MyFetch {
+public class MyFetch extends SingleHttpFetch{
+
 }
