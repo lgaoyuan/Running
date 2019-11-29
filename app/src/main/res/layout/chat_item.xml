@@ -32,13 +32,13 @@
         android:textSize="50px"/>
     </LinearLayout>
 <!--    关注按钮-->
-        <Button
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:id="@+id/guanzhu1"
-            android:layout_width="62dp"
-            android:layout_height="34dp"
-            android:background="@drawable/guanzhubutton"/>
+<!--        <Button-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:id="@+id/guanzhu1"-->
+<!--            android:layout_width="62dp"-->
+<!--            android:layout_height="34dp"-->
+<!--            android:background="@drawable/guanzhubutton"/>-->
 
 </LinearLayout>
 <LinearLayout

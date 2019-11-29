@@ -30,7 +30,7 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         ImageView ChatImage=(ImageView)view.findViewById(R.id.chat_image);
         TextView ChatName=(TextView) view.findViewById(R.id.chat_name);
         TextView ChatName1=(TextView)view.findViewById(R.id.name1);
-        Button  ChatButton1=(Button)view.findViewById(R.id.guanzhu1);
+//        Button  ChatButton1=(Button)view.findViewById(R.id.guanzhu1);
         ImageView ChatImage1=(ImageView)view.findViewById(R.id.chat_img);
         ChatImage.setImageResource(chat.getImage());
         ChatImage.setOnClickListener(new View.OnClickListener() {
