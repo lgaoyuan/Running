@@ -11,25 +11,25 @@ public class MyJsonBean {
      * data : [45,10,5]
      */
 
-    private int bbsnum;
-    private int friends;
+    private String bbsnum;
+    private String friends;
     private double running;
     private double cycling;
     private List<Double> data;
 
-    public int getBbsnum() {
+    public String getBbsnum() {
         return bbsnum;
     }
 
-    public void setBbsnum(int bbsnum) {
+    public void setBbsnum(String bbsnum) {
         this.bbsnum = bbsnum;
     }
 
-    public int getFriends() {
+    public String getFriends() {
         return friends;
     }
 
-    public void setFriends(int friends) {
+    public void setFriends(String friends) {
         this.friends = friends;
     }
 

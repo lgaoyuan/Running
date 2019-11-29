@@ -1,5 +1,36 @@
+/*
+ * 获取“我的”页面信息
+ * */
 package com.csu.runningapplication.http;
 
-public class MyFetch extends SingleHttpFetch{
+import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 
+import com.csu.runningapplication.jsonbean.MyJsonBean;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
+
+public class MyFetch extends SingleHttpFetch {
+
+    public MyJsonBean fetchItems(Context context, String userid, String password, String type, String start, String end) {
+        String url = Uri.parse("https://lgaoyuan.xyz:8080/running/userMessage").buildUpon().appendQueryParameter("userid", userid).appendQueryParameter("password", password).appendQueryParameter("type", type).appendQueryParameter("start", start).appendQueryParameter("end", end).build().toString();
+        String json = null;
+        try {
+            json = getUrl(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return GsonItems(json);
+    }
+
+    public MyJsonBean GsonItems(String json) {
+        Type listType=new TypeToken<List<MyJsonBean>>() {}.getType();
+        List<MyJsonBean> gson = new Gson().fromJson(json, listType);
+        return gson.get(0);
+    }
 }

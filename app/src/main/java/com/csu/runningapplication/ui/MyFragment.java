@@ -1,5 +1,6 @@
 package com.csu.runningapplication.ui;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,29 +8,41 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.csu.runningapplication.MyApplication;
 import com.csu.runningapplication.R;
+import com.csu.runningapplication.http.MyFetch;
+import com.csu.runningapplication.jsonbean.MyJsonBean;
 
 public class MyFragment extends Fragment {
 
     private WebView chartshow_wb;
+    private MyApplication myApplication;
+
+    TextView mBbsNum;
+    TextView mFriendsNum;
+    TextView mMileage;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        myApplication = (MyApplication) getActivity().getApplication();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parents, Bundle savedInstanceState){
         View v=inflater.inflate(R.layout.my_fragment,parents,false);
+        new FetchItemsTask().execute();//获取信息
         initEcharts(v);
         return v;
     }
 
     /**
-     * 初始化页面元素
+     * 初始化echarts页面元素
      */
     private void initEcharts(View v){
         chartshow_wb=(WebView)v.findViewById(R.id.chartshow_wb);
@@ -49,5 +62,30 @@ public class MyFragment extends Fragment {
                 chartshow_wb.loadUrl("javascript:createBarLineChart();");
             }
         });
+    }
+
+    /*
+     * http请求
+     * */
+    private class FetchItemsTask extends AsyncTask<Void, Void, MyJsonBean>{
+        MyJsonBean mj;
+        @Override
+        protected MyJsonBean doInBackground(Void... params) {
+            mj=new MyFetch().fetchItems(getActivity(),myApplication.getUserid(),myApplication.getPassword(),"0","2019-11-29","2019-12-01");
+            return mj;
+        }
+
+        @Override
+        protected void onPostExecute(MyJsonBean result){// 执行完毕后，则更新UI
+
+            //注册组件
+            mBbsNum=(TextView)getActivity().findViewById(R.id.bbs_num);
+            mFriendsNum=(TextView)getActivity().findViewById(R.id.friends_num);
+            mMileage=(TextView)getActivity().findViewById(R.id.mileage);
+
+            mBbsNum.setText(result.getBbsnum());
+            mFriendsNum.setText(result.getFriends());
+            mMileage.setText(Double.toString(result.getCycling()+result.getRunning()));
+        }
     }
 }

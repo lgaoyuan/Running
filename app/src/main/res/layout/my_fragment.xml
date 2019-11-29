@@ -79,9 +79,9 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/bbs_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="54"
                 android:textColor="#959696"
                 android:textSize="20dp" />
 
@@ -103,9 +103,9 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/friends_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="54"
                 android:textColor="#959696"
                 android:textSize="20dp" />
 
@@ -209,6 +209,7 @@
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/mileage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0.00"
