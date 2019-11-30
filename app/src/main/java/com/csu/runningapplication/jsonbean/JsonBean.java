@@ -1,4 +1,4 @@
-package com.csu.runningapplication;
+package com.csu.runningapplication.jsonbean;
 
 import java.util.List;
 

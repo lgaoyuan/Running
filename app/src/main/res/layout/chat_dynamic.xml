@@ -13,6 +13,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1" >
             <TextView
+                android:id="@+id/backpress"
                 android:layout_width="160px"
                 android:layout_height="90px"
                 android:layout_marginTop="20dp"
