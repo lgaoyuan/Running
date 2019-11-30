@@ -176,7 +176,7 @@ public class RunningActivity extends Activity {
         mSpeed = (TextView) findViewById(R.id.speed_text);
         mTime = (TextView) findViewById(R.id.time_text);
         mDis = (TextView) findViewById(R.id.distance);
-        mCal=(TextView)findViewById(R.id.calorie_text);
+        mCal = (TextView) findViewById(R.id.calorie_text);
 
         //载入定时器
         timeController();
@@ -235,10 +235,10 @@ public class RunningActivity extends Activity {
                 }
                 Intent i = new Intent(RunningActivity.this, TrackSearchActivity.class);
                 i.putExtra("startTime", startTime);
-                i.putExtra("distance", String.format("%.2f", allD / 1000));
+                i.putExtra("distance", String.format("%.2f", allD / 1000));//(单位:km)
                 i.putExtra("time", useTime);
-                i.putExtra("speed",mSpeed.getText());
-                i.putExtra("calorie",mCal.getText());
+                i.putExtra("speed", mSpeed.getText());
+                i.putExtra("calorie", mCal.getText());
                 startActivity(i);
                 RunningActivity.this.finish();
             }
@@ -436,11 +436,10 @@ public class RunningActivity extends Activity {
 
                     Message msg2 = new Message();
                     msg2.what = 1002;
-                    if (useTime != 0) {//判断时间（分母）是否为0
-                        double speed = d / useTime;
-                        int hourTime = (int) (speed * 1000);
-                        s = hourTime % 60;
-                        m = hourTime / 60;
+                    if (allD + d != 0) {//判断时间（分母）是否为0
+                        int speed = (int) (useTime / ((allD + d) / 1000));
+                        s = speed % 60;
+                        m = speed / 60;
                     } else {
                         s = 0;
                         m = 0;

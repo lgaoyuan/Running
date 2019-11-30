@@ -1,35 +1,34 @@
 package com.csu.runningapplication.jsonbean;
 
-import java.util.List;
-
 public class MyJsonBean {
+
     /**
-     * bbsnum : 0
-     * friends : 0
-     * running : 0.0
-     * cycling : 0.0
-     * data : [45,10,5]
+     * bbsnum : 1
+     * friends : 2
+     * running : 10.0
+     * cycling : 5.0
+     * time : 1000
      */
 
-    private String bbsnum;
-    private String friends;
+    private int bbsnum;
+    private int friends;
     private double running;
     private double cycling;
-    private List<Double> data;
+    private int time;
 
-    public String getBbsnum() {
+    public int getBbsnum() {
         return bbsnum;
     }
 
-    public void setBbsnum(String bbsnum) {
+    public void setBbsnum(int bbsnum) {
         this.bbsnum = bbsnum;
     }
 
-    public String getFriends() {
+    public int getFriends() {
         return friends;
     }
 
-    public void setFriends(String friends) {
+    public void setFriends(int friends) {
         this.friends = friends;
     }
 
@@ -49,11 +48,11 @@ public class MyJsonBean {
         this.cycling = cycling;
     }
 
-    public List<Double> getData() {
-        return data;
+    public int getTime() {
+        return time;
     }
 
-    public void setData(List<Double> data) {
-        this.data = data;
+    public void setTime(int time) {
+        this.time = time;
     }
 }

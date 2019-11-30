@@ -11,14 +11,14 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
-<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=xfhhaTThl11qYVrqLZii6w8qE5ggnhrY&__ec_v__=20190126"></script>
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=qc2wsdrzXrGKh5dfLjDYjenkLZQ7DS7A&__ec_v__=20190126"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
 <script type="text/javascript">
 var dom = document.getElementById("container");
 var myChart = echarts.init(dom);
 var app = {};
 option = null;
-app.title = '坐标轴刻度与标签对齐';
+app.title = '我的运动';
 
 option = {
     color: new echarts.graphic.LinearGradient(
@@ -65,6 +65,11 @@ option = {
             },
         }
     ],
+    dataZoom: [
+        {
+            type: 'inside'
+        }
+    ],
     series : [
         {
             name:'里程',
@@ -75,8 +80,17 @@ option = {
     ]
 };
 ;
+function createBarLineChart(x,runData){
+option.xAxis[0].data=x;
+option.series[0].data=runData;
 if (option && typeof option === "object") {
     myChart.setOption(option, true);
+}
+myChart.dispatchAction({
+        type: 'dataZoom',
+        startValue: option.xAxis[0].data[0],
+        endValue: option.xAxis[0].data[8]
+    });
 }
        </script>
 </body>

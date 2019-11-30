@@ -137,6 +137,7 @@
                 android:padding="20dp">
 
                 <TextView
+                    android:id="@+id/my_week"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:background="@drawable/back_circle"
@@ -146,6 +147,7 @@
                     android:textSize="18dp" />
 
                 <TextView
+                    android:id="@+id/my_month"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginLeft="40dp"
@@ -156,6 +158,7 @@
                     android:textSize="18dp" />
 
                 <TextView
+                    android:id="@+id/my_year"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:gravity="center"
@@ -166,11 +169,11 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/my_data_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingBottom="5dp"
-                android:text="2019年11月17日-2019年11月23日"
                 android:textColor="#999999"
                 android:textSize="15dp" />
 
@@ -236,9 +239,10 @@
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/my_speed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0'00"
+                            android:text="0'00''"
                             android:textColor="#FFFFFF"
                             android:textSize="20dp" />
 
@@ -270,6 +274,7 @@
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/my_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00:00:00"

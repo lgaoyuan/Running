@@ -17,8 +17,8 @@ import java.util.List;
 
 public class MyFetch extends SingleHttpFetch {
 
-    public MyJsonBean fetchItems(Context context, String userid, String password, String type, String start, String end) {
-        String url = Uri.parse("https://lgaoyuan.xyz:8080/running/userMessage").buildUpon().appendQueryParameter("userid", userid).appendQueryParameter("password", password).appendQueryParameter("type", type).appendQueryParameter("start", start).appendQueryParameter("end", end).build().toString();
+    public MyJsonBean fetchItems(String userid, String password) {
+        String url = Uri.parse("https://lgaoyuan.xyz:8080/running/userMessage").buildUpon().appendQueryParameter("userid", userid).appendQueryParameter("password", password).build().toString();
         String json = null;
         try {
             json = getUrl(url);
