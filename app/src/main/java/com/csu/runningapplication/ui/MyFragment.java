@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -139,6 +140,10 @@ public class MyFragment extends Fragment {
 
         @Override
         protected void onPostExecute(MyJsonBean result){// 执行完毕后，则更新UI
+            if(result==null){
+                Toast.makeText(getActivity().getApplicationContext(),"网络连接失败",Toast.LENGTH_SHORT).show();
+                return;
+            }
             //注册组件
             mBbsNum=(TextView)getActivity().findViewById(R.id.bbs_num);
             mFriendsNum=(TextView)getActivity().findViewById(R.id.friends_num);
@@ -165,7 +170,7 @@ public class MyFragment extends Fragment {
     }
 
     /*
-     * http请求我的信息
+     * http请求echarts信息
      * */
     private class EchartsItemsTask extends AsyncTask<String, Void, String>{
         String str;
@@ -177,6 +182,9 @@ public class MyFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result){// 执行完毕后，则更新UI
+            if(result==null){
+                return;
+            }
             runData=result;
             initEcharts();
         }

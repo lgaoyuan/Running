@@ -11,7 +11,7 @@ public class EchartsFetch extends SingleHttpFetch {
         try {
             json = getUrl(url);
         } catch (IOException e) {
-            e.printStackTrace();
+            return null;
         }
         return json;
     }
