@@ -3,6 +3,7 @@ package com.csu.runningapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -29,6 +30,8 @@ import com.amap.api.track.query.model.QueryTerminalRequest;
 import com.amap.api.track.query.model.QueryTerminalResponse;
 import com.amap.api.track.query.model.QueryTrackRequest;
 import com.amap.api.track.query.model.QueryTrackResponse;
+import com.csu.runningapplication.http.MileageFetch;
+import com.csu.runningapplication.http.TrackFetch;
 import com.csu.runningapplication.util.Constants;
 import com.csu.runningapplication.util.SimpleOnTrackListener;
 
@@ -43,6 +46,7 @@ import java.util.List;
 public class TrackSearchActivity extends Activity {
 
     private AMapTrackClient aMapTrackClient;
+    private MyApplication myApplication;
 
     private TextureMapView textureMapView;
     private TextView mDistance;
@@ -52,32 +56,46 @@ public class TrackSearchActivity extends Activity {
     private List<Polyline> polylines = new LinkedList<>();
     private List<Marker> endMarkers = new LinkedList<>();
 
+    private double distance;
+    private int time;
+    private String calorie;
+    private long startTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_search);
+        myApplication=(MyApplication) getApplication();
+
         aMapTrackClient = new AMapTrackClient(getApplicationContext());
 
         Intent i = getIntent();
-        double distance=i.getDoubleExtra("distance",0);//数据展示
+        startTime = i.getLongExtra("startTime", System.currentTimeMillis());
+
+        distance=i.getDoubleExtra("distance",0);//数据展示
         mDistance=findViewById(R.id.distance_summary);
-        mDistance.setText(distance+"");
+        mDistance.setText(String.format("%.2f", distance / 1000));
 
         String speed=i.getStringExtra("speed");
         mSpeed=findViewById(R.id.speed_summary);
         mSpeed.setText(speed);
 
-        String time=i.getStringExtra("time");
+        time=i.getIntExtra("time",0);
+        int s = time % 60;
+        int m = time / 60;
+        String ss = String.format("%02d", s);
+        String mm = String.format("%02d", m);
         mTime=findViewById(R.id.time_summary);
-        mTime.setText(time);
+        mTime.setText(mm+":"+ss);
 
-        String calorie=i.getStringExtra("calorie");
+        calorie=i.getStringExtra("calorie");
         mCalorie=findViewById(R.id.calorie_summary);
         mCalorie.setText(calorie);
 
         textureMapView = findViewById(R.id.activity_track_search_map);
         textureMapView.onCreate(savedInstanceState);
 
+        new TrackItemsTask().execute();//上传数据
 
         //clearTracksOnMap();
         // 先查询terminal id，然后用terminal id查询轨迹
@@ -87,8 +105,6 @@ public class TrackSearchActivity extends Activity {
             public void onQueryTerminalCallback(final QueryTerminalResponse queryTerminalResponse) {
                 if (queryTerminalResponse.isSuccess()) {
                     if (queryTerminalResponse.isTerminalExist()) {
-                        Intent i = getIntent();
-                        long startTime = i.getLongExtra("startTime", System.currentTimeMillis());
                         long tid = queryTerminalResponse.getTid();
                         // 搜索最近12小时以内上报的属于某个轨迹的轨迹点信息，散点上报不会包含在该查询结果中
                         QueryTrackRequest queryTrackRequest = new QueryTrackRequest(
@@ -211,5 +227,23 @@ public class TrackSearchActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         textureMapView.onDestroy();
+    }
+
+    /*
+     * http保存
+     * */
+    private class TrackItemsTask extends AsyncTask<Void, Void, String> {
+        @Override
+        protected String doInBackground(Void... params) {
+            return new TrackFetch().fetchItems(myApplication.getUserid(),String.valueOf(distance),String.valueOf(time),calorie,String.valueOf(myApplication.getType()),String.valueOf(startTime));
+        }
+
+        @Override
+        protected void onPostExecute(String result){// 执行完毕
+            if(!result.equals("1")){
+                Toast.makeText(getApplicationContext(),"网络连接失败",Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
     }
 }

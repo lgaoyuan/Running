@@ -235,7 +235,7 @@ public class RunningActivity extends Activity {
                 }
                 Intent i = new Intent(RunningActivity.this, TrackSearchActivity.class);
                 i.putExtra("startTime", startTime);
-                i.putExtra("distance", String.format("%.2f", allD / 1000));//(单位:km)
+                i.putExtra("distance", allD);//(单位:m)
                 i.putExtra("time", useTime);
                 i.putExtra("speed", mSpeed.getText());
                 i.putExtra("calorie", mCal.getText());

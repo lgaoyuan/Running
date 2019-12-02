@@ -42,7 +42,6 @@ public class RunFragment extends Fragment {
                 mCycle.setBackground(getResources().getDrawable(R.drawable.ic_cycle_normal));
                 mRun.setBackground(getResources().getDrawable(R.drawable.ic_run_select));
                 new RunItemsTask().execute(0);//获取数据
-                //TODO:select run
             }
         });
         mCycle.setOnClickListener(new View.OnClickListener() {
@@ -51,8 +50,6 @@ public class RunFragment extends Fragment {
                 mCycle.setBackground(getResources().getDrawable(R.drawable.ic_cycle_select));
                 mRun.setBackground(getResources().getDrawable(R.drawable.ic_run_normal));
                 new RunItemsTask().execute(1);//获取数据
-
-                //TODO:select cycle
             }
         });
 
@@ -86,7 +83,7 @@ public class RunFragment extends Fragment {
                 return;
             }
             mTextView=(TextView)v.findViewById(R.id.mileage);
-            mTextView.setText(result.toString());
+            mTextView.setText(String.format("%.2f", result / 1000));
         }
     }
 }
