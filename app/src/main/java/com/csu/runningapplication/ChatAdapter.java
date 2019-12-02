@@ -37,8 +37,8 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(getContext(),Dialog.class);
-                int ss=R.drawable.flyimg;
-                i.putExtra("data",ss);
+//                int ss=R.drawable.flyimg;
+//                i.putExtra("data",ss);
                 getContext().startActivity(i);
 
             }
@@ -51,8 +51,8 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(getContext(),Dialog.class);
-                int ss=R.drawable.chat_img;
-                i.putExtra("data",ss);
+//                int ss=R.drawable.chat_img;
+//                i.putExtra("data",ss);
                 getContext().startActivity(i);
             }
         });

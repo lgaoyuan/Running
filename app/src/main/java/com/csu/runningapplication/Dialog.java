@@ -40,6 +40,7 @@ public class Dialog extends AppCompatActivity {
         initViews();
 
         mFragmentAdapter = new FragmentAdapter(this.getSupportFragmentManager(), mFragmentList);
+        //缓存应设置最大值
         vp.setOffscreenPageLimit(2);//ViewPager的缓存为2帧
         vp.setAdapter(mFragmentAdapter);
         vp.setCurrentItem(0);//初始设置ViewPager选中第一帧
@@ -70,14 +71,13 @@ public class Dialog extends AppCompatActivity {
     private void initViews() {
 
         vp = (ViewPager) findViewById(R.id.mainViewPager);
+        //此处构造函数后期改为json获取的图片
         oneFragment = new Chat_dialog(R.drawable.chat_img);
         twoFragment = new Chat_dialog(R.drawable.flyimg);
         //给FragmentList添加数据
         mFragmentList.add(oneFragment);
         mFragmentList.add(twoFragment);
     }
-
-
 
     public class FragmentAdapter extends FragmentPagerAdapter {
 
@@ -87,20 +87,15 @@ public class Dialog extends AppCompatActivity {
             super(fm);
             this.fragmentList = fragmentList;
         }
-
         @Override
         public Fragment getItem(int position) {
             return fragmentList.get(position);
         }
-
         @Override
         public int getCount() {
             return fragmentList.size();
         }
 
     }
-
-
-
     }
 
