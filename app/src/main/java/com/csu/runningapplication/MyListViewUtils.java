@@ -62,6 +62,7 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
     private TextView headtime;//头文件textview显示加载时间
     private ProgressBar progressBar;//加载进度
 
+
     public MyListViewUtils(Context context) {
         super(context);
         Init(context);
@@ -92,7 +93,7 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
         //拿到高度
         bottomHeight=bottomview.getMeasuredHeight();
         //隐藏view
-        bottomview.setPadding(0, -bottomHeight, 0, 0);
+        bottomview.setPadding(0, 0, 0, 0);
         headview.measure(0, 0);
         headHeight=headview.getMeasuredHeight();
         headview.setPadding(0,-headHeight, 0, 0);
@@ -132,7 +133,7 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
         if(totaItemCounts==lassVisible&&scrollState==SCROLL_STATE_IDLE){
             if(!isLoading){
                 isLoading=true;
-                bottomview.setPadding(0, 0, 0, 0);
+                bottomview.setPadding(0, 0, 0, 400);
                 //加载数据
                 System.out.println("上拉加载");
                 loadListener.onLoad();
@@ -172,7 +173,7 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
     //加载完成
     public void loadComplete(){
         isLoading=false;
-        bottomview.setPadding(0, -bottomHeight, 0, 0);
+        bottomview.setPadding(0, 0, 0, 0);
         headview.setPadding(0, -headHeight, 0, 0);
     }
 

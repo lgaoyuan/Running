@@ -15,6 +15,7 @@
         >
 
         <ProgressBar
+            android:id="@+id/bottomprogress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="?android:attr/progressBarStyle"
