@@ -164,9 +164,9 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
         this.firstVisible=firstVisibleItem;
         this.lassVisible=firstVisibleItem+visibleItemCount;
         this.totaItemCounts=totalItemCount;
-        System.out.println("firstVisible:"+firstVisible);
-        System.out.println("lassVisible"+lassVisible);
-        System.out.println("totaItemCounts"+totaItemCounts);
+//        System.out.println("firstVisible:"+firstVisible);
+//        System.out.println("lassVisible"+lassVisible);
+//        System.out.println("totaItemCounts"+totaItemCounts);
     }
 
     //加载完成

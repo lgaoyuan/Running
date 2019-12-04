@@ -8,6 +8,7 @@ public class MyApplication extends Application {
     private String userid="000000";
     private String password="33333333";
     private int type=0;//跑步或骑车，默认跑步
+    private String id="45";
 
     public void setImage1(int image1){
         this.image1=image1;
@@ -40,6 +41,11 @@ public class MyApplication extends Application {
     public void setType(int type) {
         this.type = type;
     }
+
+    public void setId(String id){this.id=id;}
+
+    public String getId(){return id;}
+
 
     @Override
     public void onCreate() {

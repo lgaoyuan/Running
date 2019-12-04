@@ -13,7 +13,22 @@ import java.util.List;
 
 public class ChatFetch extends SingleHttpFetch {
 
-    public JsonBean fetchItems(String id) {
+    public String fetchItems(String id) {
+        String url = Uri.parse("https://lgaoyuan.xyz:8080/running/allBbs").buildUpon().appendQueryParameter("id", id).build().toString();
+        String json = null;
+        try {
+            json = getUrl(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+    public JsonBean GsonItems(String json) {
+        Type listType=new TypeToken<List<JsonBean>>() {}.getType();
+        List<JsonBean> gson = new Gson().fromJson(json, listType);
+        return gson.get(0);
+    }
+    public JsonBean fetchItemsPull(String id) {
         String url = Uri.parse("https://lgaoyuan.xyz:8080/running/allBbs").buildUpon().appendQueryParameter("id", id).build().toString();
         String json = null;
         try {
@@ -23,9 +38,5 @@ public class ChatFetch extends SingleHttpFetch {
         }
         return GsonItems(json);
     }
-    public JsonBean GsonItems(String json) {
-        Type listType=new TypeToken<List<JsonBean>>() {}.getType();
-        List<JsonBean> gson = new Gson().fromJson(json, listType);
-        return gson.get(0);
-    }
+
 }
