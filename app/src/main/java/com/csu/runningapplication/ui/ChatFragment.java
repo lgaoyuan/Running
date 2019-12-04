@@ -102,8 +102,8 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         gonglue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listViewUtils.setAdapter(null);
-                bottom.setText("            ____");
+//                listViewUtils.setAdapter(null);
+                bottom.setText("             ____");
                 //嵌入fragment
 //                fm=getActivity().getSupportFragmentManager();
 //                Fragment fragment=fm.findFragmentById(R.id.runfragment);
@@ -117,8 +117,8 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         yugao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listViewUtils.setAdapter(null);
-                bottom.setText("                     ____");
+//                listViewUtils.setAdapter(null);
+                bottom.setText("                        ____");
             }
         });
         add = (Button) v.findViewById(R.id.add);

@@ -93,7 +93,7 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
         //拿到高度
         bottomHeight=bottomview.getMeasuredHeight();
         //隐藏view
-        bottomview.setPadding(0, 0, 0, 0);
+        bottomview.setPadding(0, -bottomHeight, 0, 0);
         headview.measure(0, 0);
         headHeight=headview.getMeasuredHeight();
         headview.setPadding(0,-headHeight, 0, 0);
