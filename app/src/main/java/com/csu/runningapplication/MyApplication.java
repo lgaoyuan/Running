@@ -8,6 +8,7 @@ public class MyApplication extends Application {
     private String userid="000000";
     private String password="33333333";
     private int type=0;//跑步或骑车，默认跑步
+    private int weight=55;//体重
     private String id="45";
 
     public void setImage1(int image1){
@@ -46,6 +47,13 @@ public class MyApplication extends Application {
 
     public String getId(){return id;}
 
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 
     @Override
     public void onCreate() {

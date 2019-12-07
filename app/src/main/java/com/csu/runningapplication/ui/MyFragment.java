@@ -38,6 +38,7 @@ public class MyFragment extends Fragment {
     private TextView mMileage;
     private TextView mTime;
     private TextView mSpeed;
+    private TextView mCalorie;
     private TextView mWeek;
     private TextView mMonth;
     private TextView mYear;
@@ -45,8 +46,13 @@ public class MyFragment extends Fragment {
 
     private String x = null;//横轴
 
-    private String startDate;
-    private String endDate;
+    private Calendar startCal = Calendar.getInstance();
+    private Calendar endCal = Calendar.getInstance();
+    private Date startDate;
+    private Date endDate;
+
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,8 +69,9 @@ public class MyFragment extends Fragment {
         new EchartsItemsTask().execute("0");//获取数据
         getDay(0);
         //初始化echarts
+
         mDate = (TextView) v.findViewById(R.id.my_data_date);
-        mDate.setText(startDate + "~" + endDate);
+        setMDate();
 
         chartshow_wb = (WebView) v.findViewById(R.id.chartshow_wb);
         chartshow_wb.setBackgroundColor(0);
@@ -85,7 +92,7 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getDay(0);
-                mDate.setText(startDate + "~" + endDate);
+                setMDate();
                 x = "['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']";
                 new EchartsItemsTask().execute("0");
                 mWeek.setBackgroundResource(R.drawable.back_circle);
@@ -98,7 +105,7 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getDay(1);
-                mDate.setText(startDate + "~" + endDate);
+                setMDate();
                 new EchartsItemsTask().execute("0");
                 mWeek.setBackgroundResource(R.color.colorTrans);
                 mMonth.setBackgroundResource(R.drawable.back_circle);
@@ -110,7 +117,7 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getDay(2);
-                mDate.setText(startDate + "~" + endDate);
+                setMDate();
                 x = "['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']";
                 new EchartsItemsTask().execute("1");
                 mWeek.setBackgroundResource(R.color.colorTrans);
@@ -160,10 +167,12 @@ public class MyFragment extends Fragment {
             mMileage = (TextView) getActivity().findViewById(R.id.mileage);
             mTime = (TextView) getActivity().findViewById(R.id.my_time);
             mSpeed = (TextView) getActivity().findViewById(R.id.my_speed);
+            mCalorie = (TextView) getActivity().findViewById(R.id.my_calorie);
 
             mBbsNum.setText(Integer.toString(result.getBbsnum()));
             mFriendsNum.setText(Integer.toString(result.getFriends()));
             mMileage.setText(Double.toString((result.getCycling() + result.getRunning()) / 1000));
+            mCalorie.setText(Integer.toString(result.getCalorie()));
             int second = result.getTime();
             int min = second / 60;
             int hour = second / 3600;
@@ -183,7 +192,6 @@ public class MyFragment extends Fragment {
      * 获取第一天和最后一天日期
      * */
     private void getDay(int type) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -191,25 +199,43 @@ public class MyFragment extends Fragment {
             switch (type) {
                 case 0://周
                     cal.set(Calendar.DAY_OF_WEEK, 1);
-                    startDate = format.format(cal.getTime());
+                    cal.set(Calendar.HOUR_OF_DAY,0);//0点
+                    cal.set(Calendar.MINUTE,0);
+                    cal.set(Calendar.SECOND,0);
+                    startDate=cal.getTime();
                     cal.set(Calendar.DATE, cal.get(Calendar.DATE) + 6);
-                    endDate = format.format(cal.getTime());
+                    cal.set(Calendar.HOUR_OF_DAY,23);//最后1秒
+                    cal.set(Calendar.MINUTE,59);
+                    cal.set(Calendar.SECOND,59);
+                    endDate = cal.getTime();
                     break;
 
                 case 1://月
                     cal.set(Calendar.DAY_OF_MONTH, 1);
-                    startDate = format.format(cal.getTime());
+                    cal.set(Calendar.HOUR_OF_DAY,0);//0点
+                    cal.set(Calendar.MINUTE,0);
+                    cal.set(Calendar.SECOND,0);
+                    startDate = cal.getTime();
                     cal.add(Calendar.MONTH, 1);
                     cal.set(Calendar.DAY_OF_MONTH, 0);
-                    endDate = format.format(cal.getTime());
+                    cal.set(Calendar.HOUR_OF_DAY,23);//最后1秒
+                    cal.set(Calendar.MINUTE,59);
+                    cal.set(Calendar.SECOND,59);
+                    endDate = cal.getTime();
                     break;
 
                 case 2://年
                     cal.set(Calendar.DAY_OF_YEAR, 1);
-                    startDate = format.format(cal.getTime());
+                    cal.set(Calendar.HOUR_OF_DAY,0);//0点
+                    cal.set(Calendar.MINUTE,0);
+                    cal.set(Calendar.SECOND,0);
+                    startDate = cal.getTime();
                     cal.add(Calendar.YEAR, 1);
                     cal.set(Calendar.DAY_OF_YEAR, 0);
-                    endDate = format.format(cal.getTime());
+                    cal.set(Calendar.HOUR_OF_DAY,23);//最后1秒
+                    cal.set(Calendar.MINUTE,59);
+                    cal.set(Calendar.SECOND,59);
+                    endDate = cal.getTime();
                     break;
             }
 
@@ -217,6 +243,15 @@ public class MyFragment extends Fragment {
             e.printStackTrace();
         }
 
+    }
+
+    /*
+    * 设置mDate TextView文字
+    * */
+    private void setMDate(){
+        startCal.setTime(startDate);
+        endCal.setTime(endDate);
+        mDate.setText(startCal.get(Calendar.YEAR)+"年"+(startCal.get(Calendar.MONTH)+1)+"月"+startCal.get(Calendar.DATE)+"日"+"-" + endCal.get(Calendar.YEAR)+"年"+(endCal.get(Calendar.MONTH)+1)+"月"+endCal.get(Calendar.DATE)+"日");
     }
 
 
@@ -228,7 +263,7 @@ public class MyFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            str = new EchartsFetch().fetchItems(myApplication.getUserid(), params[0], startDate, endDate);
+            str = new EchartsFetch().fetchItems(myApplication.getUserid(), params[0], String.valueOf(startDate.getTime()), String.valueOf(endDate.getTime()));
             return str;
         }
 
