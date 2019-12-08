@@ -22,6 +22,10 @@ public class Chat {
         this.image1=image1;
 
     }
+    public Chat(String name,String name1){
+        this.name=name;
+        this.name1=name1;
+    }
     public String getName(){
         return name;
     }

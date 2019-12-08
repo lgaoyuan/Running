@@ -14,8 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:background="#0B1428">
+        android:background="#0B1428"
+        android:orientation="horizontal">
 
         <RelativeLayout
             android:id="@+id/nav_chat"
@@ -28,19 +28,19 @@
                 android:id="@+id/chat"
                 android:layout_width="33dp"
                 android:layout_height="33dp"
-                android:padding="3dp"
                 android:layout_centerHorizontal="true"
+                android:padding="3dp"
                 android:src="@drawable/ic_chat" />
 
             <TextView
-                android:padding="2dp"
-                android:textSize="8dp"
-                android:layout_centerInParent="true"
-                android:text="中南"
-                android:textColor="#FFFFFF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/chat"/>
+                android:layout_below="@+id/chat"
+                android:layout_centerInParent="true"
+                android:padding="2dp"
+                android:text="中南"
+                android:textColor="#FFFFFF"
+                android:textSize="8dp" />
 
         </RelativeLayout>
 
@@ -70,18 +70,19 @@
                 android:id="@+id/my"
                 android:layout_width="33dp"
                 android:layout_height="33dp"
-                android:padding="3dp"
                 android:layout_centerHorizontal="true"
+                android:padding="3dp"
                 android:src="@drawable/ic_my" />
+
             <TextView
-                android:padding="2dp"
-                android:textSize="8dp"
-                android:layout_centerInParent="true"
-                android:text="我的"
-                android:textColor="#FFFFFF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/my"/>
+                android:layout_below="@+id/my"
+                android:layout_centerInParent="true"
+                android:padding="2dp"
+                android:text="我的"
+                android:textColor="#FFFFFF"
+                android:textSize="8dp" />
 
         </RelativeLayout>
 

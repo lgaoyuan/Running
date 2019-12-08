@@ -100,7 +100,7 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
         //添加listview底部
         this.addFooterView(bottomview);
         //添加到listview头部
-        this.addHeaderView(headview);
+//        this.addHeaderView(headview);
         //设置拉动监听
         this.setOnScrollListener(this);
     }
@@ -142,19 +142,19 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
 //        Log.i("TGA", "firstVisible----"+firstVisible);
 //        Log.i("TGA", "状态？"+(firstVisible==0));
 
-        if(firstVisible==0&&scrollState==SCROLL_STATE_IDLE){
-            headview.setPadding(0, 0, 0, 0);
-            headtxt.setText("正在刷新.......");
-            progressBar.setVisibility(View.VISIBLE);
-            loadListener.PullLoad();
-        }
+//        if(firstVisible==0&&scrollState==SCROLL_STATE_IDLE){
+//            headview.setPadding(0, 0, 0, 0);
+//            headtxt.setText("正在刷新.......");
+//            progressBar.setVisibility(View.VISIBLE);
+//            loadListener.PullLoad();
+//        }
     }
 
 
     //接口回调
     public interface LoadListener{
         void onLoad();
-        void PullLoad();
+//        void PullLoad();
     }
 
 

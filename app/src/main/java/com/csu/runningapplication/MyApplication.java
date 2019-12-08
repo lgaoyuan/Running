@@ -9,6 +9,8 @@ public class MyApplication extends Application {
     private String password="33333333";
     private int type=0;//跑步或骑车，默认跑步
     private String id="45";
+    private String id_guanzhu="45";
+    private String id_yugao="45";
 
     public void setImage1(int image1){
         this.image1=image1;
@@ -46,6 +48,13 @@ public class MyApplication extends Application {
 
     public String getId(){return id;}
 
+    public void setId_guanzhu(String id){this.id_guanzhu=id;}
+
+    public String getId_guanzhu(){return  id_guanzhu;}
+
+    public void setId_yugao(String id){this.id_yugao=id;}
+
+    public String getId_yugao(){return id_yugao;}
 
     @Override
     public void onCreate() {

@@ -3,8 +3,6 @@ package com.csu.runningapplication.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,13 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import com.csu.runningapplication.Chat;
 import com.csu.runningapplication.ChatAdapter;
 import com.csu.runningapplication.Chat_dynamicActivity;
@@ -28,17 +24,14 @@ import com.csu.runningapplication.MyApplication;
 import com.csu.runningapplication.MyListViewUtils;
 import com.csu.runningapplication.R;
 import com.csu.runningapplication.http.ChatFetch;
-import com.csu.runningapplication.http.MyFetch;
+import com.csu.runningapplication.http.Chat_gonglueFetch;
+import com.csu.runningapplication.http.Chat_yugaoFetch;
 import com.csu.runningapplication.jsonbean.JsonBean;
+import com.csu.runningapplication.jsonbean.JsonBean_gonglue;
 import com.csu.runningapplication.jsonbean.MyJsonBean;
-import com.google.gson.Gson;
-
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -49,6 +42,8 @@ import java.util.List;
 public class ChatFragment extends Fragment implements MyListViewUtils.LoadListener {
 
     private List<Chat> chatlist = new ArrayList<>();
+    private List<Chat> chatlist1=new ArrayList<>();
+    private List<Chat> chatlist2=new ArrayList<>();
     private Button add;
     private TextView guanzhu;
     private TextView gonglue;
@@ -58,10 +53,15 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
     private ImageView friends;
     private MyListViewUtils listViewUtils;
     private ChatAdapter adapter;
+    private ChatAdapter adapter1;
+    private ChatAdapter adapter2;
     private JsonBean test;
     private MyJsonBean test1;
+    private int IDM=1;
     private MyApplication application;
-    private String IDrecord;
+    private String IDrecord; //关注
+    private String IDrecord1;//攻略
+    private String IDrecord2;//预告
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,10 +74,14 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         View v = inflater.inflate(R.layout.chat_fragment, parents, false);
 
             new ChatItemsTask().execute();
+        new ChatItemsTask2().execute();
+        new ChatItemsTask4().execute();
 //        initchat();
         bottom = v.findViewById(R.id.bottom);
         friends = (ImageView) v.findViewById(R.id.friends);
         adapter = new ChatAdapter(getContext(), R.layout.chat_item, chatlist);
+        adapter1 = new ChatAdapter(getContext(), R.layout.chat_item, chatlist1);
+        adapter2 = new ChatAdapter(getContext(), R.layout.chat_item, chatlist2);
         listViewUtils = (MyListViewUtils) v.findViewById(R.id.list_view);
         listViewUtils.setInteface(this);
         listViewUtils.setAdapter(adapter);
@@ -88,27 +92,33 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         guanzhu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ChatAdapter adapter = new ChatAdapter(getContext(), R.layout.chat_item, chatlist);
-
+                IDM=1;
                 bottom.setText("  ____");
-                fm = getActivity().getSupportFragmentManager();
-                Fragment fragment = fm.findFragmentById(R.id.chat_fragment);
-                if (fragment == null) {
-                    fragment = new ChatFragment();
-                    fm.beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
-                }
+//                fm = getActivity().getSupportFragmentManager();
+//                Fragment fragment = fm.findFragmentById(R.id.chat_fragment);
+//                if (fragment == null) {
+//                    fragment = new ChatFragment();
+//                    fm.beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
+//                }
+                listViewUtils.setAdapter(adapter);
             }
         });
         gonglue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                listViewUtils.setAdapter(null);
+//                initchat();
+                IDM=2;
+
+
+                listViewUtils.setAdapter(adapter1);
+
                 bottom.setText("             ____");
-                //嵌入fragment
+//                System.out.println(application.getId_guanzhu());
+//                嵌入fragment
 //                fm=getActivity().getSupportFragmentManager();
-//                Fragment fragment=fm.findFragmentById(R.id.runfragment);
+//                Fragment fragment=fm.findFragmentById(R.id.chat_fragment);
 //                if(fragment==null){
-//                    fragment=new RunFragment();
+
 //                    fm.beginTransaction().replace(R.id.fragmentContainer1,fragment).commit();
 //                }
 
@@ -117,7 +127,8 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         yugao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                listViewUtils.setAdapter(null);
+                IDM=3;
+                listViewUtils.setAdapter(adapter2);
                 bottom.setText("                        ____");
             }
         });
@@ -141,33 +152,17 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         return v;
     }
 
-//    public void initchat() {
-//        Chat chat = new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞");
-//        Chat chat1 = new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞", R.drawable.chat_img);
-//        chatlist.add(chat);
-//        chatlist.add(chat1);
-//
-//    }
+    public void initchat() {
+        Chat chat = new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞");
+        Chat chat1 = new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞", R.drawable.chat_img);
+        chatlist1.add(chat);
+        chatlist1.add(chat1);
+        chatlist1.add(chat);
+        chatlist1.add(chat);
+        chatlist1.add(chat);
 
-    //获得bitmap
-    //ImageView.setImageBitmap(bitmap);
-    public Bitmap getBitmap(String path) throws IOException {
-        try {
-            URL url = new URL(path);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5000);
-            conn.setRequestMethod("GET");
-            if (conn.getResponseCode() == 200) {
-                InputStream inputStream = conn.getInputStream();
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                return bitmap;
-            }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
     }
+
 
 
     @Override
@@ -177,26 +172,38 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             public void run() {
 //                Chat chat1 = new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞", R.drawable.chat_img);
 //                chatlist.add(chat1);
-                new ChatItemsTask1().execute();
-                adapter.notifyDataSetChanged();
+//
+                if(IDM==1){
+                    new ChatItemsTask1().execute();
+                    adapter.notifyDataSetChanged();
+                } else if(IDM==2){
+                    new ChatItemsTask3().execute();
+                    adapter1.notifyDataSetChanged();
+                    System.out.println("攻略刷新");
+                }else if(IDM==3){
+                    new ChatItemsTask5().execute();
+                    adapter2.notifyDataSetChanged();
+                    System.out.println("预告刷新");
+                }
                 listViewUtils.loadComplete();
             }
         }, 1000);
 
     }
 
-    @Override
-    public void PullLoad() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                adapter.notifyDataSetChanged();
-                listViewUtils.loadComplete();
-            }
-        }, 1000);
+//    @Override
+//    public void PullLoad() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                adapter.notifyDataSetChanged();
+//                listViewUtils.loadComplete();
+//            }
+//        }, 1000);
+//
+//
+//    }
 
-
-    }
 
 
     /*
@@ -271,6 +278,143 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             chatlist.add(chat1);
             application.setId(IDrecord);
             adapter.notifyDataSetChanged();
+            listViewUtils.loadComplete();
+        }
+    }
+    private class ChatItemsTask2 extends AsyncTask<Void, Void, String>{
+        String mj;
+        Handler handler1=new Handler();
+
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            mj=new Chat_gonglueFetch().fetchItems("9999");
+            return mj;
+        }
+        @Override
+        protected  void onPostExecute(String result){
+            if (result == null) {
+                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                return;
+
+            }
+            try {
+                JSONArray json=new JSONArray(result);
+                for(int i=0;i<json.length();i++){
+                    JSONObject jb=json.getJSONObject(i);
+                    Chat chat=new Chat(jb.getString("text"),jb.getString("date")+jb.getString("id"));
+                    chatlist1.add(chat);
+                    IDrecord1=jb.getString("id");
+                    new Thread(){
+                        @Override
+                        public void run(){
+                            handler1.post(updataUIgonglue);
+                        }
+                    }.start();
+                }
+                adapter1.notifyDataSetChanged();
+                listViewUtils.loadComplete();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        //更新传递最下方view 的id
+        Runnable updataUIgonglue=new Runnable() {
+            @Override
+            public void run() {
+                application.setId_guanzhu(IDrecord1);
+            }
+        };
+    }
+    private class ChatItemsTask3 extends AsyncTask<Void, Void, JsonBean_gonglue> {
+        JsonBean_gonglue mj;
+
+        @Override
+        protected JsonBean_gonglue doInBackground(Void... voids) {
+            mj = new Chat_gonglueFetch().fetchItemsPull(application.getId_guanzhu());
+            return mj;
+        }
+        protected void onPostExecute(JsonBean_gonglue  result) {// 执行完毕后，则更新UI
+            if (result == null) {
+                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                return;
+
+            }
+            IDrecord1=result.getId()+"";
+            System.out.println(IDrecord1);
+            Chat chat1=new Chat(result.getText(),result.getDate()+result.getId());
+            chatlist1.add(chat1);
+            application.setId_guanzhu(IDrecord1);
+            adapter1.notifyDataSetChanged();
+            listViewUtils.loadComplete();
+        }
+    }
+
+    private class ChatItemsTask4 extends AsyncTask<Void, Void, String> {
+        String mj;
+        Handler handler1=new Handler();
+        @Override
+        protected String doInBackground(Void... voids) {
+            mj=new Chat_yugaoFetch().fetchItems("9999");
+            return mj;
+        }
+        @Override
+        protected  void onPostExecute(String result){
+            if (result == null) {
+                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                return;
+
+            }
+            try {
+                JSONArray json=new JSONArray(result);
+                for(int i=0;i<json.length();i++){
+                    JSONObject jb=json.getJSONObject(i);
+                    Chat chat=new Chat(jb.getString("text"),jb.getString("date")+jb.getString("id"));
+                    chatlist2.add(chat);
+                    IDrecord2=jb.getString("id");
+                    new Thread(){
+                        @Override
+                        public void run(){
+                            handler1.post(updataUIyugao);
+                        }
+                    }.start();
+                }
+                adapter2.notifyDataSetChanged();
+                listViewUtils.loadComplete();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        //更新传递最下方view 的id
+        Runnable updataUIyugao=new Runnable() {
+            @Override
+            public void run() {
+                application.setId_yugao(IDrecord2);
+            }
+        };
+    }
+    private class ChatItemsTask5 extends AsyncTask<Void, Void, JsonBean_gonglue> {
+        JsonBean_gonglue mj;
+
+        @Override
+        protected JsonBean_gonglue doInBackground(Void... voids) {
+            mj = new Chat_yugaoFetch().fetchItemsPull(application.getId_yugao());
+            return mj;
+        }
+        protected void onPostExecute(JsonBean_gonglue  result) {// 执行完毕后，则更新UI
+            if (result == null) {
+                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                return;
+
+            }
+            IDrecord2=result.getId()+"";
+            System.out.println("预告"+IDrecord2);
+            Chat chat1=new Chat(result.getText(),result.getDate()+result.getId());
+            chatlist2.add(chat1);
+            application.setId_yugao(IDrecord2);
+            adapter2.notifyDataSetChanged();
             listViewUtils.loadComplete();
         }
     }
