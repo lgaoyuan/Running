@@ -52,7 +52,7 @@ public class RunningActivity extends Activity {
 
     private static final String TAG = "RunningActivity";
     private static final String CHANNEL_ID_SERVICE_RUNNING = "CHANNEL_ID_SERVICE_RUNNING";
-
+    private MyApplication myApplication;
     private Button mStart;
     private Button mStop;
     private Button mPause;
@@ -87,6 +87,8 @@ public class RunningActivity extends Activity {
                 mTime.setText(msg.obj.toString());
             } else if (msg.what == 1002) {//配速
                 mSpeed.setText(msg.obj.toString());
+            } else if (msg.what == 1003) {//配速
+                mCal.setText(msg.obj.toString());
             }
         }
     };
@@ -173,6 +175,7 @@ public class RunningActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.running_layout);
+        myApplication=(MyApplication) getApplication();
         mSpeed = (TextView) findViewById(R.id.speed_text);
         mTime = (TextView) findViewById(R.id.time_text);
         mDis = (TextView) findViewById(R.id.distance);
@@ -447,6 +450,18 @@ public class RunningActivity extends Activity {
                     ss = String.format("%02d", s);
                     msg2.obj = m + "'" + ss + "''";//配速
                     handler.sendMessage(msg2);
+
+                    Message msg3 = new Message();
+                    msg3.what = 1003;
+                    double k=1;
+                    if(myApplication.getType()==0){
+                        k=1;
+                    }else if(myApplication.getType()==1){
+                        k=0.62;
+                    }
+                    double c=myApplication.getWeight()*((allD + d) / 1000)*k;
+                    msg3.obj=String.format("%.2f", c);//卡路里
+                    handler.sendMessage(msg3);
                 }
             }
         }, 0, 1000);

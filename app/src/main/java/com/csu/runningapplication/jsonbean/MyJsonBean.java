@@ -5,16 +5,18 @@ public class MyJsonBean {
     /**
      * bbsnum : 1
      * friends : 2
-     * running : 10.0
-     * cycling : 5.0
+     * running : 10000
+     * cycling : 5000
      * time : 1000
+     * calorie : 0
      */
 
     private int bbsnum;
     private int friends;
-    private double running;
-    private double cycling;
+    private int running;
+    private int cycling;
     private int time;
+    private int calorie;
 
     public int getBbsnum() {
         return bbsnum;
@@ -32,19 +34,19 @@ public class MyJsonBean {
         this.friends = friends;
     }
 
-    public double getRunning() {
+    public int getRunning() {
         return running;
     }
 
-    public void setRunning(double running) {
+    public void setRunning(int running) {
         this.running = running;
     }
 
-    public double getCycling() {
+    public int getCycling() {
         return cycling;
     }
 
-    public void setCycling(double cycling) {
+    public void setCycling(int cycling) {
         this.cycling = cycling;
     }
 
@@ -54,5 +56,13 @@ public class MyJsonBean {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public int getCalorie() {
+        return calorie;
+    }
+
+    public void setCalorie(int calorie) {
+        this.calorie = calorie;
     }
 }

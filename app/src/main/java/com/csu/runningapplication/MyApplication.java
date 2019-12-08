@@ -11,6 +11,7 @@ public class MyApplication extends Application {
     private String id="45";
     private String id_guanzhu="45";
     private String id_yugao="45";
+    private int weight=55;
 
     public void setImage1(int image1){
         this.image1=image1;
@@ -55,6 +56,14 @@ public class MyApplication extends Application {
     public void setId_yugao(String id){this.id_yugao=id;}
 
     public String getId_yugao(){return id_yugao;}
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 
     @Override
     public void onCreate() {
