@@ -35,6 +35,8 @@ public class HomePageActivity extends Activity {
             Map<String, String> requiredPermissions = new HashMap<>();
             requiredPermissions.put(Manifest.permission.ACCESS_FINE_LOCATION, "定位");
             requiredPermissions.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, "存储");
+            requiredPermissions.put(Manifest.permission.READ_EXTERNAL_STORAGE, "存储");
+            requiredPermissions.put(Manifest.permission.CAMERA, "相机");
             requiredPermissions.put(Manifest.permission.READ_PHONE_STATE, "读取设备信息");
             for (String permission : requiredPermissions.keySet()) {
                 if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {

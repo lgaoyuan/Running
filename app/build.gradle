@@ -35,4 +35,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation files('libs/AMapTrack_1.1.0_AMapLocation_4.7.0_20190708.jar')
     implementation files('libs/Android_Map3D_SDK_V6.9.0_20190530.jar')
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
+    implementation 'com.zhihu.android:matisse:0.5.2-beta3'
 }
