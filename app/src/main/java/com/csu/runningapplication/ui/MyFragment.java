@@ -1,5 +1,6 @@
 package com.csu.runningapplication.ui;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.csu.runningapplication.FriendsActivity;
 import com.csu.runningapplication.MyApplication;
 import com.csu.runningapplication.R;
 import com.csu.runningapplication.http.EchartsFetch;
@@ -53,6 +55,7 @@ public class MyFragment extends Fragment {
 
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+    private Button add;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,16 @@ public class MyFragment extends Fragment {
         x = "['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']";
         new EchartsItemsTask().execute("0");//获取数据
         getDay(0);
+        //初始化add添加好友按钮
+        add=(Button)v.findViewById(R.id.add_friends);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i= new Intent(getContext(), FriendsActivity.class);
+                startActivity(i);
+            }
+        });
+
         //初始化echarts
 
         mDate = (TextView) v.findViewById(R.id.my_data_date);
