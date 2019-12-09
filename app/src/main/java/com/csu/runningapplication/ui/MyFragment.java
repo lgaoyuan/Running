@@ -3,19 +3,20 @@ package com.csu.runningapplication.ui;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.csu.runningapplication.FriendsActivity;
+import com.csu.runningapplication.Friends_list;
 import com.csu.runningapplication.MyApplication;
 import com.csu.runningapplication.R;
 import com.csu.runningapplication.http.EchartsFetch;
@@ -26,7 +27,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class MyFragment extends Fragment {
 
@@ -45,6 +45,7 @@ public class MyFragment extends Fragment {
     private TextView mMonth;
     private TextView mYear;
     private String runData;
+    private LinearLayout lin;
 
     private String x = null;//横轴
 
@@ -77,6 +78,14 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i= new Intent(getContext(), FriendsActivity.class);
+                startActivity(i);
+            }
+        });
+        lin=(LinearLayout)v.findViewById(R.id.friends_list);
+        lin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getContext(), Friends_list.class);
                 startActivity(i);
             }
         });

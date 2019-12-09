@@ -242,6 +242,8 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                     }.start();
                 }
                     adapter.notifyDataSetChanged();
+
+
                     listViewUtils.loadComplete();
             } catch (JSONException e) {
                 e.printStackTrace();
