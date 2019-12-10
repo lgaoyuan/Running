@@ -50,7 +50,6 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
     private TextView yugao;
     private TextView bottom;
     private FragmentManager fm;
-    private ImageView friends;
     private MyListViewUtils listViewUtils;
     private ChatAdapter adapter;
     private ChatAdapter adapter1;
@@ -78,7 +77,6 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         new ChatItemsTask4().execute();
 //        initchat();
         bottom = v.findViewById(R.id.bottom);
-        friends = (ImageView) v.findViewById(R.id.friends);
         adapter = new ChatAdapter(getContext(), R.layout.chat_item, chatlist);
         adapter1 = new ChatAdapter(getContext(), R.layout.chat_item, chatlist1);
         adapter2 = new ChatAdapter(getContext(), R.layout.chat_item, chatlist2);
@@ -127,13 +125,6 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             public void onClick(View view) {
                 //打开一个发消息的页面 类似说说？
                 Intent i = new Intent(getContext(), Chat_dynamicActivity.class);
-                startActivity(i);
-            }
-        });
-        friends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getContext(), FriendsActivity.class);
                 startActivity(i);
             }
         });

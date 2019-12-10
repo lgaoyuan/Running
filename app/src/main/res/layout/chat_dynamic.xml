@@ -52,11 +52,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
+
             <TextView
+                android:id="@+id/upload_bbs"
                 android:layout_width="160px"
                 android:layout_height="90px"
                 android:layout_marginTop="20dp"
-
                 android:text="发布"
                 android:textColor="#ffffff"
                 android:gravity="center"
@@ -75,7 +76,10 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1">
+
             <EditText
+                android:id="@+id/edittext"
+                android:textColor="#FFFFFF"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="说说今天你干了些啥.."
@@ -83,27 +87,30 @@
                 android:layout_marginRight="10dp"
                 android:gravity="top"
                 android:background="@null"
-                android:textColorHint="#454951"/>
+                android:textColorHint="#848A96"
+                android:padding="10dp"/>
+
         </LinearLayout>
-        <ScrollView
+
+        <ImageView
+            android:id="@+id/chooseImg"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/camera"/>
+
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1">
 
             <LinearLayout
+                android:id="@+id/imgLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"/>
 
-            <ImageView
-                android:id="@+id/chooseImg"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/camera"/>
-
-            </LinearLayout>
-        </ScrollView>
+        </HorizontalScrollView>
 
     </LinearLayout>
 </LinearLayout>
