@@ -37,4 +37,5 @@ dependencies {
     implementation files('libs/Android_Map3D_SDK_V6.9.0_20190530.jar')
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     implementation 'com.zhihu.android:matisse:0.5.2-beta3'
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
 }

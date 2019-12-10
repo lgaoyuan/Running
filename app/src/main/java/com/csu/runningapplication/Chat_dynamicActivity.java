@@ -1,23 +1,29 @@
 package com.csu.runningapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.csu.runningapplication.http.MyFetch;
+import com.csu.runningapplication.http.NewBbsFetch;
+import com.csu.runningapplication.jsonbean.IdJsonBean;
 import com.csu.runningapplication.util.GlideLoadEngine;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -25,27 +31,57 @@ import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.IncapableCause;
 import com.zhihu.matisse.internal.entity.Item;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class Chat_dynamicActivity extends Activity {
+
+    private TextView mUpload;
     private TextView mBackpress;
+    private EditText mEditText;
     private ImageView mChooseImg;
+    private LinearLayout mImgLayout;
     private List<String> imgPath=new ArrayList<>();
+    private MyApplication myApplication;
+
+    private String content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_dynamic);
+        myApplication = (MyApplication) getApplication();
+        mEditText=(EditText)findViewById(R.id.edittext);
+        mImgLayout=(LinearLayout)findViewById(R.id.imgLayout);
         mBackpress=(TextView)findViewById(R.id.backpress);
         mBackpress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+
+        mUpload=(TextView)findViewById(R.id.upload_bbs);
+        mUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                content=mEditText.getText().toString();
+                new BbsTask().execute();
             }
         });
 
@@ -94,10 +130,10 @@ public class Chat_dynamicActivity extends Activity {
                         return null;
                     }
                 })
-                .gridExpectedSize((int) getResources().getDimension(R.dimen.imageSelectDimen))
+                .gridExpectedSize(mChooseImg.getWidth())
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                 .theme(R.style.Matisse_Dracula)//黑色主题
-                .thumbnailScale(0.87f)//压缩
+                .thumbnailScale(0.67f)//压缩
                 .imageEngine(new GlideLoadEngine())
                 .forResult(1);
     }
@@ -105,20 +141,57 @@ public class Chat_dynamicActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
+
                 int len=Matisse.obtainPathResult(data).size();
                 for(int i=0;i<len;i++) {
                     String path = Matisse.obtainPathResult(data).get(i);
+                    if(imgPath.size()>=9){
+                        Toast.makeText(this, "最多选取9张图片", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     imgPath.add(path);
                     if (path != null) {
+                        ImageView mNewImg=new ImageView(this);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mChooseImg.getWidth(),mChooseImg.getHeight());
+                        params.setMargins(10,10,10,10);
+                        mNewImg.setLayoutParams(params);
+                        mNewImg.setBackgroundColor(getResources().getColor(R.color.colorImgBackground));
+                        mNewImg.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(final View view) {
+                                AlertDialog alertDialog = new AlertDialog.Builder(Chat_dynamicActivity.this)
+                                        .setMessage("是否删除这张图片")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加"Yes"按钮
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                                //得到view在父容器中的位置下标
+                                                int index=((ViewGroup)view.getParent()).indexOfChild(view);
+                                                imgPath.remove(index);
+                                                mImgLayout.removeView(view);
+                                            }
+                                        })
+                                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {//添加取消
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                            }
+                                        })
+                                        .create();
+                                alertDialog.show();
+                            }
+                        });
+                        mImgLayout.addView(mNewImg);
                         Glide.with(this)
                                 .asBitmap() // some .jpeg files are actually gif
                                 .load(path)
+                                .thumbnail(0.67f)//压缩
                                 .apply(new RequestOptions() {{
                                     override(Target.SIZE_ORIGINAL);
                                 }})
-                                .into(mChooseImg);
+                                .into(mNewImg);
                     } else
                         Toast.makeText(this, "选取图片失败", Toast.LENGTH_SHORT).show();
                 }
@@ -126,6 +199,61 @@ public class Chat_dynamicActivity extends Activity {
 
         }
 
+    }
+
+    /*
+    * 上传帖子
+    * */
+    private class BbsTask extends AsyncTask<Void, Void, IdJsonBean> {
+
+        @Override
+        protected IdJsonBean doInBackground(Void... params) {
+            return new NewBbsFetch().fetchItems(myApplication.getUserid(),content);
+        }
+
+        @Override
+        protected void onPostExecute(IdJsonBean result) {// 执行完毕
+            if (result == null) {
+                Toast.makeText(getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            for(String str:imgPath){
+                uploadFile(result.getId(),str);
+            }
+            Toast.makeText(Chat_dynamicActivity.this,"发布成功！",Toast.LENGTH_SHORT).show();
+            Chat_dynamicActivity.this.finish();
+        }
+    }
+
+    // 使用OkHttp上传文件
+    private void uploadFile(String id,String path) {
+        File file=new File(path);
+        OkHttpClient client = new OkHttpClient();
+        MediaType contentType = MediaType.parse("text/plain"); // 上传文件的Content-Type
+        RequestBody fileBody = RequestBody.create(contentType, file); // 上传文件的请求体
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("id", id).addFormDataPart("file", path, fileBody).build();
+        Request request = new Request.Builder()
+                .url("https://lgaoyuan.xyz:8080/running/upload") // 上传地址
+                .post(requestBody)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                // 文件上传失败
+                Log.i("onFailure", "uploadFileFail: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                // 文件上传成功
+                if (response.isSuccessful()) {
+                    Log.i("onResponse", "uploadFileSuccess: " + response.body().string());
+                } else {
+                    Log.i("onResponse", "uploadFileError: " + response.message());
+                }
+            }
+        });
     }
 
 }
