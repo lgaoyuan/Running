@@ -2,10 +2,14 @@ package com.csu.runningapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.csu.runningapplication.http.FriendList;
@@ -40,6 +44,23 @@ public class Friends_list extends AppCompatActivity {
         adapter=new FriendsAdapter(this,R.layout.friendlist_item,friendslist);
         adapter1=new FriendsAdapter(this,R.layout.friendlist_item,friendslist1);
         list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch(i){
+                    case 0:
+                        Intent intent=new Intent(Friends_list.this,Friend_Dialog.class);
+                        intent.putExtra("id",friendslist.get(0).getId());
+                        intent.putExtra("name",friendslist.get(0).getName());
+                        startActivity(intent);
+
+
+
+
+                }
+
+            }
+        });
         list1.setAdapter(adapter1);
 
     }
@@ -68,7 +89,7 @@ public class Friends_list extends AppCompatActivity {
                 for(int i=0;i<json.length();i++)
                 {
                     JSONObject jb=json.getJSONObject(i);
-                    Friends friends=new Friends(jb.getString("name"));
+                    Friends friends=new Friends(jb.getString("name"),jb.getString("fromid"));
                     System.out.println(jb.getString("name"));
                     friendslist.add(friends);
                     adapter.notifyDataSetChanged();

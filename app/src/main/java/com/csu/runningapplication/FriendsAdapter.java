@@ -28,7 +28,7 @@ public class FriendsAdapter extends ArrayAdapter<Friends> {
         View view= LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
         TextView FriendsName=(TextView)view.findViewById(R.id.friends_name);
         FriendsName.setText(friends.getName());
-        Button FriendsButton=(Button)view.findViewById(R.id.friends_agree);
+//        Button FriendsButton=(Button)view.findViewById(R.id.friends_agree);
 
 
         return view;
