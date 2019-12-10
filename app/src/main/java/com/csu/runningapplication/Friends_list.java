@@ -40,7 +40,7 @@ public class Friends_list extends AppCompatActivity {
         list1=findViewById(R.id.friends_list1);
         application=(MyApplication)getApplication();
         new NewFriendsItemsTask().execute();
-        new FriendListItemsTask().execute();
+//        new FriendListItemsTask().execute();
         adapter=new FriendsAdapter(this,R.layout.friendlist_item,friendslist);
         adapter1=new FriendsAdapter(this,R.layout.friendlist_item,friendslist1);
         list.setAdapter(adapter);
@@ -63,6 +63,12 @@ public class Friends_list extends AppCompatActivity {
         });
         list1.setAdapter(adapter1);
 
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        new NewFriendsItemsTask().execute();
+        new FriendListItemsTask().execute();
     }
 
     private class NewFriendsItemsTask extends AsyncTask<Void, Void, String> {

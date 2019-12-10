@@ -48,7 +48,7 @@ public class FriendsActivity extends AppCompatActivity {
                str=search.getText().toString();
                new ChatItemsTask().execute();
                 if (!str.equals("") ) {
-                    //此处有一个问题，用户输入的若不符合要求 也不显示lin.
+                    //此处有一个问题，用户输入的若不符合要求 也显示lin.
                     lin.setVisibility(View.VISIBLE);
                 }
 

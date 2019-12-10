@@ -15,7 +15,7 @@
         <ListView
             android:id="@+id/friends_list"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="200dp"
             android:divider="#0b1529"
             android:dividerHeight="5dp"
             android:background="#252a32"/>
@@ -29,7 +29,7 @@
         <ListView
             android:id="@+id/friends_list1"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="200dp"
             android:divider="#0b1529"
             android:dividerHeight="5dp"
             android:background="#252a32"/>
