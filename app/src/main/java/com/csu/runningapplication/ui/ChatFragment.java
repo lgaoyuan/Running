@@ -89,17 +89,13 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         guanzhu = v.findViewById(R.id.guanzhu);
         gonglue = v.findViewById(R.id.gonglue);
         yugao = v.findViewById(R.id.yugao);
+//        listViewUtils.loadComplete(); 每次完成点击操作后执行此函数隐藏listview头
         guanzhu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 IDM=1;
                 bottom.setText("  ____");
-//                fm = getActivity().getSupportFragmentManager();
-//                Fragment fragment = fm.findFragmentById(R.id.chat_fragment);
-//                if (fragment == null) {
-//                    fragment = new ChatFragment();
-//                    fm.beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
-//                }
+
                 listViewUtils.setAdapter(adapter);
             }
         });
@@ -113,14 +109,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 listViewUtils.setAdapter(adapter1);
 
                 bottom.setText("             ____");
-//                System.out.println(application.getId_guanzhu());
-//                嵌入fragment
-//                fm=getActivity().getSupportFragmentManager();
-//                Fragment fragment=fm.findFragmentById(R.id.chat_fragment);
-//                if(fragment==null){
 
-//                    fm.beginTransaction().replace(R.id.fragmentContainer1,fragment).commit();
-//                }
 
             }
         });
