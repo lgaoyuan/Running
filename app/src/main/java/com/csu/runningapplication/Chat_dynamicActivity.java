@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import com.zhihu.matisse.internal.entity.Item;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -225,8 +227,71 @@ public class Chat_dynamicActivity extends Activity {
         }
     }
 
+    /**
+     * 图片压缩-质量压缩
+     *
+     * @param filePath 源图片路径
+     * @return 压缩后的路径
+     */
+    private String compressImage(String filePath) {
+
+        //原文件
+        File oldFile = new File(filePath);
+
+        int quality = 70;//压缩比例0-100
+        Bitmap bm = getSmallBitmap(filePath);//获取一定尺寸的图片
+
+        String lastName=oldFile.getName().substring(oldFile.getName().lastIndexOf("."));
+        File externalFilesDir = getExternalFilesDir("CompressImage");
+        File outputFile=new File(externalFilesDir.getPath()+"/1"+lastName);//压缩图
+        Log.d("outputFile:",outputFile+"");
+        try {
+            if (!outputFile.exists()) {
+                outputFile.getParentFile().mkdirs();
+                //outputFile.createNewFile();
+            } else {
+                outputFile.delete();
+            }
+            FileOutputStream out = new FileOutputStream(outputFile);
+            bm.compress(Bitmap.CompressFormat.JPEG, quality, out);
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return filePath;
+        }
+        return outputFile.getPath();
+    }
+
+    /**
+     * 根据路径获得图片信息并按比例压缩，返回bitmap
+     */
+    public static Bitmap getSmallBitmap(String filePath) {
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;//只解析图片边沿，获取宽高
+        BitmapFactory.decodeFile(filePath, options);
+        // 计算缩放比
+        options.inSampleSize = calculateInSampleSize(options, 480, 800);
+        // 完整解析图片返回bitmap
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(filePath, options);
+    }
+
+    public static int calculateInSampleSize(BitmapFactory.Options options,
+                                            int reqWidth, int reqHeight) {
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+        if (height > reqHeight || width > reqWidth) {
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+        return inSampleSize;
+    }
+
     // 使用OkHttp上传文件
     private void uploadFile(String id,String path) {
+        path=compressImage(path);
         File file=new File(path);
         OkHttpClient client = new OkHttpClient();
         MediaType contentType = MediaType.parse("text/plain"); // 上传文件的Content-Type
