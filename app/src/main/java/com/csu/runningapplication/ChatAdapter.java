@@ -13,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.List;
 
 public class ChatAdapter extends ArrayAdapter<Chat> {
@@ -32,7 +35,17 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         TextView ChatName1=(TextView)view.findViewById(R.id.name1);
 //        Button  ChatButton1=(Button)view.findViewById(R.id.guanzhu1);
         ImageView ChatImage1=(ImageView)view.findViewById(R.id.chat_img);
-        ChatImage.setImageResource(chat.getImage());
+//        ChatImage.setImageResource(R.drawable.flyimg);
+
+        //图片加载失败时，显示的图片
+        RequestOptions requestOptions = new RequestOptions()
+                .error(R.drawable.flyimg);
+
+        Glide.with(getContext())
+                .load(chat.getUri())
+                .apply(requestOptions)
+                .into(ChatImage);
+
         ChatImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

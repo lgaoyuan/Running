@@ -100,7 +100,7 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
         //添加listview底部
         this.addFooterView(bottomview);
         //添加到listview头部
-//        this.addHeaderView(headview);
+        this.addHeaderView(headview);
         //设置拉动监听
         this.setOnScrollListener(this);
     }
@@ -114,16 +114,20 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
 
             case MotionEvent.ACTION_MOVE:
                 int moveY=(int) ev.getY();
-                int paddingY=headHeight+(moveY-Yload)/2;
-                if(paddingY<0){
-                    headtxt.setText("下拉刷新........");
-                    progressBar.setVisibility(View.GONE);
-                }
-                if(paddingY>0){
+//                原代码中的判断方式 不知道为什么加上了headHeight 这样会造成用户上划时候总会出现headview
+//                int paddingY=headHeight+(moveY-Yload)/2;
+                int paddingY=(moveY-Yload)/2;
+//                if(paddingY<0){
+//                    headtxt.setText("下拉刷新........");
+//                    progressBar.setVisibility(View.GONE);
+//                }
+                if(paddingY>10000){
+
                     headtxt.setText("松开刷新........");
                     progressBar.setVisibility(View.GONE);
+
                 }
-                headview.setPadding(0, paddingY, 0, 0);
+//    headview.setPadding(0, paddingY, 0, 0);
                 break;
         }
         return super.onTouchEvent(ev);
@@ -142,19 +146,19 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
 //        Log.i("TGA", "firstVisible----"+firstVisible);
 //        Log.i("TGA", "状态？"+(firstVisible==0));
 
-//        if(firstVisible==0&&scrollState==SCROLL_STATE_IDLE){
-//            headview.setPadding(0, 0, 0, 0);
-//            headtxt.setText("正在刷新.......");
-//            progressBar.setVisibility(View.VISIBLE);
-//            loadListener.PullLoad();
-//        }
+        if(firstVisible==0&&scrollState==SCROLL_STATE_IDLE){
+            headview.setPadding(0, 0, 0, 0);
+            headtxt.setText("正在刷新.......");
+            progressBar.setVisibility(View.VISIBLE);
+            loadListener.PullLoad();
+        }
     }
 
 
     //接口回调
     public interface LoadListener{
         void onLoad();
-//        void PullLoad();
+        void PullLoad();
     }
 
 

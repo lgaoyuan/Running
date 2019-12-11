@@ -97,11 +97,6 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/fragmentContainer1">
-
                 <com.csu.runningapplication.MyListViewUtils
                     android:id="@+id/list_view"
                     android:layout_width="match_parent"
@@ -110,17 +105,14 @@
                     android:dividerHeight="5dp"
                     android:background="#252a32"
                     android:layout_marginBottom="2dp"/>
-
-
-
-            </RelativeLayout>
             <LinearLayout
                 android:layout_marginTop="-100dp"
                 android:id="@+id/nav_123"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:gravity="bottom"
                 android:orientation="horizontal">
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
