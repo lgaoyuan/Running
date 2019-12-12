@@ -20,28 +20,39 @@ import java.util.List;
 public class Dialog extends AppCompatActivity {
     private MyApplication bpp;
     private ImageView image;
-
+    private String test;
+    private String headimg;
     private ViewPager vp;
     private Chat_dialog oneFragment;
     private Chat_dialog twoFragment;
     private List<Fragment> mFragmentList = new ArrayList<Fragment>();
     private FragmentAdapter mFragmentAdapter;
+    private ArrayList<String> infoList=new ArrayList<String>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog);
-//        Intent intent=getIntent();
-//        int ss=intent.getIntExtra("data",R.drawable.chat_img);
+        Intent intent=getIntent();
+
+        test=getIntent().getStringExtra("test");
+        headimg=getIntent().getStringExtra("headimg");
+        infoList=getIntent().getStringArrayListExtra("imglist");
+        if(test.equals("0")){
+            initViewforhead();
+            vp.setOffscreenPageLimit(1);//ViewPager的缓存为list的长度。
+            System.out.println("已经接受到头像数据");
+        }else{
+            initViews();
+            vp.setOffscreenPageLimit(infoList.size());//ViewPager的缓存为list的长度。
+        }
 
 
-
-        initViews();
 
         mFragmentAdapter = new FragmentAdapter(this.getSupportFragmentManager(), mFragmentList);
         //缓存应设置最大值
-        vp.setOffscreenPageLimit(2);//ViewPager的缓存为2帧
+
         vp.setAdapter(mFragmentAdapter);
         vp.setCurrentItem(0);//初始设置ViewPager选中第一帧
 
@@ -71,12 +82,24 @@ public class Dialog extends AppCompatActivity {
     private void initViews() {
 
         vp = (ViewPager) findViewById(R.id.mainViewPager);
-        //此处构造函数后期改为json获取的图片
-        oneFragment = new Chat_dialog(R.drawable.chat_img);
-        twoFragment = new Chat_dialog(R.drawable.flyimg);
-        //给FragmentList添加数据
-        mFragmentList.add(oneFragment);
-        mFragmentList.add(twoFragment);
+
+        for(int i=0;i<infoList.size();i++){
+            Chat_dialog fragment=new Chat_dialog(infoList.get(i));
+            mFragmentList.add(fragment);
+        }
+//        //此处构造函数后期改为json获取的图片
+//        oneFragment = new Chat_dialog(R.drawable.chat_img);
+//        twoFragment = new Chat_dialog(R.drawable.flyimg);
+//        //给FragmentList添加数据
+//        mFragmentList.add(oneFragment);
+//        mFragmentList.add(twoFragment);
+    }
+    private void initViewforhead(){
+        vp = (ViewPager) findViewById(R.id.mainViewPager);
+        Chat_dialog fragment1=new Chat_dialog(headimg);
+        System.out.println(headimg+"123");
+        mFragmentList.add(fragment1);
+
     }
 
     public class FragmentAdapter extends FragmentPagerAdapter {
@@ -95,6 +118,12 @@ public class Dialog extends AppCompatActivity {
         public int getCount() {
             return fragmentList.size();
         }
+
+    }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        this.finish();
 
     }
     }

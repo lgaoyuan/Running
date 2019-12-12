@@ -16,11 +16,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatAdapter extends ArrayAdapter<Chat> {
     private int resourceId;
     private MyApplication app;
+    private List<String> imglist=new ArrayList<>();
+    private String head;
     public ChatAdapter(Context context, int textViewResourceId, List<Chat> objects){
         super(context,textViewResourceId,objects);
         resourceId=textViewResourceId;
@@ -36,11 +39,13 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
 //        Button  ChatButton1=(Button)view.findViewById(R.id.guanzhu1);
         ImageView ChatImage1=(ImageView)view.findViewById(R.id.chat_img);
 //        ChatImage.setImageResource(R.drawable.flyimg);
+        imglist=chat.getImgcount();
+        head=chat.getUri();
 
         //图片加载失败时，显示的图片
         RequestOptions requestOptions = new RequestOptions()
                 .error(R.drawable.flyimg);
-
+      //头像
         Glide.with(getContext())
                 .load(chat.getUri())
                 .apply(requestOptions)
@@ -50,8 +55,8 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(getContext(),Dialog.class);
-//                int ss=R.drawable.flyimg;
-//                i.putExtra("data",ss);
+                i.putExtra("test","0");
+                i.putExtra("headimg",head);
                 getContext().startActivity(i);
 
             }
@@ -59,16 +64,25 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
 
         ChatName.setText(chat.getName());
         ChatName1.setText(chat.getName1());
-        ChatImage1.setImageResource(chat.getImage1());
+        //说说图片 加载第一张
+        RequestOptions requestOptions1 = new RequestOptions()
+                .error(null);
+        if(!chat.getImgcount().isEmpty()){
+        Glide.with(getContext())
+                .load(chat.getImgcount().get(0))
+                .apply(requestOptions1)
+                .into(ChatImage1);
+
         ChatImage1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(getContext(),Dialog.class);
-//                int ss=R.drawable.chat_img;
-//                i.putExtra("data",ss);
+                i.putExtra("test","1");
+                i.putStringArrayListExtra("imglist", (ArrayList<String>) imglist);
                 getContext().startActivity(i);
             }
         });
+        }
         return view;
     }
 }

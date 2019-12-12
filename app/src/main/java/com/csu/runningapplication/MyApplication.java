@@ -15,14 +15,9 @@ public class MyApplication extends Application {
     private String id_guanzhu="45";
     private String id_yugao="45";
     private int weight=55;
-    private List<String> imgcount=new ArrayList<>();
 
-    public void addImgcount(String img){
-        imgcount.add(img);
-    }
-    public List<String> getImgcount(){
-        return  imgcount;
-    }
+
+
 
     public void setImage1(int image1){
         this.image1=image1;

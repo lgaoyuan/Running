@@ -51,14 +51,13 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
     private TextView guanzhu;
     private TextView gonglue;
     private TextView yugao;
-    private TextView bottom;
-    private FragmentManager fm;
+    private ImageView bottom1;
+    private ImageView bottom2;
+    private ImageView bottom3;
     private MyListViewUtils listViewUtils;
     private ChatAdapter adapter;
     private ChatAdapter adapter1;
     private ChatAdapter adapter2;
-    private JsonBean test;
-    private MyJsonBean test1;
     private int IDM = 1;
     private MyApplication application;
     private String IDrecord; //关注
@@ -74,12 +73,18 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parents, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.chat_fragment, parents, false);
+        bottom1=v.findViewById(R.id.chat_bottom1);
+        bottom2=v.findViewById(R.id.chat_bottom2);
+        bottom3=v.findViewById(R.id.chat_bottom3);
+        bottom1.setVisibility(View.VISIBLE);
+        bottom2.setVisibility(View.INVISIBLE);
+        bottom3.setVisibility(View.INVISIBLE);
 
         new ChatItemsTask().execute();
         new ChatItemsTask2().execute();
         new ChatItemsTask4().execute();
 //        initchat();
-        bottom = v.findViewById(R.id.bottom);
+
         adapter = new ChatAdapter(getContext(), R.layout.chat_item, chatlist);
         adapter1 = new ChatAdapter(getContext(), R.layout.chat_item, chatlist1);
         adapter2 = new ChatAdapter(getContext(), R.layout.chat_item, chatlist2);
@@ -94,8 +99,10 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             @Override
             public void onClick(View view) {
                 IDM = 1;
-                bottom.setText("  ____");
 
+                bottom1.setVisibility(View.VISIBLE);
+                bottom2.setVisibility(View.INVISIBLE);
+                bottom3.setVisibility(View.INVISIBLE);
                 listViewUtils.setAdapter(adapter);
                 listViewUtils.loadComplete();
             }
@@ -105,11 +112,13 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             public void onClick(View view) {
 //                initchat();
                 IDM = 2;
-
+                bottom1.setVisibility(View.INVISIBLE);
+                bottom2.setVisibility(View.VISIBLE);
+                bottom3.setVisibility(View.INVISIBLE);
 
                 listViewUtils.setAdapter(adapter1);
                 listViewUtils.loadComplete();
-                bottom.setText("             ____");
+
 
 
             }
@@ -118,9 +127,12 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             @Override
             public void onClick(View view) {
                 IDM = 3;
+                bottom1.setVisibility(View.INVISIBLE);
+                bottom2.setVisibility(View.INVISIBLE);
+                bottom3.setVisibility(View.VISIBLE);
                 listViewUtils.setAdapter(adapter2);
                 listViewUtils.loadComplete();
-                bottom.setText("                        ____");
+
             }
         });
         add = (Button) v.findViewById(R.id.add);
@@ -242,13 +254,21 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Chat chat1 = new Chat(jb.getString("text"), R.drawable.flyimg, jb.getString("name") + jb.getString("id"));
-                    chatlist.add(chat1);
+                    Chat chat1 = new Chat(jb.getString("text"),jb.getString("avatarUrl"), jb.getString("name") + jb.getString("id"));
+                    System.out.println(jb.getString("name"));
+
                     JSONArray json1=new JSONArray(jb.getString("imgUrl"));
+                    System.out.println(json1.length());
                     for(int i1=0;i1<json1.length();i1++){
                         JSONObject jb1=json1.getJSONObject(i1);
-                        application.addImgcount(jb1.getString("imgurl"));
+                        chat1.addImgcount(jb1.getString("imgurl"));
+                        System.out.println(jb1.getString("imgurl"));
                     }
+//                    for(int i2=0;i2<2;i2++){
+//                        chat1.addImgcount("http://106.54.39.17/wp-content/uploads/2019/09/srf.jpg");
+//                    }
+
+                    chatlist.add(chat1);
                     IDrecord = jb.getString("id");
                     new Thread() {
                         @Override
@@ -299,10 +319,14 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
                     Chat chat1 = new Chat(jb.getString("text"), jb.getString("avatarUrl"), jb.getString("name") + jb.getString("id"));
-                    chatlist.add(chat1);
                     IDrecord = jb.getString("id");
                     System.out.println(IDrecord);
-
+                    JSONArray json1=new JSONArray(jb.getString("imgUrl"));
+                    for(int i1=0;i1<json1.length();i1++){
+                        JSONObject jb1=json1.getJSONObject(i1);
+                        chat1.addImgcount(jb1.getString("imgurl"));
+                    }
+                    chatlist.add(chat1);
 //            Chat chat1=new Chat(result.getText(),R.drawable.flyimg,result.getName()+result.getId());
 //            chatlist.add(chat1);
                     application.setId(IDrecord);

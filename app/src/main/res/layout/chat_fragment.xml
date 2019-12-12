@@ -27,11 +27,18 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
                 android:layout_height="60dp">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_gravity="center">
                 <TextView
                     android:id="@+id/guanzhu"
                     android:layout_width="wrap_content"
@@ -39,9 +46,21 @@
                     android:text="关注"
                     android:padding="2dp"
                     android:textColor="#ffffff"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="50px"
-                    />
+
+                    android:textSize="50px"   />
+                  <ImageView
+                      android:id="@+id/chat_bottom1"
+                      android:layout_width="30dp"
+                      android:layout_height="5dp"
+                      android:background="@drawable/friend_bottom"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center">
                 <TextView
                     android:id="@+id/gonglue"
                     android:layout_width="wrap_content"
@@ -51,22 +70,34 @@
                     android:text="攻略"
                     android:textSize="50px"
                     />
-                <TextView
-                    android:id="@+id/yugao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textColor="#ffffff"
-                    android:text="预告"
-                    android:padding="2dp"
-                    android:textSize="50px"/>
-<!--                <TextView-->
-<!--                    android:id="@+id/quanzi"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:textColor="#ffffff"-->
-<!--                    android:text="圈子"-->
-<!--                    android:padding="2dp"-->
-<!--                    android:textSize="50px" />-->
+                    <ImageView
+                        android:id="@+id/chat_bottom2"
+                        android:layout_width="30dp"
+                        android:layout_height="5dp"
+                        android:background="@drawable/friend_bottom"/>
+                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/yugao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textColor="#ffffff"
+                            android:padding="2dp"
+                            android:text="预告"
+                            android:textSize="50px"
+                            />
+                        <ImageView
+                            android:id="@+id/chat_bottom3"
+                            android:layout_width="30dp"
+                            android:layout_height="5dp"
+                            android:background="@drawable/friend_bottom"/>
+                    </LinearLayout>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -76,14 +107,14 @@
               <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="20dp">
-                <TextView
-                    android:id="@+id/bottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="-15dp"
-                    android:text="  ____"
-                    android:textColor="#FFFFFF"/>
+<!--                <TextView-->
+<!--                    android:id="@+id/bottom"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_marginTop="-15dp"-->
+<!--                    android:text="  ____"-->
+<!--                    android:textColor="#FFFFFF"/>-->
              </LinearLayout>
             </LinearLayout>
 
