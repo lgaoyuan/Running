@@ -70,6 +70,7 @@ public class RunningActivity extends Activity {
     private double allD = 0;//累计里程
 
     private long startTime;
+    private long tmpTime;
     private int useTime = 0;//耗时
 
     private TextView mSpeed;
@@ -87,7 +88,7 @@ public class RunningActivity extends Activity {
                 mTime.setText(msg.obj.toString());
             } else if (msg.what == 1002) {//配速
                 mSpeed.setText(msg.obj.toString());
-            } else if (msg.what == 1003) {//配速
+            } else if (msg.what == 1003) {//大卡
                 mCal.setText(msg.obj.toString());
             }
         }
@@ -198,6 +199,7 @@ public class RunningActivity extends Activity {
                 isTimerRunning = false;
                 allD = allD + d;//将最新轨迹里程加入累计
                 d = 0;
+                useTime=Integer.parseInt(String.valueOf(mTime.getText()));
                 mIsRunning.setText("跑步暂停");
             }
         });
@@ -208,7 +210,7 @@ public class RunningActivity extends Activity {
                 mStart.setVisibility(View.GONE);
                 mStop.setVisibility(View.GONE);
                 mPause.setVisibility(View.VISIBLE);
-
+                tmpTime=System.currentTimeMillis();
                 startTrack();
 
                 isTimerRunning = true;//启动定时器
@@ -228,7 +230,7 @@ public class RunningActivity extends Activity {
 
         startTrack();
         startTime = System.currentTimeMillis();
-
+        tmpTime=startTime;
         mStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -429,9 +431,9 @@ public class RunningActivity extends Activity {
 
                     Message msg1 = new Message();
                     msg1.what = 1001;
-                    useTime++;
-                    int s = useTime % 60;
-                    int m = useTime / 60;
+                    int nowTime=(int)(System.currentTimeMillis()-tmpTime+useTime);//从暂停后到现在的时间+暂停前的时间
+                    int s = nowTime % 60;
+                    int m = nowTime / 60;
                     String ss = String.format("%02d", s);
                     String mm = String.format("%02d", m);
                     msg1.obj = mm + ":" + ss;//时间

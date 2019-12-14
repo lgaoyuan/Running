@@ -54,7 +54,7 @@ public class LoginActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(Integer result) {// 执行完毕后，则更新UI
+        protected void onPostExecute(Integer result) {// 执行完毕
             if (result == 1) {
                 SharedPreferences.Editor editor = getSharedPreferences("userData", MODE_PRIVATE).edit();//持久化
                 editor.putString("userid", account);
