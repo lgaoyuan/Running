@@ -4,18 +4,57 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#0b1529"
-        android:layout_weight="0.06"/>
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="#0b1529">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="50px"
+                android:text="好友"
+                android:textColor="#FFFFFF"/>
+            <ImageView
+                android:id="@+id/chat_bottom1"
+                android:layout_width="25dp"
+                android:layout_height="5dp"
+                android:background="@drawable/friend_bottom"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#1b2333"
-        android:layout_weight="0.5">
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="申请列表"
+            android:layout_marginLeft="10dp"
+            android:textColor="#ffffff"
+            android:textSize="50px"
+            android:gravity="left"/>
+
         <ListView
             android:id="@+id/friends_list"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:divider="#0b1529"
             android:dividerHeight="5dp"
             android:background="#252a32"/>
@@ -25,18 +64,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#1b2333"
-        android:layout_weight="0.5">
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="好友列表"
+            android:layout_marginLeft="10dp"
+            android:textColor="#ffffff"
+            android:textSize="50px"
+            android:gravity="left"/>
+
         <ListView
+
             android:id="@+id/friends_list1"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:divider="#0b1529"
             android:dividerHeight="5dp"
             android:background="#252a32"/>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="55dp"/>
+
 
 </LinearLayout>

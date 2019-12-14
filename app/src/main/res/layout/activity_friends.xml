@@ -15,24 +15,20 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:textSize="50px"
             android:text="好友"
             android:textColor="#FFFFFF"/>
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="-15dp"
-             android:text= "  ____"
-             android:textColor="#ffffff"/>
-<!--        <ImageView-->
-<!--            android:layout_width="90px"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/friend_bottom"/>-->
+            <ImageView
+                android:id="@+id/chat_bottom1"
+                android:layout_width="25dp"
+                android:layout_height="5dp"
+                android:background="@drawable/friend_bottom"/>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -114,21 +110,31 @@
                     android:id="@+id/friends_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="30dp"
-                        android:textColor="#8a8a8a"
+                    android:layout_marginTop="12dp"
+                    android:textSize="50px"
+                    android:textColor="#8a8a8a"
                     android:text="紫薇牛"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="123456"/>
+                        android:text="活力中南就是非常有活力，活力中南就是非常有活力，活力中南就是非常有活力。"
+                        android:textColor="#8a8a8a"
+                        android:textSize="37px"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
                 <Button
+                    android:layout_marginLeft="10dp"
                     android:id="@+id/friends_add"
-                    android:layout_width="320px"
-                    android:layout_height="180px"
+                    android:layout_width="160px"
+                    android:layout_height="90px"
                     android:background="@drawable/friends_search_button"
                     android:text="添加"
-                    android:textSize="30dp"/>
+                    android:textColor="#ffffff"
+                    android:textSize="45px"/>
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

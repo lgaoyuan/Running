@@ -2,6 +2,7 @@ package com.csu.runningapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 import com.csu.runningapplication.http.AgreeFriend;
 
 
-public class Friend_Dialog extends AppCompatActivity {
+public class Friend_Dialog extends Activity {
     private TextView id;
     private Button btn1;
     private Button btn2;
@@ -51,6 +52,9 @@ public class Friend_Dialog extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... params) {
             mj = new AgreeFriend().fetchItems(application.getUserid(),name);
+            System.out.println(application.getUserid());
+            System.out.println(name);
+            System.out.println(mj);
             return mj;
         }
 

@@ -39,7 +39,7 @@ public class Friends_list extends AppCompatActivity {
         list=findViewById(R.id.friends_list);
         list1=findViewById(R.id.friends_list1);
         application=(MyApplication)getApplication();
-        new NewFriendsItemsTask().execute();
+//        new NewFriendsItemsTask().execute();
 //        new FriendListItemsTask().execute();
         adapter=new FriendsAdapter(this,R.layout.friendlist_item,friendslist);
         adapter1=new FriendsAdapter(this,R.layout.friendlist_item,friendslist1);
@@ -50,9 +50,20 @@ public class Friends_list extends AppCompatActivity {
                 switch(i){
                     case 0:
                         Intent intent=new Intent(Friends_list.this,Friend_Dialog.class);
+                        intent.putExtra("count","0");
                         intent.putExtra("id",friendslist.get(0).getId());
                         intent.putExtra("name",friendslist.get(0).getName());
+                        friendslist.remove(0);
+                        adapter.notifyDataSetChanged();
                         startActivity(intent);
+
+                    case 1:
+                        Intent intent1=new Intent(Friends_list.this,Friend_Dialog.class);
+                        intent1.putExtra("count","0");
+                        intent1.putExtra("id",friendslist.get(1).getId());
+                        intent1.putExtra("name",friendslist.get(1).getName());
+                        friendslist.remove(1);
+                        startActivity(intent1);
 
 
 
@@ -62,12 +73,29 @@ public class Friends_list extends AppCompatActivity {
             }
         });
         list1.setAdapter(adapter1);
+        list1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+                    case 0:
+                        Intent intent = new Intent(Friends_list.this,Friend_dialog_list.class);
+
+                        intent.putExtra("id",friendslist1.get(0).getId());
+                        intent.putExtra("name",friendslist1.get(0).getName());
+                        adapter.notifyDataSetChanged();
+                        startActivity(intent);
+                }
+
+            }
+        });
 
     }
     @Override
     public void onResume(){
         super.onResume();
+        friendslist.clear();
         new NewFriendsItemsTask().execute();
+        friendslist1.clear();
         new FriendListItemsTask().execute();
     }
 
@@ -88,14 +116,14 @@ public class Friends_list extends AppCompatActivity {
 
             }
             System.out.println(application.getUserid());
-            System.out.println("查找成功");
+            System.out.println("查找成功123");
             System.out.println(result);
             try {
                 JSONArray json = new JSONArray(result);
                 for(int i=0;i<json.length();i++)
                 {
                     JSONObject jb=json.getJSONObject(i);
-                    Friends friends=new Friends(jb.getString("name"),jb.getString("fromid"));
+                    Friends friends=new Friends(jb.getString("name"),jb.getString("fromid"),jb.getString("url"));
                     System.out.println(jb.getString("name"));
                     friendslist.add(friends);
                     adapter.notifyDataSetChanged();
@@ -130,7 +158,7 @@ public class Friends_list extends AppCompatActivity {
                 for(int i=0;i<json.length();i++)
                 {
                     JSONObject jb=json.getJSONObject(i);
-                    Friends friends=new Friends(jb.getString("name"));
+                    Friends friends=new Friends(jb.getString("name"),jb.getString("studentid"),jb.getString("url"));
                     System.out.println(jb.getString("name"));
                     friendslist1.add(friends);
                     adapter1.notifyDataSetChanged();

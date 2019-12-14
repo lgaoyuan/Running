@@ -16,36 +16,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.csu.runningapplication.R;
-
-/**
- *
- * @author 自定义listview实现上拉刷新和下拉加载
- * 2018-08-25 刘明昆 q571039838
- *
- */
 
 
-import java.text.SimpleDateFormat;
-
-
-import android.content.Context;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.AbsListView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-/**
- *
- * @author 自定义listview实现上拉刷新和下拉加载
- * 2018-08-25 刘明昆 q571039838
- *
- */
 public class MyListViewUtils extends ListView implements AbsListView.OnScrollListener{
 
     private View bottomview; //尾文件

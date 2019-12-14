@@ -23,9 +23,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Friend_Dialog" android:theme="@style/Theme.AppCompat.Dialog"></activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Friend_own"></activity>
+        <activity
+            android:name=".Friend_Dialog"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity
+            android:name=".Friend_dialog_list"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".Friends_list" />
         <activity android:name=".FriendsActivity" />
         <activity android:name=".Dialog" />
@@ -48,8 +54,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".RunningActivity" />
         <activity android:name=".TrackSearchActivity" />
-        <activity android:name=".SetActivity"/>
-        <activity android:name=".PasswordActivity"/>
+        <activity android:name=".SetActivity" />
+        <activity android:name=".PasswordActivity" />
     </application>
 
 </manifest>

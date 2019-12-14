@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class FriendsAdapter extends ArrayAdapter<Friends> {
@@ -27,7 +29,12 @@ public class FriendsAdapter extends ArrayAdapter<Friends> {
 
         View view= LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
         TextView FriendsName=(TextView)view.findViewById(R.id.friends_name);
+        CircleImageView FriendsImg=(CircleImageView)view.findViewById(R.id.friends_image);
+
         FriendsName.setText(friends.getName());
+        Glide.with(getContext())
+                .load(friends.getImg())
+                .into(FriendsImg);
 //        Button FriendsButton=(Button)view.findViewById(R.id.friends_agree);
 
 
