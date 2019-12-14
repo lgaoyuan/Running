@@ -19,6 +19,7 @@ public class MainActivity extends FragmentActivity {
 
     private FragmentManager fm;
     private ImageView chat;
+    //123
     private TextView chatname;
     @Override
     public void onCreate(Bundle savedInstanceState){
