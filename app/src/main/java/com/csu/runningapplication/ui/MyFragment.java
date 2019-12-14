@@ -1,6 +1,9 @@
 package com.csu.runningapplication.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +12,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,23 +21,33 @@ import androidx.fragment.app.Fragment;
 
 import com.csu.runningapplication.FriendsActivity;
 import com.csu.runningapplication.Friends_list;
+import com.csu.runningapplication.LoginActivity;
 import com.csu.runningapplication.MyApplication;
 import com.csu.runningapplication.R;
+import com.csu.runningapplication.SetActivity;
 import com.csu.runningapplication.http.EchartsFetch;
 import com.csu.runningapplication.http.MyFetch;
 import com.csu.runningapplication.jsonbean.MyJsonBean;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class MyFragment extends Fragment {
+
 
     private WebView chartshow_wb;
     private MyApplication myApplication;
     View v;
 
+    private TextView mUserName;
+    private TextView mContent;
     private TextView mDate;
     private TextView mBbsNum;
     private TextView mFriendsNum;
@@ -46,6 +60,7 @@ public class MyFragment extends Fragment {
     private TextView mYear;
     private String runData;
     private LinearLayout lin;
+    private LinearLayout mSetting;
 
     private String x = null;//横轴
 
@@ -68,6 +83,10 @@ public class MyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parents, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.my_fragment, parents, false);
+
+        mUserName=(TextView)v.findViewById(R.id.my_user_name);
+        mUserName.setText(myApplication.getName());
+
         new MyItemsTask().execute();
         x = "['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']";
         new EchartsItemsTask().execute("0");//获取数据
@@ -105,6 +124,17 @@ public class MyFragment extends Fragment {
         chartshow_wb.loadUrl("file:///android_asset/echarts.html");
 
         chartshow_wb.reload();//放在第一次加载不出来?
+
+        mSetting=(LinearLayout)v.findViewById(R.id.setting);
+        mSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getActivity(), SetActivity.class);
+                i.putExtra("content",mContent.getText());
+                startActivity(i);
+            }
+        });
+
 
 
         mWeek = v.findViewById(R.id.my_week);
@@ -184,6 +214,7 @@ public class MyFragment extends Fragment {
                 return;
             }
             //注册组件
+            mContent=(TextView)getActivity().findViewById(R.id.my_content);
             mBbsNum = (TextView) getActivity().findViewById(R.id.bbs_num);
             mFriendsNum = (TextView) getActivity().findViewById(R.id.friends_num);
             mMileage = (TextView) getActivity().findViewById(R.id.mileage);
@@ -191,6 +222,11 @@ public class MyFragment extends Fragment {
             mSpeed = (TextView) getActivity().findViewById(R.id.my_speed);
             mCalorie = (TextView) getActivity().findViewById(R.id.my_calorie);
 
+            String contentStr=result.getContent();
+            if(contentStr==null){
+                contentStr="这个人很懒，什么都没有写";
+            }
+            mContent.setText(contentStr);
             mBbsNum.setText(Integer.toString(result.getBbsnum()));
             mFriendsNum.setText(Integer.toString(result.getFriends()));
             mMileage.setText(Double.toString((result.getCycling() + result.getRunning()) / 1000));
@@ -298,4 +334,5 @@ public class MyFragment extends Fragment {
             initEcharts();
         }
     }
+
 }

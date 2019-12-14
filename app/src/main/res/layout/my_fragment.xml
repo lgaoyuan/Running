@@ -34,30 +34,53 @@
             android:layout_marginLeft="40dp"
             android:src="@drawable/flyimg" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:orientation="vertical">
+            android:layout_marginLeft="20dp">
 
             <TextView
                 android:id="@+id/my_user_name"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="哈哈哈"
+                android:layout_alignParentLeft="true"
                 android:textColor="#89A1D1"
                 android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/my_content"
-                android:layout_width="match_parent"
+                android:id="@+id/my_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="简介：???"
+                android:text="简介："
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/my_user_name"
                 android:textColor="#8a8a8a"
                 android:textSize="10dp" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/my_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/my_user_name"
+                android:layout_toRightOf="@+id/my_text"
+                android:textColor="#8a8a8a"
+                android:textSize="10dp" />
+
+            <LinearLayout
+                android:id="@+id/setting"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="20dp"
+                android:layout_margin="10dp"
+                android:layout_alignParentRight="true">
+                <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/ic_setting"/>
+            </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

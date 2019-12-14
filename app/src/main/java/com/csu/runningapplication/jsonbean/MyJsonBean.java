@@ -10,13 +10,22 @@ public class MyJsonBean {
      * time : 1000
      * calorie : 0
      */
-
+    private String url;
     private int bbsnum;
     private int friends;
     private int running;
     private int cycling;
     private int time;
     private int calorie;
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public int getBbsnum() {
         return bbsnum;
@@ -64,5 +73,13 @@ public class MyJsonBean {
 
     public void setCalorie(int calorie) {
         this.calorie = calorie;
+    }
+
+    public String getAvatarUrl() {
+        return url;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.url = avatarUrl;
     }
 }

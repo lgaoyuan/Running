@@ -159,7 +159,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
 
     public void initchat() {
         Chat chat = new Chat("活力中南就是很有活力，非常的有活力，真正的真的有活力，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞");
-        Chat chat1 = new Chat("活力中南就是很有活力，非常的有活力，真正的真的有活力，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞", R.drawable.chat_img);
+        Chat chat1 = new Chat("活力中南就是很有活力，非常的有活力，真正的真的有活力，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞");
         chatlist.add(chat);
         chatlist.add(chat1);
         chatlist.add(chat);

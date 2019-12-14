@@ -8,15 +8,14 @@ import java.util.List;
 
 public class MyApplication extends Application {
     private int image1;
-    private String userid="000000";
-    private String password="33333333";
+    private String userid=null;
+    private String name=null;
+    private String password=null;
     private int type=0;//跑步或骑车，默认跑步
     private String id="45";
     private String id_guanzhu="45";
     private String id_yugao="45";
     private int weight=55;
-
-
 
 
     public void setImage1(int image1){
@@ -41,6 +40,14 @@ public class MyApplication extends Application {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getType() {
