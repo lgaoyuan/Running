@@ -5,12 +5,16 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
+
+import com.csu.runningapplication.http.LoginFetch;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -18,13 +22,21 @@ import java.util.List;
 import java.util.Map;
 
 public class HomePageActivity extends Activity {
+    private MyApplication myApplication;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 
+    private String account;
+    private String name;
+    private String password;
     private static final int REQUEST_CODE_PERMISSION = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+        myApplication = (MyApplication) getApplication();
+
         requestPermissionsIfAboveM();
     }
 
@@ -93,13 +105,47 @@ public class HomePageActivity extends Activity {
     }
 
     private void startMain(){
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        SharedPreferences pref = getSharedPreferences("userData", MODE_PRIVATE);
+        account = pref.getString("userid", null);
+        name = pref.getString("name", null);
+        password = pref.getString("password", null);
+        if(account!=null&&name!=null&&password!=null){
+            myApplication.setUserid(account);
+            myApplication.setName(name);
+            myApplication.setPassword(password);
+            new LoginItemsTask().execute();
+        }else{
+            Intent i=new Intent(HomePageActivity.this,LoginActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+        }
+    }
+
+    /*
+     * http登录
+     * */
+    private class LoginItemsTask extends AsyncTask<Void, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            return new LoginFetch().fetchItems(account,name,password);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {// 执行完毕
+            if (result == 1) {
+                myApplication.setUserid(account);
+                myApplication.setName(name);
+                myApplication.setPassword(password);
+
                 Intent i=new Intent(HomePageActivity.this,MainActivity.class);
                 startActivity(i);
                 HomePageActivity.this.finish();
+            }else{
+                Intent i=new Intent(HomePageActivity.this,LoginActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
             }
-        },2000);
+        }
     }
 }

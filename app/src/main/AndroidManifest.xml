@@ -44,9 +44,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RunningActivity" />
         <activity android:name=".TrackSearchActivity" />
+        <activity android:name=".SetActivity"/>
+        <activity android:name=".PasswordActivity"/>
     </application>
 
 </manifest>
