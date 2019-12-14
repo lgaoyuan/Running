@@ -1,7 +1,10 @@
 package com.csu.runningapplication;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -15,11 +18,14 @@ import com.csu.runningapplication.ui.RunFragment;
 public class MainActivity extends FragmentActivity {
 
     private FragmentManager fm;
+    private ImageView chat;
+    private TextView chatname;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        chat=findViewById(R.id.chat);
+        chatname=findViewById(R.id.chat_name);
         fm=getSupportFragmentManager();
         Fragment fragment=fm.findFragmentById(R.id.runfragment);
         if(fragment==null){
@@ -31,6 +37,8 @@ public class MainActivity extends FragmentActivity {
         mChat.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                chat.setImageResource(R.drawable.ic_chatclick);
+                chatname.setTextColor(Color.parseColor("#05b6f8"));
                 Fragment fragment=fm.findFragmentById(R.id.chat_fragment);
                 if(fragment==null){
                     fragment=new ChatFragment();
@@ -42,6 +50,8 @@ public class MainActivity extends FragmentActivity {
         mRun.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                chat.setImageResource(R.drawable.ic_chat);
+                chatname.setTextColor(Color.parseColor("#ffffff"));
                 Fragment fragment=fm.findFragmentById(R.id.runfragment);
                 if(fragment==null){
                     fragment=new RunFragment();
@@ -53,6 +63,8 @@ public class MainActivity extends FragmentActivity {
         mMy.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                chat.setImageResource(R.drawable.ic_chat);
+                chatname.setTextColor(Color.parseColor("#ffffff"));
                 Fragment fragment=fm.findFragmentById(R.id.myfragment);
                 if(fragment==null){
                     fragment=new MyFragment();

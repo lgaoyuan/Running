@@ -3,6 +3,7 @@ package com.csu.runningapplication.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -99,7 +100,9 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             @Override
             public void onClick(View view) {
                 IDM = 1;
-
+                guanzhu.setTextColor(Color.parseColor("#ffffff"));
+                gonglue.setTextColor(Color.parseColor("#5e6066"));
+                yugao.setTextColor(Color.parseColor("#5e6066"));
                 bottom1.setVisibility(View.VISIBLE);
                 bottom2.setVisibility(View.INVISIBLE);
                 bottom3.setVisibility(View.INVISIBLE);
@@ -111,6 +114,9 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             @Override
             public void onClick(View view) {
 //                initchat();
+                guanzhu.setTextColor(Color.parseColor("#5e6066"));
+                gonglue.setTextColor(Color.parseColor("#ffffff"));
+                yugao.setTextColor(Color.parseColor("#5e6066"));
                 IDM = 2;
                 bottom1.setVisibility(View.INVISIBLE);
                 bottom2.setVisibility(View.VISIBLE);
@@ -126,6 +132,9 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         yugao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                guanzhu.setTextColor(Color.parseColor("#5e6066"));
+                gonglue.setTextColor(Color.parseColor("#5e6066"));
+                yugao.setTextColor(Color.parseColor("#ffffff"));
                 IDM = 3;
                 bottom1.setVisibility(View.INVISIBLE);
                 bottom2.setVisibility(View.INVISIBLE);
@@ -149,13 +158,13 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
     }
 
     public void initchat() {
-        Chat chat = new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞");
-        Chat chat1 = new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞", R.drawable.chat_img);
-        chatlist1.add(chat);
-        chatlist1.add(chat1);
-        chatlist1.add(chat);
-        chatlist1.add(chat);
-        chatlist1.add(chat);
+        Chat chat = new Chat("活力中南就是很有活力，非常的有活力，真正的真的有活力，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞");
+        Chat chat1 = new Chat("活力中南就是很有活力，非常的有活力，真正的真的有活力，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞", R.drawable.chat_img);
+        chatlist.add(chat);
+        chatlist.add(chat1);
+        chatlist.add(chat);
+        chatlist.add(chat);
+        chatlist.add(chat);
 
     }
 

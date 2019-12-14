@@ -50,7 +50,7 @@
                     android:textSize="50px"   />
                   <ImageView
                       android:id="@+id/chat_bottom1"
-                      android:layout_width="30dp"
+                      android:layout_width="25dp"
                       android:layout_height="5dp"
                       android:background="@drawable/friend_bottom"/>
 
@@ -60,19 +60,20 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
                     android:gravity="center">
                 <TextView
                     android:id="@+id/gonglue"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textColor="#ffffff"
+                    android:textColor="#5e6066"
                     android:padding="2dp"
                     android:text="攻略"
                     android:textSize="50px"
                     />
                     <ImageView
                         android:id="@+id/chat_bottom2"
-                        android:layout_width="30dp"
+                        android:layout_width="25dp"
                         android:layout_height="5dp"
                         android:background="@drawable/friend_bottom"/>
                 </LinearLayout>
@@ -81,19 +82,20 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
                         android:gravity="center">
                         <TextView
                             android:id="@+id/yugao"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:textColor="#ffffff"
+                            android:textColor="#5e6066"
                             android:padding="2dp"
                             android:text="预告"
                             android:textSize="50px"
                             />
                         <ImageView
                             android:id="@+id/chat_bottom3"
-                            android:layout_width="30dp"
+                            android:layout_width="25dp"
                             android:layout_height="5dp"
                             android:background="@drawable/friend_bottom"/>
                     </LinearLayout>

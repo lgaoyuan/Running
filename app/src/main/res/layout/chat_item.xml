@@ -10,6 +10,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_weight="1">
 <!--        用户头像-->
     <com.csu.runningapplication.CircleImageView
@@ -31,21 +33,15 @@
         android:textColor="#727583"
         android:textSize="50px"/>
     </LinearLayout>
-<!--    关注按钮-->
-<!--        <Button-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginRight="10dp"-->
-<!--            android:id="@+id/guanzhu1"-->
-<!--            android:layout_width="62dp"-->
-<!--            android:layout_height="34dp"-->
-<!--            android:background="@drawable/guanzhubutton"/>-->
 
 </LinearLayout>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp">
  <LinearLayout
      android:layout_width="match_parent"
      android:layout_height="wrap_content">
