@@ -14,7 +14,7 @@ public class LoginFetch extends SingleHttpFetch {
         try {
             json = getUrl(url);
         } catch (IOException e) {
-            return 0;
+            return -1;
         }
         return Integer.parseInt(json);
     }
