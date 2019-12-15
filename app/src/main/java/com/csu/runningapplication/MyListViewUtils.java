@@ -109,7 +109,6 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
                 isLoading=true;
                 bottomview.setPadding(0, 0, 0, 400);
                 //加载数据
-                System.out.println("上拉加载");
                 loadListener.onLoad();
             }
         }
