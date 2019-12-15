@@ -324,7 +324,7 @@ public class RunningActivity extends Activity {
         Intent nfIntent = new Intent(RunningActivity.this, RunningActivity.class);
         nfIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         builder.setContentIntent(PendingIntent.getActivity(RunningActivity.this, 0, nfIntent, 0))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.logo)
                 .setContentTitle("猎鹰sdk运行中")
                 .setContentText("猎鹰sdk运行中");
         Notification notification = builder.build();
