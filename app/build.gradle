@@ -21,6 +21,13 @@ android {
             jniLibs.srcDir 'libs'
         }
     }
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                // 此处指定生成的apk文件名
+                outputFileName = "活力中南.apk"
+            }
+    }
 }
 
 dependencies {

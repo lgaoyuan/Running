@@ -74,8 +74,10 @@
                 android:layout_height="60dp"
                 android:padding="20dp"
                 android:layout_margin="10dp"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentRight="true"
+                android:descendantFocusability="blocksDescendants">
                 <Button
+                    android:id="@+id/ic_setting"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/ic_setting"/>

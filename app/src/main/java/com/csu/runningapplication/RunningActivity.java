@@ -71,7 +71,8 @@ public class RunningActivity extends Activity {
 
     private long startTime;
     private long tmpTime;
-    private int useTime = 0;//耗时
+    private int useTime = 0;
+    private int allTime=0;//耗时
 
     private TextView mSpeed;
     private TextView mTime;
@@ -199,7 +200,7 @@ public class RunningActivity extends Activity {
                 isTimerRunning = false;
                 allD = allD + d;//将最新轨迹里程加入累计
                 d = 0;
-                useTime=Integer.parseInt(String.valueOf(mTime.getText()));
+                useTime=allTime;
                 mIsRunning.setText("跑步暂停");
             }
         });
@@ -241,7 +242,7 @@ public class RunningActivity extends Activity {
                 Intent i = new Intent(RunningActivity.this, TrackSearchActivity.class);
                 i.putExtra("startTime", startTime);
                 i.putExtra("distance", allD);//(单位:m)
-                i.putExtra("time", useTime);
+                i.putExtra("time", allTime);
                 i.putExtra("speed", mSpeed.getText());
                 i.putExtra("calorie", mCal.getText());
                 startActivity(i);
@@ -431,9 +432,10 @@ public class RunningActivity extends Activity {
 
                     Message msg1 = new Message();
                     msg1.what = 1001;
-                    int nowTime=(int)(System.currentTimeMillis()-tmpTime+useTime);//从暂停后到现在的时间+暂停前的时间
-                    int s = nowTime % 60;
-                    int m = nowTime / 60;
+                    int nowTime=(int)(System.currentTimeMillis()/1000-tmpTime/1000);
+                    allTime=nowTime+useTime;//从暂停后到现在的时间+暂停前的时间
+                    int s = allTime % 60;
+                    int m = allTime / 60;
                     String ss = String.format("%02d", s);
                     String mm = String.format("%02d", m);
                     msg1.obj = mm + ":" + ss;//时间
@@ -442,7 +444,10 @@ public class RunningActivity extends Activity {
                     Message msg2 = new Message();
                     msg2.what = 1002;
                     if (allD + d != 0) {//判断时间（分母）是否为0
-                        int speed = (int) (useTime / ((allD + d) / 1000));
+                        int speed = (int) (allTime / ((allD + d) / 1000));
+                        if(speed>1800){//太大了，说明并没有跑
+                            speed=0;
+                        }
                         s = speed % 60;
                         m = speed / 60;
                     } else {
