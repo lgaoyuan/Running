@@ -81,9 +81,9 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         bottom2.setVisibility(View.INVISIBLE);
         bottom3.setVisibility(View.INVISIBLE);
 
-        new ChatItemsTask().execute();
-        new ChatItemsTask2().execute();
-        new ChatItemsTask4().execute();
+//        new ChatItemsTask().execute();
+//        new ChatItemsTask2().execute();
+//        new ChatItemsTask4().execute();
 //        initchat();
 
         adapter = new ChatAdapter(getContext(), R.layout.chat_item, chatlist);
@@ -91,7 +91,6 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         adapter2 = new ChatAdapter(getContext(), R.layout.chat_item, chatlist2);
         listViewUtils = (MyListViewUtils) v.findViewById(R.id.list_view);
         listViewUtils.setInteface(this);
-        listViewUtils.setAdapter(adapter);
         guanzhu = v.findViewById(R.id.guanzhu);
         gonglue = v.findViewById(R.id.gonglue);
         yugao = v.findViewById(R.id.yugao);
@@ -155,6 +154,23 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         });
 
         return v;
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        chatlist.clear();
+        chatlist1.clear();
+        chatlist2.clear();
+        new ChatItemsTask().execute();
+        new ChatItemsTask2().execute();
+        new ChatItemsTask4().execute();
+        listViewUtils.setAdapter(adapter);
+        guanzhu.setTextColor(Color.parseColor("#ffffff"));
+        gonglue.setTextColor(Color.parseColor("#5e6066"));
+        yugao.setTextColor(Color.parseColor("#5e6066"));
+        bottom1.setVisibility(View.VISIBLE);
+        bottom2.setVisibility(View.INVISIBLE);
+        bottom3.setVisibility(View.INVISIBLE);
     }
 
 
