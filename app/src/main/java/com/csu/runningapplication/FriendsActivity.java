@@ -29,6 +29,7 @@ public class FriendsActivity extends AppCompatActivity {
     private Button add;
     private MyApplication application;
     private String ID;
+    private String count;
 
 
     @Override
@@ -47,10 +48,10 @@ public class FriendsActivity extends AppCompatActivity {
                System.out.println(search.getText().toString());
                str=search.getText().toString();
                new ChatItemsTask().execute();
-                if (!str.equals("") ) {
-                    //此处有一个问题，用户输入的若不符合要求 也显示lin.
-                    lin.setVisibility(View.VISIBLE);
-                }
+//                if (!str.equals("")&&count.equals("false")) {
+//                    //此处有一个问题，用户输入的若不符合要求 也显示lin.
+//                    lin.setVisibility(View.VISIBLE);
+//                }
 
             }
         });
@@ -69,20 +70,23 @@ public class FriendsActivity extends AppCompatActivity {
         String mj;
         @Override
         protected String doInBackground(Void... params) {
-            mj = new SearchFriend().fetchItems(str);
+            mj = new SearchFriend().fetchItems(application.getUserid(),str);
             return mj;
         }
 
         @Override
         protected void onPostExecute(String  result) {// 执行完毕后，则更新UI
-            if (result == null) {
-                Toast.makeText(FriendsActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
-                System.out.println(str);
+            if (result.equals("[]")) {
+                Toast.makeText(FriendsActivity.this, "该用户不存在", Toast.LENGTH_SHORT).show();
+                lin.setVisibility(View.INVISIBLE);
                 return;
-
             }
-            System.out.println("查找成功");
-            System.out.println(result);
+            if (result.equals("")) {
+                Toast.makeText(FriendsActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            lin.setVisibility(View.VISIBLE);
             try {
                 JSONArray json = new JSONArray(result);
                 for(int i=0;i<json.length();i++)

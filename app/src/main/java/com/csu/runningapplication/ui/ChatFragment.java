@@ -266,6 +266,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                     JSONObject jb = json.getJSONObject(i);
                     Chat chat1 = new Chat(jb.getString("text"),jb.getString("url"), jb.getString("name") + jb.getString("id"));
                     JSONArray json1=new JSONArray(jb.getString("imgUrl"));
+                    chat1.setnumber(json1.length()+"");
                     for(int i1=0;i1<json1.length();i1++){
                         JSONObject jb1=json1.getJSONObject(i1);
                         chat1.addImgcount(jb1.getString("imgurl"));

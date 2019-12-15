@@ -39,6 +39,7 @@ public class Dialog extends AppCompatActivity {
         test=getIntent().getStringExtra("test");
         headimg=getIntent().getStringExtra("headimg");
         infoList=getIntent().getStringArrayListExtra("imglist");
+        //判断点击的是头像还是说说图片
         if(test.equals("0")){
             initViewforhead();
             vp.setOffscreenPageLimit(1);//ViewPager的缓存为list的长度。

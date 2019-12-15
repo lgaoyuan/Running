@@ -15,10 +15,12 @@ public class Chat {
     private int image1;
     private String uri;
     private List<String> imgcount=new ArrayList<String>();
+    private String number;
 
     public void addImgcount(String img){
         imgcount.add(img);
     }
+    public void setnumber(String number){this.number=number;}
 
     public Chat(String name,int image,String name1){
         this.name=name;
@@ -56,4 +58,5 @@ public class Chat {
     public int getImage1(){return  image1;}
     public String getUri(){return  uri;}
     public List<String> getImgcount(){return imgcount;}
+    public String getNumber(){return number;}
 }

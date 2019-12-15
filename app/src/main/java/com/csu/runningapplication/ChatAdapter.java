@@ -31,21 +31,25 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent){
 
-        final Chat chat=getItem(position);           //获取当前项的实例
+        Chat chat=getItem(position);           //获取当前项的实例
         View view= LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
         ImageView ChatImage=(ImageView)view.findViewById(R.id.chat_image);
         TextView ChatName=(TextView) view.findViewById(R.id.chat_name);
         TextView ChatName1=(TextView)view.findViewById(R.id.name1);
-//        Button  ChatButton1=(Button)view.findViewById(R.id.guanzhu1);
         ImageView ChatImage1=(ImageView)view.findViewById(R.id.chat_img);
-//        ChatImage.setImageResource(R.drawable.flyimg);
+        TextView Chatnumber=(TextView)view.findViewById(R.id.chat_number);
+        if (!chat.getNumber().equals("0")&&!chat.getNumber().equals("1")) {
+                Chatnumber.setText("点开查看更多");
+
+        }
+
         imglist=chat.getImgcount();
         head=chat.getUri();
 
         //图片加载失败时，显示的图片
         RequestOptions requestOptions = new RequestOptions()
                 .error(R.drawable.flyimg);
-      //头像
+        //头像
         Glide.with(getContext())
                 .load(head)
                 .apply(requestOptions)
@@ -76,7 +80,10 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
                 .load(chat.getImgcount().get(0))
                 .apply(requestOptions1)
                 .into(ChatImage1);
-        ChatImage1.setMaxHeight(300);
+//        ChatImage1.setMaxHeight(500);
+//         if(ChatImage1.getHeight()>1000){
+//             ChatImage1.setMaxHeight(800);
+//         }
 
         ChatImage1.setOnClickListener(new View.OnClickListener() {
             @Override

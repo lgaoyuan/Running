@@ -14,8 +14,8 @@ import java.util.List;
 
 public class SearchFriend extends SingleHttpFetch {
 
-    public String fetchItems(String id) {
-        String url = Uri.parse("https://lgaoyuan.xyz:8080/running/searchFriend").buildUpon().appendQueryParameter("userid", id).build().toString();
+    public String fetchItems(String id,String hisid) {
+        String url = Uri.parse("https://lgaoyuan.xyz:8080/running/searchFriend").buildUpon().appendQueryParameter("userid", id).appendQueryParameter("hisid",hisid).build().toString();
         String json = null;
         try {
             json = getUrl(url);
