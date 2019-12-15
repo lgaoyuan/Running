@@ -26,21 +26,19 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:textSize="50px"
                 android:text="发帖"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-15dp"
-                android:text= "  ____"
-                android:textColor="#ffffff"/>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="5dp"
+                android:background="@drawable/friend_bottom"/>
 
         </LinearLayout>
         <LinearLayout
