@@ -153,6 +153,7 @@
                     android:id="@+id/add"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_marginRight="20dp"
                     android:background="@drawable/add" />
             </LinearLayout>
 
