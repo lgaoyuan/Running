@@ -81,9 +81,9 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         bottom2.setVisibility(View.INVISIBLE);
         bottom3.setVisibility(View.INVISIBLE);
 
-//        new ChatItemsTask().execute();
-//        new ChatItemsTask2().execute();
-//        new ChatItemsTask4().execute();
+        new ChatItemsTask().execute();
+        new ChatItemsTask2().execute();
+        new ChatItemsTask4().execute();
 //        initchat();
 
         adapter = new ChatAdapter(getContext(), R.layout.chat_item, chatlist);
@@ -91,6 +91,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         adapter2 = new ChatAdapter(getContext(), R.layout.chat_item, chatlist2);
         listViewUtils = (MyListViewUtils) v.findViewById(R.id.list_view);
         listViewUtils.setInteface(this);
+        listViewUtils.setAdapter(adapter);
         guanzhu = v.findViewById(R.id.guanzhu);
         gonglue = v.findViewById(R.id.gonglue);
         yugao = v.findViewById(R.id.yugao);
@@ -149,28 +150,34 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             public void onClick(View view) {
                 //打开一个发消息的页面 类似说说？
                 Intent i = new Intent(getContext(), Chat_dynamicActivity.class);
-                startActivity(i);
+                startActivityForResult(i,1);
             }
         });
 
         return v;
     }
     @Override
+    public void onActivityResult(int requestCode,int resultCode,Intent data){
+        String result=data.getStringExtra("result");
+        System.out.println(result);
+        if(result.equals("refresh")){
+            chatlist.clear();
+            chatlist1.clear();
+            chatlist2.clear();
+            new ChatItemsTask().execute();
+            new ChatItemsTask2().execute();
+            new ChatItemsTask4().execute();
+            bottom1.setVisibility(View.VISIBLE);
+            bottom2.setVisibility(View.INVISIBLE);
+            bottom3.setVisibility(View.INVISIBLE);
+            listViewUtils.setAdapter(adapter);
+        }
+
+    }
+    @Override
     public void onResume(){
         super.onResume();
-        chatlist.clear();
-        chatlist1.clear();
-        chatlist2.clear();
-        new ChatItemsTask().execute();
-        new ChatItemsTask2().execute();
-        new ChatItemsTask4().execute();
-        listViewUtils.setAdapter(adapter);
-        guanzhu.setTextColor(Color.parseColor("#ffffff"));
-        gonglue.setTextColor(Color.parseColor("#5e6066"));
-        yugao.setTextColor(Color.parseColor("#5e6066"));
-        bottom1.setVisibility(View.VISIBLE);
-        bottom2.setVisibility(View.INVISIBLE);
-        bottom3.setVisibility(View.INVISIBLE);
+
     }
 
 

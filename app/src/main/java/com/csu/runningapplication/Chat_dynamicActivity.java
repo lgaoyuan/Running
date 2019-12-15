@@ -70,10 +70,16 @@ public class Chat_dynamicActivity extends Activity {
         myApplication = (MyApplication) getApplication();
         mEditText=(EditText)findViewById(R.id.edittext);
         mImgLayout=(LinearLayout)findViewById(R.id.imgLayout);
+
+        Intent i=new Intent();
+        i.putExtra("result","refresh");
+        this.setResult(0,i);
         mBackpress=(TextView)findViewById(R.id.backpress);
         mBackpress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 onBackPressed();
             }
         });
@@ -95,6 +101,7 @@ public class Chat_dynamicActivity extends Activity {
             }
         });
     }
+
 
     /*
     * 选取图片
