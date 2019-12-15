@@ -87,6 +87,16 @@ public class MyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parents, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.my_fragment, parents, false);
 
+        return init();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        init();
+    }
+
+    private View init(){
         mUserName=(TextView)v.findViewById(R.id.my_user_name);
         mUserName.setText(myApplication.getName());
         img=v.findViewById(R.id.my_user_img);
