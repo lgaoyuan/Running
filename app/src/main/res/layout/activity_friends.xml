@@ -115,9 +115,9 @@
                     android:textColor="#8a8a8a"
                     android:text="紫薇牛"/>
                     <TextView
+                        android:id="@+id/friend_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="活力中南就是非常有活力，活力中南就是非常有活力，活力中南就是非常有活力。"
                         android:textColor="#8a8a8a"
                         android:textSize="37px"/>
                 </LinearLayout>

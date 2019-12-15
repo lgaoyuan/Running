@@ -23,6 +23,10 @@ public class FriendsAdapter extends ArrayAdapter<Friends> {
         View view= LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
         TextView FriendsName=(TextView)view.findViewById(R.id.friends_name);
         CircleImageView FriendsImg=(CircleImageView)view.findViewById(R.id.friends_image);
+        TextView content1=(TextView)view.findViewById(R.id.friends_something);
+        if (friends.getcontent().equals("null"))
+        { content1.setText("");
+        } else{content1.setText(friends.getcontent());}
 
         FriendsName.setText(friends.getName());
         Glide.with(getContext())

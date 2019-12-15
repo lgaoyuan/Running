@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.csu.runningapplication.http.AddFriend;
 import com.csu.runningapplication.http.SearchFriend;
 import org.json.JSONArray;
@@ -25,7 +28,8 @@ public class FriendsActivity extends AppCompatActivity {
     private Button add;
     private MyApplication application;
     private String ID;
-    private String count;
+    private CircleImageView img;
+    private TextView content;
 
 
     @Override
@@ -37,6 +41,8 @@ public class FriendsActivity extends AppCompatActivity {
         search_button=(TextView) findViewById(R.id.search_button);
         add=(Button)findViewById(R.id.friends_add);
         lin=(LinearLayout)findViewById(R.id.friends_lin);
+        img=findViewById(R.id.friends_image);
+        content=findViewById(R.id.friend_content);
         application=(MyApplication)getApplication();
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +83,7 @@ public class FriendsActivity extends AppCompatActivity {
                 return;
             }
 
+            System.out.println(result);
             lin.setVisibility(View.VISIBLE);
             try {
                 JSONArray json = new JSONArray(result);
@@ -85,6 +92,15 @@ public class FriendsActivity extends AppCompatActivity {
                     JSONObject jb=json.getJSONObject(i);
                     friendsid.setText(jb.getString("name"));
                     ID=jb.getString("studentid");
+                   if(jb.getString("content").equals("null")){
+                       content.setText("");
+                   }else {content.setText(jb.getString("content"));}
+                    RequestOptions requestOptions = new RequestOptions()
+                            .error(R.drawable.user_192);
+                    Glide.with(FriendsActivity.this)
+                            .load(jb.getString("avatarUrl"))
+                            .apply(requestOptions)
+                            .into(img);
 
                 }
 

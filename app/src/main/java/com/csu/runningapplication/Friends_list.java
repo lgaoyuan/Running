@@ -93,7 +93,7 @@ public class Friends_list extends AppCompatActivity {
                 for(int i=0;i<json.length();i++)
                 {
                     JSONObject jb=json.getJSONObject(i);
-                    Friends friends=new Friends(jb.getString("name"),jb.getString("fromid"),null);
+                    Friends friends=new Friends(jb.getString("name"),jb.getString("fromid"),jb.getString("avatarUrl"),jb.getString("content"));
                     friendslist.add(friends);
 
 
@@ -126,7 +126,7 @@ public class Friends_list extends AppCompatActivity {
                 for(int i=0;i<json.length();i++)
                 {
                     JSONObject jb=json.getJSONObject(i);
-                    Friends friends=new Friends(jb.getString("name"),jb.getString("studentid"),jb.getString("url"));
+                    Friends friends=new Friends(jb.getString("name"),jb.getString("studentid"),jb.getString("url"),jb.getString("content"));
                     friendslist1.add(friends);
 
 
