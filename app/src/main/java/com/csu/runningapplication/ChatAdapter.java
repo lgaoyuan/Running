@@ -29,9 +29,9 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         resourceId=textViewResourceId;
     }
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, ViewGroup parent){
 
-        Chat chat=getItem(position);           //获取当前项的实例
+        final Chat chat=getItem(position);           //获取当前项的实例
         View view= LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
         ImageView ChatImage=(ImageView)view.findViewById(R.id.chat_image);
         TextView ChatName=(TextView) view.findViewById(R.id.chat_name);
@@ -47,20 +47,24 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
                 .error(R.drawable.flyimg);
       //头像
         Glide.with(getContext())
-                .load(chat.getUri())
+                .load(head)
                 .apply(requestOptions)
                 .into(ChatImage);
 
         ChatImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Chat chat1=getItem(position);
                 Intent i=new Intent(getContext(),Dialog.class);
                 i.putExtra("test","0");
-                i.putExtra("headimg",head);
+                i.putExtra("headimg",chat1.getUri());
                 getContext().startActivity(i);
+
 
             }
         });
+
+
 
         ChatName.setText(chat.getName());
         ChatName1.setText(chat.getName1());
@@ -72,13 +76,15 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
                 .load(chat.getImgcount().get(0))
                 .apply(requestOptions1)
                 .into(ChatImage1);
+        ChatImage1.setMaxHeight(300);
 
         ChatImage1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Chat chat2=getItem(position);
                 Intent i=new Intent(getContext(),Dialog.class);
                 i.putExtra("test","1");
-                i.putStringArrayListExtra("imglist", (ArrayList<String>) imglist);
+                i.putStringArrayListExtra("imglist", (ArrayList<String>) chat2.getImgcount());
                 getContext().startActivity(i);
             }
         });

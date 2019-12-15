@@ -23,6 +23,7 @@ public class Friend_own extends AppCompatActivity implements MyListViewUtils.Loa
     private ChatAdapter adapter;
     private List<Chat> chatlist=new ArrayList<>();
     private String hisid;
+    private String Bbsid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,24 +52,25 @@ public class Friend_own extends AppCompatActivity implements MyListViewUtils.Loa
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                new AddFriendBbsTask().execute();
                 list.loadComplete();
 
             }
         },500);
 
     }
-
-    @Override
-    public void PullLoad() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                list.loadComplete();
-
-            }
-        },500);
-
-    }
+//
+//    @Override
+//    public void PullLoad() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                list.loadComplete();
+//
+//            }
+//        },500);
+//
+//    }
 
     public class GetFriendBbsTask extends AsyncTask<Void,Void,String>{
         String mj;
@@ -84,10 +86,46 @@ public class Friend_own extends AppCompatActivity implements MyListViewUtils.Loa
                 Toast.makeText(getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
                 return;
             }
+            System.out.println(result);
             try {
                 JSONArray json=new JSONArray(result);
                 for(int i=0;i<json.length();i++){
                     JSONObject jb=json.getJSONObject(i);
+                    Bbsid=jb.getString("id");
+                    Chat chat=new Chat(jb.getString("text"),jb.getString("url"),jb.getString("name"));
+                    chatlist.add(chat);
+                }
+                adapter.notifyDataSetChanged();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public class AddFriendBbsTask extends AsyncTask<Void,Void,String>{
+        String mj;
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            mj=new GetFriendBbs().fetchItems(Bbsid,hisid);
+            return mj;
+        }
+        @Override
+        protected void onPostExecute(String result){
+            if (result.equals("[]")) {
+                Toast.makeText(getApplicationContext(), "网络连接失败或已显示全部内容", Toast.LENGTH_SHORT).show();
+                list.setAdapter(null);
+                list.setAdapter(adapter);
+                return;
+            }
+            System.out.println(Bbsid+"123456");
+            System.out.println(result);
+            try {
+                JSONArray json=new JSONArray(result);
+                for(int i=0;i<json.length();i++){
+                    JSONObject jb=json.getJSONObject(i);
+                    Bbsid=jb.getString("id");
                     Chat chat=new Chat(jb.getString("text"),jb.getString("url"),jb.getString("name"));
                     chatlist.add(chat);
                 }

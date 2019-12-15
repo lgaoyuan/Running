@@ -42,7 +42,6 @@ public class Dialog extends AppCompatActivity {
         if(test.equals("0")){
             initViewforhead();
             vp.setOffscreenPageLimit(1);//ViewPager的缓存为list的长度。
-            System.out.println("已经接受到头像数据");
         }else{
             initViews();
             vp.setOffscreenPageLimit(infoList.size());//ViewPager的缓存为list的长度。

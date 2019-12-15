@@ -36,9 +36,10 @@ public class Chat_dialog extends Fragment {
                              Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.dialog_viewpager,container,false);
         img=(ImageView)v.findViewById(R.id.dialog_image);
-        img.setImageResource(ID);
+//        img.setImageResource(ID);
         Glide.with(getContext())
                 .load(IDuri)
+                .error(null)
                 .into(img);
         // Inflate the layout for this fragment
         return v;

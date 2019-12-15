@@ -13,9 +13,9 @@ import android.widget.TextView;
 import com.csu.runningapplication.http.DeleteFriend;
 
 public class Friend_dialog_list extends Activity {
-    private Button btn1;
-    private Button btn2;
-    private Button btn3;
+    private TextView btn1;
+    private TextView btn2;
+    private TextView btn3;
     private TextView hisname;
     private MyApplication application;
     private String hisid;
@@ -28,12 +28,12 @@ public class Friend_dialog_list extends Activity {
         btn1=findViewById(R.id.dialog_list_btn1);
         btn2=findViewById(R.id.dialog_list_btn2);
         btn3=findViewById(R.id.dialog_list_btn3);
-        hisname=findViewById(R.id.dialog_list_name);
+//        hisname=findViewById(R.id.dialog_list_name);
         application=(MyApplication)getApplication();
         Intent i=getIntent();
         hisid=i.getStringExtra("id");
-        name=i.getStringExtra("name");
-        hisname.setText(name);
+//        name=i.getStringExtra("name");
+//        hisname.setText(name);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

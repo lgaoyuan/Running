@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="250dp"
-    android:layout_height="100dp"
+    android:layout_width="200dp"
+    android:layout_height="300dp"
     android:gravity="center"
     android:layout_gravity="center"
-    android:background="#FF8A00"
+    android:background="@drawable/drawable_round_edge"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/dialog_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="35sp"
-        android:text="123456"/>
+
 
 <LinearLayout
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <Button
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
     android:id="@+id/dialog_button1"
-        android:background="#000000"
     android:layout_width="100dp"
     android:layout_height="50dp"
+        android:textSize="20dp"
         android:text="同意"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:gravity="center"/>
     <TextView
 
         android:layout_width="20dp"
         android:layout_height="wrap_content"/>
-    <Button
+    <TextView
         android:id="@+id/dialog_button2"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:background="#000000"
         android:textColor="#ffffff"
-        android:text="拒绝"/>
+        android:text="拒绝"
+        android:textSize="20dp"
+        android:gravity="center"/>
 
 </LinearLayout>
 </LinearLayout>

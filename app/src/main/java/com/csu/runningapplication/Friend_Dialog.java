@@ -15,9 +15,8 @@ import com.csu.runningapplication.http.AgreeFriend;
 
 
 public class Friend_Dialog extends Activity {
-    private TextView id;
-    private Button btn1;
-    private Button btn2;
+    private TextView btn1;
+    private TextView btn2;
     private MyApplication application;
     private String name;
 
@@ -25,13 +24,12 @@ public class Friend_Dialog extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend__dialog);
-        id=findViewById(R.id.dialog_id);
+
         btn1=findViewById(R.id.dialog_button1);
         btn2=findViewById(R.id.dialog_button2);
         application=(MyApplication)getApplication();
         Intent i=getIntent();
         name=i.getStringExtra("id");
-        id.setText(i.getStringExtra("name"));
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
