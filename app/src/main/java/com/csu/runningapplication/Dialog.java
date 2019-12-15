@@ -89,7 +89,7 @@ public class Dialog extends AppCompatActivity {
         }
 //        //此处构造函数后期改为json获取的图片
 //        oneFragment = new Chat_dialog(R.drawable.chat_img);
-//        twoFragment = new Chat_dialog(R.drawable.flyimg);
+//        twoFragment = new Chat_dialog(R.drawable.user_192);
 //        //给FragmentList添加数据
 //        mFragmentList.add(oneFragment);
 //        mFragmentList.add(twoFragment);
