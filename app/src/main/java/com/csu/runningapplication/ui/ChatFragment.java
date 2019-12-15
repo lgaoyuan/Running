@@ -176,6 +176,8 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
     @Override
     public void onResume(){
         super.onResume();
+        listViewUtils.loadComplete();
+
 
     }
 
@@ -198,6 +200,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                     adapter2.notifyDataSetChanged();
                 }
                 listViewUtils.loadComplete();
+//                listViewUtils.Firstload();
             }
         }, 1000);
 
@@ -293,6 +296,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
 
                 add.setVisibility(View.VISIBLE);
                 listViewUtils.loadComplete();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -464,7 +468,10 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 }
                 adapter2.notifyDataSetChanged();
                 add.setVisibility(View.VISIBLE);
-                listViewUtils.loadComplete();
+
+                if(chatlist.isEmpty()&&chatlist1.isEmpty()&&chatlist2.isEmpty()){
+                    listViewUtils.Firstload();
+                }else { listViewUtils.loadComplete();}
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -509,7 +516,8 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 e.printStackTrace();
             }
             adapter2.notifyDataSetChanged();
-            listViewUtils.loadComplete();
+//            listViewUtils.loadComplete();
+            listViewUtils.Firstload();
         }
     }
 }

@@ -54,8 +54,9 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
         headview=LinearLayout.inflate(context, R.layout.chat_head, null);
         headtxt=(TextView) headview.findViewById(R.id.headtxt);
         headtime=(TextView) headview.findViewById(R.id.timetxt);
-        progressBar=(ProgressBar) headview.findViewById(R.id.headprogress);
+//        progressBar=(ProgressBar) headview.findViewById(R.id.headprogress);
         headtime.setText("上次更新时间:"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()));
+
 
         //拿到尾布局文件
         bottomview=LinearLayout.inflate(context, R.layout.chat_bottom, null);
@@ -95,7 +96,6 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
                 if(paddingY>10000){
 
                     headtxt.setText("松开刷新........");
-                    progressBar.setVisibility(View.GONE);
 
                 }
                 break;
@@ -107,17 +107,17 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
         if(totaItemCounts==lassVisible&&scrollState==SCROLL_STATE_IDLE){
             if(!isLoading){
                 isLoading=true;
-                bottomview.setPadding(0, 0, 0, 400);
+//                bottomview.setPadding(0, 0, 0, 400);
                 //加载数据
                 loadListener.onLoad();
             }
         }
-        if(firstVisible==0&&scrollState==SCROLL_STATE_IDLE){
-            headview.setPadding(0, 0, 0, 0);
-            headtxt.setText("正在刷新.......");
-            progressBar.setVisibility(View.VISIBLE);
-//            loadListener.PullLoad();
-        }
+//        if(firstVisible==0&&scrollState==SCROLL_STATE_IDLE){
+//            headview.setPadding(0, 0, 0, 0);
+//            headtxt.setText("正在刷新.......");
+//            progressBar.setVisibility(View.VISIBLE);
+////            loadListener.PullLoad();
+//        }
     }
 
 
@@ -140,8 +140,11 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
     //加载完成
     public void loadComplete(){
         isLoading=false;
-        bottomview.setPadding(0, 0, 0, 0);
-        headview.setPadding(0, -headHeight, 0, 0);
+        bottomview.setPadding(0,0, 0, 0);
+    }
+    public void Firstload(){
+        isLoading=false;
+        bottomview.setPadding(0,-bottomHeight, 0, 0);
     }
 
     public void setInteface(LoadListener loadListener){
