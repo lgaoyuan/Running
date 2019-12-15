@@ -159,7 +159,6 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data){
         String result=data.getStringExtra("result");
-        System.out.println(result);
         if(result.equals("refresh")){
             chatlist.clear();
             chatlist1.clear();
@@ -273,7 +272,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Chat chat1 = new Chat(jb.getString("text"),jb.getString("url"), jb.getString("name"));
+                    Chat chat1 = new Chat(jb.getString("text"),jb.getString("url"), jb.getString("name"),jb.getString("date"));
                     JSONArray json1=new JSONArray(jb.getString("imgUrl"));
                     chat1.setnumber(json1.length()+"");
                     for(int i1=0;i1<json1.length();i1++){
@@ -330,7 +329,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Chat chat1 = new Chat(jb.getString("text"), jb.getString("url"), jb.getString("name"));
+                    Chat chat1 = new Chat(jb.getString("text"), jb.getString("url"), jb.getString("name"),jb.getString("date"));
                     IDrecord = jb.getString("id");
                     JSONArray json1=new JSONArray(jb.getString("imgUrl"));
                     for(int i1=0;i1<json1.length();i1++){
@@ -366,11 +365,12 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 return;
 
             }
+
             try {
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Chat chat = new Chat(jb.getString("text"));
+                    Chat chat = new Chat(jb.getString("text"),jb.getString("date"));
                     chatlist1.add(chat);
                     IDrecord1 = jb.getString("id");
                     new Thread() {
@@ -419,7 +419,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
                     IDrecord1 = jb.getString("id");
-                    Chat chat1 = new Chat(jb.getString("text"));
+                    Chat chat1 = new Chat(jb.getString("text"),jb.getString("date"));
                     chatlist1.add(chat1);
                     application.setId_guanzhu(IDrecord1);
                 }
@@ -452,7 +452,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Chat chat = new Chat(jb.getString("text"));
+                    Chat chat = new Chat(jb.getString("text"),jb.getString("date"));
                     chatlist2.add(chat);
                     IDrecord2 = jb.getString("id");
                     new Thread() {
@@ -499,7 +499,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Chat chat = new Chat(jb.getString("text"));
+                    Chat chat = new Chat(jb.getString("text"),jb.getString("date"));
                     chatlist2.add(chat);
                     IDrecord2 = jb.getString("id");
                     application.setId_yugao(IDrecord2);

@@ -40,12 +40,7 @@ public class Friend_own extends AppCompatActivity implements MyListViewUtils.Loa
 
 
     }
-    public void init(){
 
-        Chat chat=new Chat("hello,world","http://106.54.39.17/wp-content/uploads/2019/09/srf.jpg","飞飞飞飞");
-        chatlist.add(chat);
-
-    }
 
     @Override
     public void onLoad() {
@@ -78,7 +73,7 @@ public class Friend_own extends AppCompatActivity implements MyListViewUtils.Loa
                 for(int i=0;i<json.length();i++){
                     JSONObject jb=json.getJSONObject(i);
                     Bbsid=jb.getString("id");
-                    Chat chat=new Chat(jb.getString("text"),jb.getString("url"),jb.getString("name"));
+                    Chat chat=new Chat(jb.getString("text"),jb.getString("url"),jb.getString("name"),jb.getString("date"));
                     chatlist.add(chat);
                 }
                 adapter.notifyDataSetChanged();
@@ -111,7 +106,7 @@ public class Friend_own extends AppCompatActivity implements MyListViewUtils.Loa
                 for(int i=0;i<json.length();i++){
                     JSONObject jb=json.getJSONObject(i);
                     Bbsid=jb.getString("id");
-                    Chat chat=new Chat(jb.getString("text"),jb.getString("url"),jb.getString("name"));
+                    Chat chat=new Chat(jb.getString("text"),jb.getString("url"),jb.getString("name"),jb.getString("date"));
                     chatlist.add(chat);
                 }
                 adapter.notifyDataSetChanged();

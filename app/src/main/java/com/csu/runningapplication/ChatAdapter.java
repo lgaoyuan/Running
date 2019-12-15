@@ -35,6 +35,8 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         TextView ChatName=(TextView) view.findViewById(R.id.chat_name);
         TextView ChatName1=(TextView)view.findViewById(R.id.name1);
         ImageView ChatImage1=(ImageView)view.findViewById(R.id.chat_img);
+        TextView Chatdate=(TextView)view.findViewById(R.id.chat_date);
+        Chatdate.setText(chat.getChatdate());
         TextView Chatnumber=(TextView)view.findViewById(R.id.chat_number);
 
             if (!chat.getNumber().equals("0") && !chat.getNumber().equals("1")&&!chat.getNumber().equals("")) {
