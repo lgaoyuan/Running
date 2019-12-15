@@ -19,7 +19,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:textColor="#ffffff"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:gravity="center"
             android:text="查看说说"/>
         <TextView
@@ -28,7 +28,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:textColor="#ffffff"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:gravity="center"
             android:text="删除好友"/>
         <LinearLayout
@@ -41,9 +41,9 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:textColor="#ffffff"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:gravity="center"
-            android:text="退出"/>
+            android:text="取消"/>
     </LinearLayout>
 
 </LinearLayout>
