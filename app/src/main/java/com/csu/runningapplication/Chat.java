@@ -15,7 +15,7 @@ public class Chat {
     private int image1;
     private String uri;
     private List<String> imgcount=new ArrayList<String>();
-    private String number;
+    private String number="";
 
     public void addImgcount(String img){
         imgcount.add(img);
