@@ -38,13 +38,13 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         TextView ChatName1=(TextView)view.findViewById(R.id.name1);
 //        Button  ChatButton1=(Button)view.findViewById(R.id.guanzhu1);
         ImageView ChatImage1=(ImageView)view.findViewById(R.id.chat_img);
-//        ChatImage.setImageResource(R.drawable.flyimg);
+//        ChatImage.setImageResource(R.drawable.user_192);
         imglist=chat.getImgcount();
         head=chat.getUri();
 
         //图片加载失败时，显示的图片
         RequestOptions requestOptions = new RequestOptions()
-                .error(R.drawable.flyimg);
+                .error(R.drawable.user_192);
       //头像
         Glide.with(getContext())
                 .load(head)

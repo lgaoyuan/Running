@@ -32,7 +32,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginLeft="40dp"
-            android:src="@drawable/flyimg" />
+            android:src="@drawable/user_192" />
 
         <RelativeLayout
             android:layout_width="fill_parent"

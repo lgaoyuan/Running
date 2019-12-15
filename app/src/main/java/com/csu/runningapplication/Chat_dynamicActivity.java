@@ -233,7 +233,7 @@ public class Chat_dynamicActivity extends Activity {
      * @param filePath 源图片路径
      * @return 压缩后的路径
      */
-    /*private String compressImage(String filePath) {
+    private String compressImage(String filePath) {
 
         //原文件
         File oldFile = new File(filePath);
@@ -244,7 +244,6 @@ public class Chat_dynamicActivity extends Activity {
         String lastName=oldFile.getName().substring(oldFile.getName().lastIndexOf("."));
         File externalFilesDir = getExternalFilesDir("CompressImage");
         File outputFile=new File(externalFilesDir+"/1"+lastName);//压缩图
-        Log.d("outputFile:",externalFilesDir+"");
         try {
             if (!outputFile.exists()) {
                 outputFile.getParentFile().mkdirs();
@@ -259,12 +258,12 @@ public class Chat_dynamicActivity extends Activity {
             return filePath;
         }
         return outputFile.getPath();
-    }*/
+    }
 
     /**
      * 根据路径获得图片信息并按比例压缩，返回bitmap
      */
-    /*public static Bitmap getSmallBitmap(String filePath) {
+    public static Bitmap getSmallBitmap(String filePath) {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;//只解析图片边沿，获取宽高
         BitmapFactory.decodeFile(filePath, options);
@@ -286,11 +285,11 @@ public class Chat_dynamicActivity extends Activity {
             inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
         }
         return inSampleSize;
-    }*/
+    }
 
     // 使用OkHttp上传文件
     private void uploadFile(String id,String path) {
-        //path=compressImage(path);
+        path=compressImage(path);
         File file=new File(path);
         OkHttpClient client = new OkHttpClient();
         MediaType contentType = MediaType.parse("text/plain"); // 上传文件的Content-Type

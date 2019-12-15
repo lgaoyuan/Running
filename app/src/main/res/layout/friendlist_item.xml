@@ -8,7 +8,7 @@
         android:orientation="horizontal">
         <com.csu.runningapplication.CircleImageView
             android:id="@+id/friends_image"
-            android:src="@drawable/flyimg"
+            android:src="@drawable/user_192"
             android:layout_marginTop="10dp"
             android:layout_width="50dp"
             android:layout_height="50dp"

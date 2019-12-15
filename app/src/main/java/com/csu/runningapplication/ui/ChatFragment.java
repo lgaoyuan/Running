@@ -158,8 +158,8 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
     }
 
     public void initchat() {
-        Chat chat = new Chat("活力中南就是很有活力，非常的有活力，真正的真的有活力，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞");
-        Chat chat1 = new Chat("活力中南就是很有活力，非常的有活力，真正的真的有活力，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞");
+        Chat chat = new Chat("活力中南就是很有活力，非常的有活力，真正的真的有活力，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.user_192, "飞飞飞飞");
+        Chat chat1 = new Chat("活力中南就是很有活力，非常的有活力，真正的真的有活力，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.user_192, "飞飞飞飞");
         chatlist.add(chat);
         chatlist.add(chat1);
         chatlist.add(chat);
@@ -174,7 +174,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                Chat chat1 = new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.flyimg, "飞飞飞飞", R.drawable.chat_img);
+//                Chat chat1 = new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.user_192, "飞飞飞飞", R.drawable.chat_img);
 //                chatlist.add(chat1);
 //
                 if (IDM == 1) {
@@ -336,7 +336,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                         chat1.addImgcount(jb1.getString("imgurl"));
                     }
                     chatlist.add(chat1);
-//            Chat chat1=new Chat(result.getText(),R.drawable.flyimg,result.getName()+result.getId());
+//            Chat chat1=new Chat(result.getText(),R.drawable.user_192,result.getName()+result.getId());
 //            chatlist.add(chat1);
                     application.setId(IDrecord);
                     adapter.notifyDataSetChanged();
