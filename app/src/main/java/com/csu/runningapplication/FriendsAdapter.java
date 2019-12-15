@@ -26,7 +26,7 @@ public class FriendsAdapter extends ArrayAdapter<Friends> {
         TextView content1=(TextView)view.findViewById(R.id.friends_something);
         if (friends.getcontent().equals("null"))
         { content1.setText("");
-        } else{content1.setText(friends.getcontent());}
+        } else {content1.setText(friends.getcontent());}
 
         FriendsName.setText(friends.getName());
         Glide.with(getContext())

@@ -83,7 +83,7 @@ public class FriendsActivity extends AppCompatActivity {
                 return;
             }
 
-            System.out.println(result);
+
             lin.setVisibility(View.VISIBLE);
             try {
                 JSONArray json = new JSONArray(result);

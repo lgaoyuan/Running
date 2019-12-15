@@ -87,7 +87,6 @@ public class Friends_list extends AppCompatActivity {
                 return;
 
             }
-            System.out.println(result);
             try {
                 JSONArray json = new JSONArray(result);
                 for(int i=0;i<json.length();i++)
