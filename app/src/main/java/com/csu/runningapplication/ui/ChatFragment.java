@@ -81,9 +81,9 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         bottom2.setVisibility(View.INVISIBLE);
         bottom3.setVisibility(View.INVISIBLE);
 
-        new ChatItemsTask().execute();
-        new ChatItemsTask2().execute();
-        new ChatItemsTask4().execute();
+//        new ChatItemsTask().execute();
+//        new ChatItemsTask2().execute();
+//        new ChatItemsTask4().execute();
 //        initchat();
 
         adapter = new ChatAdapter(getContext(), R.layout.chat_item, chatlist);
@@ -155,6 +155,16 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         });
 
         return v;
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        chatlist.clear();
+        chatlist1.clear();
+        chatlist2.clear();
+        new ChatItemsTask().execute();
+        new ChatItemsTask2().execute();
+        new ChatItemsTask4().execute();
     }
 
 
