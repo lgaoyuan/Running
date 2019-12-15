@@ -45,7 +45,6 @@ public class FriendsActivity extends AppCompatActivity {
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               System.out.println(search.getText().toString());
                str=search.getText().toString();
                new ChatItemsTask().execute();
 //                if (!str.equals("")&&count.equals("false")) {
@@ -110,18 +109,15 @@ public class FriendsActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
             mj=new AddFriend().fetchItems(application.getUserid(),ID);
-            System.out.println("id"+application.getUserid()+"id2"+ID);
             return mj;
         }
         @Override
         protected void onPostExecute(String  result) {// 执行完毕后，则更新UI
             if (result == null) {
                 Toast.makeText(FriendsActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
-                System.out.println(str);
                 return;
 
             }
-            System.out.println(result);
             if(result.equals("0")){
                 Toast.makeText(FriendsActivity.this,"发送请求成功",Toast.LENGTH_LONG).show();
             }else if(result.equals("1")){

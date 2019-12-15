@@ -97,7 +97,6 @@ public class Dialog extends AppCompatActivity {
     private void initViewforhead(){
         vp = (ViewPager) findViewById(R.id.mainViewPager);
         Chat_dialog fragment1=new Chat_dialog(headimg);
-        System.out.println(headimg+"123");
         mFragmentList.add(fragment1);
 
     }

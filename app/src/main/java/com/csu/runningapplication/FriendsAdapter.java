@@ -38,6 +38,7 @@ public class FriendsAdapter extends ArrayAdapter<Friends> {
 //        Button FriendsButton=(Button)view.findViewById(R.id.friends_agree);
 
 
+
         return view;
     }
 

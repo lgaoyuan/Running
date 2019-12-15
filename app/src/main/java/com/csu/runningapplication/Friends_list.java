@@ -47,30 +47,13 @@ public class Friends_list extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch(i){
-                    case 0:
-                        System.out.println("点击的是0");
-                        Intent intent=new Intent(Friends_list.this,Friend_Dialog.class);
+                Intent intent=new Intent(Friends_list.this,Friend_Dialog.class);
                         intent.putExtra("count","0");
-                        intent.putExtra("id",friendslist.get(0).getId());
-                        intent.putExtra("name",friendslist.get(0).getName());
-                        friendslist.remove(0);
+                        intent.putExtra("id",friendslist.get(i).getId());
+                        intent.putExtra("name",friendslist.get(i).getName());
+                        friendslist.remove(i);
                         adapter.notifyDataSetChanged();
                         startActivity(intent);
-                        break;
-
-                    case 1:
-                        System.out.println("点击的是1");
-                        Intent intent1=new Intent(Friends_list.this,Friend_Dialog.class);
-                        intent1.putExtra("count","0");
-                        intent1.putExtra("id",friendslist.get(1).getId());
-                        intent1.putExtra("name",friendslist.get(1).getName());
-                        friendslist.remove(1);
-                        startActivity(intent1);
-                        break;
-
-
-                }
 
             }
         });
@@ -78,16 +61,12 @@ public class Friends_list extends AppCompatActivity {
         list1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i) {
-                    case 0:
-                        Intent intent = new Intent(Friends_list.this,Friend_dialog_list.class);
-
-                        intent.putExtra("id",friendslist1.get(0).getId());
-                        intent.putExtra("name",friendslist1.get(0).getName());
-                        adapter.notifyDataSetChanged();
-                        startActivity(intent);
-                        break;
-                }
+                Intent intent=new Intent(Friends_list.this,Friend_dialog_list.class);
+                intent.putExtra("id",friendslist1.get(i).getId());
+                intent.putExtra("name",friendslist1.get(i).getName());
+                friendslist1.remove(i);
+                adapter.notifyDataSetChanged();
+                startActivity(intent);
 
             }
         });
@@ -152,7 +131,6 @@ public class Friends_list extends AppCompatActivity {
         protected void onPostExecute(String  result) {// 执行完毕后，则更新UI
             if (result == null) {
                 Toast.makeText(Friends_list.this, "网络连接失败", Toast.LENGTH_SHORT).show();
-                System.out.println(application.getUserid());
                 return;
 
             }
@@ -163,7 +141,6 @@ public class Friends_list extends AppCompatActivity {
                 {
                     JSONObject jb=json.getJSONObject(i);
                     Friends friends=new Friends(jb.getString("name"),jb.getString("studentid"),jb.getString("url"));
-                    System.out.println(jb.getString("name"));
                     friendslist1.add(friends);
 
 

@@ -157,16 +157,6 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         return v;
     }
 
-    public void initchat() {
-        Chat chat = new Chat("活力中南就是很有活力，非常的有活力，真正的真的有活力，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.user_192, "飞飞飞飞");
-        Chat chat1 = new Chat("活力中南就是很有活力，非常的有活力，真正的真的有活力，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.user_192, "飞飞飞飞");
-        chatlist.add(chat);
-        chatlist.add(chat1);
-        chatlist.add(chat);
-        chatlist.add(chat);
-        chatlist.add(chat);
-
-    }
 
 
     @Override
@@ -174,20 +164,16 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                Chat chat1 = new Chat("活力中南就是很有活力，费厂的有活力，真正的帧的诱惑里，我是一个不知道说啥的不知道干嘛的帖子，我真的不知道我是哪里来的帖子。", R.drawable.user_192, "飞飞飞飞", R.drawable.chat_img);
-//                chatlist.add(chat1);
-//
+
                 if (IDM == 1) {
                     new ChatItemsTask1().execute();
                     adapter.notifyDataSetChanged();
                 } else if (IDM == 2) {
                     new ChatItemsTask3().execute();
                     adapter1.notifyDataSetChanged();
-                    System.out.println("攻略刷新");
                 } else if (IDM == 3) {
                     new ChatItemsTask5().execute();
                     adapter2.notifyDataSetChanged();
-                    System.out.println("预告刷新");
                 }
                 listViewUtils.loadComplete();
             }
@@ -259,25 +245,18 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 return;
 
             }
-            System.out.println(result);
+
             try {
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Chat chat1 = new Chat(jb.getString("text"),jb.getString("url"), jb.getString("name") + jb.getString("id"));
+                    Chat chat1 = new Chat(jb.getString("text"),jb.getString("url"), jb.getString("name"));
                     JSONArray json1=new JSONArray(jb.getString("imgUrl"));
                     chat1.setnumber(json1.length()+"");
                     for(int i1=0;i1<json1.length();i1++){
                         JSONObject jb1=json1.getJSONObject(i1);
                         chat1.addImgcount(jb1.getString("imgurl"));
-                        System.out.println(jb1.getString("imgurl"));
                     }
-//                    for(int i2=0;i2<2;i2++){
-//                        chat1.addImgcount("http://106.54.39.17/wp-content/uploads/2019/09/srf.jpg");
-//                    }
-
-
-                    System.out.println("真实"+chat1.getUri());
                     chatlist.add(chat1);
                     IDrecord = jb.getString("id");
                     new Thread() {
@@ -328,17 +307,14 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Chat chat1 = new Chat(jb.getString("text"), jb.getString("url"), jb.getString("name") + jb.getString("id"));
+                    Chat chat1 = new Chat(jb.getString("text"), jb.getString("url"), jb.getString("name"));
                     IDrecord = jb.getString("id");
-                    System.out.println(IDrecord);
                     JSONArray json1=new JSONArray(jb.getString("imgUrl"));
                     for(int i1=0;i1<json1.length();i1++){
                         JSONObject jb1=json1.getJSONObject(i1);
                         chat1.addImgcount(jb1.getString("imgurl"));
                     }
                     chatlist.add(chat1);
-//            Chat chat1=new Chat(result.getText(),R.drawable.user_192,result.getName()+result.getId());
-//            chatlist.add(chat1);
                     application.setId(IDrecord);
                     adapter.notifyDataSetChanged();
                     listViewUtils.loadComplete();
@@ -371,7 +347,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Chat chat = new Chat(jb.getString("text"), jb.getString("date") + jb.getString("id"));
+                    Chat chat = new Chat(jb.getString("text"));
                     chatlist1.add(chat);
                     IDrecord1 = jb.getString("id");
                     new Thread() {
@@ -420,7 +396,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
                     IDrecord1 = jb.getString("id");
-                    Chat chat1 = new Chat(jb.getString("text"), jb.getString("date") + jb.getString("id"));
+                    Chat chat1 = new Chat(jb.getString("text"));
                     chatlist1.add(chat1);
                     application.setId_guanzhu(IDrecord1);
                 }
@@ -453,7 +429,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Chat chat = new Chat(jb.getString("text"), jb.getString("date") + jb.getString("id"));
+                    Chat chat = new Chat(jb.getString("text"));
                     chatlist2.add(chat);
                     IDrecord2 = jb.getString("id");
                     new Thread() {
@@ -500,7 +476,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Chat chat = new Chat(jb.getString("text"), jb.getString("date") + jb.getString("id"));
+                    Chat chat = new Chat(jb.getString("text"));
                     chatlist2.add(chat);
                     IDrecord2 = jb.getString("id");
                     application.setId_yugao(IDrecord2);

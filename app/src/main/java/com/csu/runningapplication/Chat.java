@@ -22,6 +22,10 @@ public class Chat {
     }
     public void setnumber(String number){this.number=number;}
 
+    public Chat(String name){
+        this.name=name;
+    }
+
     public Chat(String name,int image,String name1){
         this.name=name;
         this.image=image;
