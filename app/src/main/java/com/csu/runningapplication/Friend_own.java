@@ -35,7 +35,7 @@ public class Friend_own extends AppCompatActivity implements MyListViewUtils.Loa
         Intent i=getIntent();
         hisid=i.getStringExtra("hisid");
         new GetFriendBbsTask().execute();
-//        init();
+
         list.setAdapter(adapter);
 
 
@@ -46,7 +46,7 @@ public class Friend_own extends AppCompatActivity implements MyListViewUtils.Loa
         chatlist.add(chat);
 
     }
-//  new Handler().postDelayed(new Runnable() {
+
     @Override
     public void onLoad() {
         new Handler().postDelayed(new Runnable() {
@@ -59,19 +59,6 @@ public class Friend_own extends AppCompatActivity implements MyListViewUtils.Loa
         },500);
 
     }
-//
-//    @Override
-//    public void PullLoad() {
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                list.loadComplete();
-//
-//            }
-//        },500);
-//
-//    }
-
     public class GetFriendBbsTask extends AsyncTask<Void,Void,String>{
         String mj;
 
@@ -86,7 +73,6 @@ public class Friend_own extends AppCompatActivity implements MyListViewUtils.Loa
                 Toast.makeText(getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
                 return;
             }
-            System.out.println(result);
             try {
                 JSONArray json=new JSONArray(result);
                 for(int i=0;i<json.length();i++){
@@ -119,8 +105,7 @@ public class Friend_own extends AppCompatActivity implements MyListViewUtils.Loa
                 list.setAdapter(adapter);
                 return;
             }
-            System.out.println(Bbsid+"123456");
-            System.out.println(result);
+
             try {
                 JSONArray json=new JSONArray(result);
                 for(int i=0;i<json.length();i++){

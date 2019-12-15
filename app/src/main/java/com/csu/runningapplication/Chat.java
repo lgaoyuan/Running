@@ -1,10 +1,6 @@
 package com.csu.runningapplication;
 
-import android.net.Uri;
-import android.widget.Button;
-import android.widget.ImageView;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 

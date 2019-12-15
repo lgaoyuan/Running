@@ -21,8 +21,6 @@ import java.util.List;
 
 public class ChatAdapter extends ArrayAdapter<Chat> {
     private int resourceId;
-    private MyApplication app;
-    private List<String> imglist=new ArrayList<>();
     private String head;
     public ChatAdapter(Context context, int textViewResourceId, List<Chat> objects){
         super(context,textViewResourceId,objects);
@@ -44,7 +42,6 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
 
             }
 
-        imglist=chat.getImgcount();
         head=chat.getUri();
 
         //图片加载失败时，显示的图片

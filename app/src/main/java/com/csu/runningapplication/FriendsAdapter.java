@@ -1,18 +1,11 @@
 package com.csu.runningapplication;
 
 import android.content.Context;
-import android.content.Intent;
-import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -35,7 +28,6 @@ public class FriendsAdapter extends ArrayAdapter<Friends> {
         Glide.with(getContext())
                 .load(friends.getImg())
                 .into(FriendsImg);
-//        Button FriendsButton=(Button)view.findViewById(R.id.friends_agree);
 
 
 

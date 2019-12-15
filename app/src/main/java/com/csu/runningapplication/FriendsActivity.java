@@ -4,18 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.csu.runningapplication.http.AddFriend;
-import com.csu.runningapplication.http.ChatFetch;
 import com.csu.runningapplication.http.SearchFriend;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,10 +43,6 @@ public class FriendsActivity extends AppCompatActivity {
             public void onClick(View view) {
                str=search.getText().toString();
                new ChatItemsTask().execute();
-//                if (!str.equals("")&&count.equals("false")) {
-//                    //此处有一个问题，用户输入的若不符合要求 也显示lin.
-//                    lin.setVisibility(View.VISIBLE);
-//                }
 
             }
         });

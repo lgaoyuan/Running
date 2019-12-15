@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
@@ -99,7 +98,6 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
                     progressBar.setVisibility(View.GONE);
 
                 }
-//    headview.setPadding(0, paddingY, 0, 0);
                 break;
         }
         return super.onTouchEvent(ev);
@@ -115,9 +113,6 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
                 loadListener.onLoad();
             }
         }
-//        Log.i("TGA", "firstVisible----"+firstVisible);
-//        Log.i("TGA", "状态？"+(firstVisible==0));
-
         if(firstVisible==0&&scrollState==SCROLL_STATE_IDLE){
             headview.setPadding(0, 0, 0, 0);
             headtxt.setText("正在刷新.......");
@@ -141,9 +136,6 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
         this.firstVisible=firstVisibleItem;
         this.lassVisible=firstVisibleItem+visibleItemCount;
         this.totaItemCounts=totalItemCount;
-//        System.out.println("firstVisible:"+firstVisible);
-//        System.out.println("lassVisible"+lassVisible);
-//        System.out.println("totaItemCounts"+totaItemCounts);
     }
 
     //加载完成
