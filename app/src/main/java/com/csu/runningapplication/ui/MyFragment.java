@@ -63,6 +63,7 @@ public class MyFragment extends Fragment {
     private TextView mYear;
     private String runData;
     private LinearLayout lin;
+    private LinearLayout act;
     private LinearLayout mSetting;
 
     private CircleImageView img;
@@ -123,9 +124,15 @@ public class MyFragment extends Fragment {
                 startActivity(i);
             }
         });
+        act = (LinearLayout) v.findViewById(R.id.act_list);
+        act.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         //初始化echarts
-
         mDate = (TextView) v.findViewById(R.id.my_data_date);
         setMDate();
 
