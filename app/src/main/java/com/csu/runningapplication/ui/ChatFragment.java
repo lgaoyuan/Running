@@ -43,6 +43,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 public class ChatFragment extends Fragment implements MyListViewUtils.LoadListener {
 
     private List<Chat> chatlist = new ArrayList<>();
@@ -191,15 +193,13 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
 
                 if (IDM == 1) {
                     new ChatItemsTask1().execute();
-                    adapter.notifyDataSetChanged();
                 } else if (IDM == 2) {
                     new ChatItemsTask3().execute();
-                    adapter1.notifyDataSetChanged();
                 } else if (IDM == 3) {
                     new ChatItemsTask5().execute();
-                    adapter2.notifyDataSetChanged();
                 }
                 listViewUtils.loadComplete();
+                Toast.makeText(getActivity().getApplicationContext(),"已加载更多,继续下滑查看", LENGTH_SHORT).show();
 //                listViewUtils.Firstload();
             }
         }, 1000);
@@ -266,7 +266,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         @Override
         protected void onPostExecute(String result) {// 执行完毕后，则更新UI
             if (result == null) {
-                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", LENGTH_SHORT).show();
                 return;
 
             }
@@ -325,7 +325,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
 
         protected void onPostExecute(String result) {// 执行完毕后，则更新UI
             if (result == null) {
-                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", LENGTH_SHORT).show();
                 return;
 
             }
@@ -365,7 +365,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         @Override
         protected void onPostExecute(String result) {
             if (result == null) {
-                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", LENGTH_SHORT).show();
                 return;
 
             }
@@ -413,7 +413,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
 
         protected void onPostExecute(String result) {// 执行完毕后，则更新UI
             if (result == null) {
-                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", LENGTH_SHORT).show();
                 return;
 
             }
@@ -448,7 +448,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
         @Override
         protected void onPostExecute(String result) {
             if (result == null) {
-                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", LENGTH_SHORT).show();
                 return;
 
             }
@@ -469,9 +469,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 adapter2.notifyDataSetChanged();
                 add.setVisibility(View.VISIBLE);
 
-                if(chatlist.isEmpty()&&chatlist1.isEmpty()&&chatlist2.isEmpty()){
-                    listViewUtils.Firstload();
-                }else { listViewUtils.loadComplete();}
+                listViewUtils.loadComplete();
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -498,7 +496,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
 
         protected void onPostExecute(String result) {// 执行完毕后，则更新UI
             if (result == null) {
-                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "网络连接失败", LENGTH_SHORT).show();
                 return;
 
             }
@@ -516,8 +514,8 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 e.printStackTrace();
             }
             adapter2.notifyDataSetChanged();
-//            listViewUtils.loadComplete();
-            listViewUtils.Firstload();
+            listViewUtils.loadComplete();
+
         }
     }
 }

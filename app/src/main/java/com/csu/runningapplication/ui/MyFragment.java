@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.csu.runningapplication.CircleImageView;
 import com.csu.runningapplication.FriendsActivity;
 import com.csu.runningapplication.Friends_list;
+import com.csu.runningapplication.JoinActivity;
 import com.csu.runningapplication.LoginActivity;
 import com.csu.runningapplication.MyApplication;
 import com.csu.runningapplication.R;
@@ -128,6 +129,8 @@ public class MyFragment extends Fragment {
         act.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent i=new Intent(getContext(), JoinActivity.class);
+                startActivity(i);
 
             }
         });

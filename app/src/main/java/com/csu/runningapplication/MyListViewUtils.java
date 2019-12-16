@@ -54,10 +54,10 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
         headview=LinearLayout.inflate(context, R.layout.chat_head, null);
         headtxt=(TextView) headview.findViewById(R.id.headtxt);
         headtime=(TextView) headview.findViewById(R.id.timetxt);
-//        progressBar=(ProgressBar) headview.findViewById(R.id.headprogress);
+        progressBar=(ProgressBar) headview.findViewById(R.id.headprogress);
         headtime.setText("上次更新时间:"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()));
 
-
+        progressBar.setVisibility(View.GONE);
         //拿到尾布局文件
         bottomview=LinearLayout.inflate(context, R.layout.chat_bottom, null);
         //测量尾文件高度
@@ -95,6 +95,7 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
 //                }
                 if(paddingY>10000){
 
+
                     headtxt.setText("松开刷新........");
 
                 }
@@ -107,7 +108,7 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
         if(totaItemCounts==lassVisible&&scrollState==SCROLL_STATE_IDLE){
             if(!isLoading){
                 isLoading=true;
-//                bottomview.setPadding(0, 0, 0, 400);
+                bottomview.setPadding(0, 0, 0, 0);
                 //加载数据
                 loadListener.onLoad();
             }
@@ -140,12 +141,9 @@ public class MyListViewUtils extends ListView implements AbsListView.OnScrollLis
     //加载完成
     public void loadComplete(){
         isLoading=false;
-        bottomview.setPadding(0,0, 0, 0);
-    }
-    public void Firstload(){
-        isLoading=false;
         bottomview.setPadding(0,-bottomHeight, 0, 0);
     }
+
 
     public void setInteface(LoadListener loadListener){
         this.loadListener=loadListener;

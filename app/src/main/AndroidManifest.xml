@@ -25,7 +25,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Friend_own"></activity>
+        <activity android:name=".JoinActivity"></activity>
+        <activity android:name=".Friend_own" />
         <activity
             android:name=".Friend_Dialog"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
