@@ -53,6 +53,7 @@ public class MyFragment extends Fragment {
     private TextView mDate;
     private TextView mBbsNum;
     private TextView mFriendsNum;
+    private TextView mActNum;
     private TextView mMileage;
     private TextView mTime;
     private TextView mSpeed;
@@ -96,29 +97,29 @@ public class MyFragment extends Fragment {
         init();
     }
 
-    private View init(){
-        mUserName=(TextView)v.findViewById(R.id.my_user_name);
+    private View init() {
+        mUserName = (TextView) v.findViewById(R.id.my_user_name);
         mUserName.setText(myApplication.getName());
-        img=v.findViewById(R.id.my_user_img);
+        img = v.findViewById(R.id.my_user_img);
 
         new MyItemsTask().execute();
         x = "['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']";
         new EchartsItemsTask().execute("0");//获取数据
         getDay(0);
         //初始化add添加好友按钮
-        add=(Button)v.findViewById(R.id.add_friends);
+        add = (Button) v.findViewById(R.id.add_friends);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i= new Intent(getContext(), FriendsActivity.class);
+                Intent i = new Intent(getContext(), FriendsActivity.class);
                 startActivity(i);
             }
         });
-        lin=(LinearLayout)v.findViewById(R.id.friends_list);
+        lin = (LinearLayout) v.findViewById(R.id.friends_list);
         lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(getContext(), Friends_list.class);
+                Intent i = new Intent(getContext(), Friends_list.class);
                 startActivity(i);
             }
         });
@@ -139,16 +140,15 @@ public class MyFragment extends Fragment {
 
         chartshow_wb.reload();//放在第一次加载不出来?
 
-        mSetting=(LinearLayout)v.findViewById(R.id.setting);
+        mSetting = (LinearLayout) v.findViewById(R.id.setting);
         mSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(getActivity(), SetActivity.class);
-                i.putExtra("content",mContent.getText());
+                Intent i = new Intent(getActivity(), SetActivity.class);
+                i.putExtra("content", mContent.getText());
                 startActivity(i);
             }
         });
-
 
 
         mWeek = v.findViewById(R.id.my_week);
@@ -228,22 +228,24 @@ public class MyFragment extends Fragment {
                 return;
             }
             //注册组件
-            mContent=(TextView)getActivity().findViewById(R.id.my_content);
+            mContent = (TextView) getActivity().findViewById(R.id.my_content);
             mBbsNum = (TextView) getActivity().findViewById(R.id.bbs_num);
             mFriendsNum = (TextView) getActivity().findViewById(R.id.friends_num);
+            mActNum = (TextView) getActivity().findViewById(R.id.act_num);
             mMileage = (TextView) getActivity().findViewById(R.id.mileage);
             mTime = (TextView) getActivity().findViewById(R.id.my_time);
             mSpeed = (TextView) getActivity().findViewById(R.id.my_speed);
             mCalorie = (TextView) getActivity().findViewById(R.id.my_calorie);
 
 
-            String contentStr=result.getContent();
-            if(contentStr==null){
-                contentStr="这个人很懒，什么都没有写";
+            String contentStr = result.getContent();
+            if (contentStr == null) {
+                contentStr = "这个人很懒，什么都没有写";
             }
             mContent.setText(contentStr);
             mBbsNum.setText(Integer.toString(result.getBbsnum()));
             mFriendsNum.setText(Integer.toString(result.getFriends()));
+            mActNum.setText(Integer.toString(result.getActnum()));
             mMileage.setText(Double.toString((result.getCycling() + result.getRunning()) / 1000));
             mCalorie.setText(Integer.toString(result.getCalorie()));
             Glide.with(getContext())
@@ -275,42 +277,42 @@ public class MyFragment extends Fragment {
             switch (type) {
                 case 0://周
                     cal.set(Calendar.DAY_OF_WEEK, 1);
-                    cal.set(Calendar.HOUR_OF_DAY,0);//0点
-                    cal.set(Calendar.MINUTE,0);
-                    cal.set(Calendar.SECOND,0);
-                    startDate=cal.getTime();
+                    cal.set(Calendar.HOUR_OF_DAY, 0);//0点
+                    cal.set(Calendar.MINUTE, 0);
+                    cal.set(Calendar.SECOND, 0);
+                    startDate = cal.getTime();
                     cal.set(Calendar.DATE, cal.get(Calendar.DATE) + 6);
-                    cal.set(Calendar.HOUR_OF_DAY,23);//最后1秒
-                    cal.set(Calendar.MINUTE,59);
-                    cal.set(Calendar.SECOND,59);
+                    cal.set(Calendar.HOUR_OF_DAY, 23);//最后1秒
+                    cal.set(Calendar.MINUTE, 59);
+                    cal.set(Calendar.SECOND, 59);
                     endDate = cal.getTime();
                     break;
 
                 case 1://月
                     cal.set(Calendar.DAY_OF_MONTH, 1);
-                    cal.set(Calendar.HOUR_OF_DAY,0);//0点
-                    cal.set(Calendar.MINUTE,0);
-                    cal.set(Calendar.SECOND,0);
+                    cal.set(Calendar.HOUR_OF_DAY, 0);//0点
+                    cal.set(Calendar.MINUTE, 0);
+                    cal.set(Calendar.SECOND, 0);
                     startDate = cal.getTime();
                     cal.add(Calendar.MONTH, 1);
                     cal.set(Calendar.DAY_OF_MONTH, 0);
-                    cal.set(Calendar.HOUR_OF_DAY,23);//最后1秒
-                    cal.set(Calendar.MINUTE,59);
-                    cal.set(Calendar.SECOND,59);
+                    cal.set(Calendar.HOUR_OF_DAY, 23);//最后1秒
+                    cal.set(Calendar.MINUTE, 59);
+                    cal.set(Calendar.SECOND, 59);
                     endDate = cal.getTime();
                     break;
 
                 case 2://年
                     cal.set(Calendar.DAY_OF_YEAR, 1);
-                    cal.set(Calendar.HOUR_OF_DAY,0);//0点
-                    cal.set(Calendar.MINUTE,0);
-                    cal.set(Calendar.SECOND,0);
+                    cal.set(Calendar.HOUR_OF_DAY, 0);//0点
+                    cal.set(Calendar.MINUTE, 0);
+                    cal.set(Calendar.SECOND, 0);
                     startDate = cal.getTime();
                     cal.add(Calendar.YEAR, 1);
                     cal.set(Calendar.DAY_OF_YEAR, 0);
-                    cal.set(Calendar.HOUR_OF_DAY,23);//最后1秒
-                    cal.set(Calendar.MINUTE,59);
-                    cal.set(Calendar.SECOND,59);
+                    cal.set(Calendar.HOUR_OF_DAY, 23);//最后1秒
+                    cal.set(Calendar.MINUTE, 59);
+                    cal.set(Calendar.SECOND, 59);
                     endDate = cal.getTime();
                     break;
             }
@@ -322,12 +324,12 @@ public class MyFragment extends Fragment {
     }
 
     /*
-    * 设置mDate TextView文字
-    * */
-    private void setMDate(){
+     * 设置mDate TextView文字
+     * */
+    private void setMDate() {
         startCal.setTime(startDate);
         endCal.setTime(endDate);
-        mDate.setText(startCal.get(Calendar.YEAR)+"年"+(startCal.get(Calendar.MONTH)+1)+"月"+startCal.get(Calendar.DATE)+"日"+"-" + endCal.get(Calendar.YEAR)+"年"+(endCal.get(Calendar.MONTH)+1)+"月"+endCal.get(Calendar.DATE)+"日");
+        mDate.setText(startCal.get(Calendar.YEAR) + "年" + (startCal.get(Calendar.MONTH) + 1) + "月" + startCal.get(Calendar.DATE) + "日" + "-" + endCal.get(Calendar.YEAR) + "年" + (endCal.get(Calendar.MONTH) + 1) + "月" + endCal.get(Calendar.DATE) + "日");
     }
 
 

@@ -18,6 +18,15 @@ public class MyJsonBean {
     private int time;
     private int calorie;
     private String content;
+    private int actnum;
+
+    public int getActnum() {
+        return actnum;
+    }
+
+    public void setActnum(int actnum) {
+        this.actnum = actnum;
+    }
 
     public String getContent() {
         return content;

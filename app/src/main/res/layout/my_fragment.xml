@@ -145,6 +145,31 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/act_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/act_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#959696"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="活动"
+                android:textColor="#959696"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <ScrollView
