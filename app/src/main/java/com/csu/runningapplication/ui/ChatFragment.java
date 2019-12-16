@@ -24,6 +24,8 @@ import com.csu.runningapplication.Chat;
 import com.csu.runningapplication.ChatAdapter;
 import com.csu.runningapplication.Chat_dynamicActivity;
 import com.csu.runningapplication.FriendsActivity;
+import com.csu.runningapplication.GetActivityAdapter;
+import com.csu.runningapplication.Join;
 import com.csu.runningapplication.MyApplication;
 import com.csu.runningapplication.MyListViewUtils;
 import com.csu.runningapplication.R;
@@ -49,7 +51,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
 
     private List<Chat> chatlist = new ArrayList<>();
     private List<Chat> chatlist1 = new ArrayList<>();
-    private List<Chat> chatlist2 = new ArrayList<>();
+    private List<Join> chatlist2 = new ArrayList<>();
     private Button add;
     private TextView guanzhu;
     private TextView gonglue;
@@ -60,7 +62,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
     private MyListViewUtils listViewUtils;
     private ChatAdapter adapter;
     private ChatAdapter adapter1;
-    private ChatAdapter adapter2;
+    private GetActivityAdapter adapter2;
     private int IDM = 1;
     private MyApplication application;
     private String IDrecord; //关注
@@ -90,7 +92,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
 
         adapter = new ChatAdapter(getContext(), R.layout.chat_item, chatlist);
         adapter1 = new ChatAdapter(getContext(), R.layout.chat_item, chatlist1);
-        adapter2 = new ChatAdapter(getContext(), R.layout.chat_item, chatlist2);
+        adapter2 = new GetActivityAdapter(getContext(), R.layout.jion_item, chatlist2);
         listViewUtils = (MyListViewUtils) v.findViewById(R.id.list_view);
         listViewUtils.setInteface(this);
         listViewUtils.setAdapter(adapter);
@@ -452,12 +454,14 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 return;
 
             }
+            System.out.println("预告"+result);
             try {
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Chat chat = new Chat(jb.getString("text"),jb.getString("date"));
-                    chatlist2.add(chat);
+                    Join join=new Join(jb.getString("text"),jb.getString("date"),jb.getString("imgUrl"),jb.getString("id"));
+                    chatlist2.add(join);
+                    System.out.println(jb.getString("text"));
                     IDrecord2 = jb.getString("id");
                     new Thread() {
                         @Override
@@ -504,8 +508,8 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Chat chat = new Chat(jb.getString("text"),jb.getString("date"));
-                    chatlist2.add(chat);
+                    Join join=new Join(jb.getString("text"),jb.getString("date"),jb.getString("imgurl"),jb.getString("id"));
+                    chatlist2.add(join);
                     IDrecord2 = jb.getString("id");
                     application.setId_yugao(IDrecord2);
                 }

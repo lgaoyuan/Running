@@ -60,12 +60,15 @@ public class JoinActivity extends AppCompatActivity {
             }
             if (result.equals("[]")) {
                 Toast.makeText(JoinActivity.this, "你还没有参加任何活动", LENGTH_SHORT).show();
+                return;
             }
             try {
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Join join=new Join(jb.getString("text"),jb.getString("date"),jb.getString("imgurl"));
+                    JSONArray json1=new JSONArray(jb.getString("act"));
+                    JSONObject jb1=json1.getJSONObject(0);
+                    Join join=new Join(jb1.getString("text"),jb1.getString("date"),null,jb.getString("actid"),jb1.getString("is"));
                     joinlist.add(join);
                 }
                 adapter.notifyDataSetChanged();
