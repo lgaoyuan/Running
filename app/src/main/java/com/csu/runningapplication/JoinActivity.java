@@ -62,7 +62,6 @@ public class JoinActivity extends AppCompatActivity {
                 Toast.makeText(JoinActivity.this, "你还没有参加任何活动", LENGTH_SHORT).show();
                 return;
             }
-            System.out.println(result);
             try {
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {

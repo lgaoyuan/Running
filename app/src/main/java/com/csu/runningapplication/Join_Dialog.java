@@ -48,7 +48,6 @@ public class Join_Dialog extends Activity {
         @Override
         protected String doInBackground(Void... voids) {
             mj = new CancleAct().fetchItems(cancelid,application.getUserid());
-            System.out.println(cancelid);
             return mj;
         }
 
