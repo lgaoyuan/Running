@@ -55,6 +55,7 @@ public class MyFragment extends Fragment {
     private TextView mBbsNum;
     private TextView mFriendsNum;
     private TextView mActNum;
+    private TextView mTag;
     private TextView mMileage;
     private TextView mTime;
     private TextView mSpeed;
@@ -160,6 +161,16 @@ public class MyFragment extends Fragment {
             }
         });
 
+        Button mSetButton=(Button)v.findViewById(R.id.ic_setting);
+        mSetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), SetActivity.class);
+                i.putExtra("content", mContent.getText());
+                startActivity(i);
+            }
+        });
+
 
         mWeek = v.findViewById(R.id.my_week);
         mMonth = v.findViewById(R.id.my_month);
@@ -242,6 +253,7 @@ public class MyFragment extends Fragment {
             mBbsNum = (TextView) getActivity().findViewById(R.id.bbs_num);
             mFriendsNum = (TextView) getActivity().findViewById(R.id.friends_num);
             mActNum = (TextView) getActivity().findViewById(R.id.act_num);
+            mTag=(TextView)getActivity().findViewById(R.id.my_tag);
             mMileage = (TextView) getActivity().findViewById(R.id.mileage);
             mTime = (TextView) getActivity().findViewById(R.id.my_time);
             mSpeed = (TextView) getActivity().findViewById(R.id.my_speed);
@@ -256,6 +268,12 @@ public class MyFragment extends Fragment {
             mBbsNum.setText(Integer.toString(result.getBbsnum()));
             mFriendsNum.setText(Integer.toString(result.getFriends()));
             mActNum.setText(Integer.toString(result.getActnum()));
+            if(result.getTag().equals("")){
+                mTag.setVisibility(View.GONE);
+            }else{
+                mTag.setText(result.getTag());
+            }
+
             mMileage.setText(Double.toString((result.getCycling() + result.getRunning()) / 1000));
             mCalorie.setText(Integer.toString(result.getCalorie()));
             Glide.with(getContext())

@@ -55,8 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
+        android:padding="10dp"
         android:textColor="#878686"
         android:textSize="50px"
         />
@@ -78,7 +78,8 @@
          android:layout_height="wrap_content"
          android:gravity="center"
          android:textColor="#727583"
-         android:textSize="40px"/>
+         android:textSize="40px"
+         android:layout_marginBottom="10dp"/>
  </LinearLayout>
 
 </LinearLayout>

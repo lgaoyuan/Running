@@ -40,7 +40,7 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         TextView Chatnumber=(TextView)view.findViewById(R.id.chat_number);
 
             if (!chat.getNumber().equals("0") && !chat.getNumber().equals("1")&&!chat.getNumber().equals("")) {
-                Chatnumber.setText("点开查看更多");
+                Chatnumber.setText("点击大图查看更多");
 
             }
 

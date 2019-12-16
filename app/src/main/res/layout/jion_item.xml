@@ -52,12 +52,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#5e6066"
-            android:text="这是一个你已经参加的活动，活动具体内容是啥咱也不知道，咱也不敢问。"/>
+            android:padding="10dp"/>
         <ImageView
             android:id="@+id/Join_Img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/imgtest"
             android:adjustViewBounds="true"/>
     </LinearLayout>
 </LinearLayout>

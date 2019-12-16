@@ -29,7 +29,7 @@
                 android:layout_marginTop="12dp"
                 android:textSize="50px"
                 android:textColor="#8a8a8a"
-                android:text="紫薇牛"/>
+                android:text="活力中南"/>
             <TextView
                 android:id="@+id/friends_something"
                 android:layout_width="match_parent"

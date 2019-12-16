@@ -19,6 +19,15 @@ public class MyJsonBean {
     private int calorie;
     private String content;
     private int actnum;
+    private String tag;
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
     public int getActnum() {
         return actnum;

@@ -56,11 +56,11 @@
                 android:layout_width="713px"
                 android:layout_height="120px"
                 android:layout_marginTop="20dp"
-                android:hint="搜索"
+                android:hint="用户名/学号/标签"
                 android:textSize="45px"
                 android:gravity="center"
                 android:background="@drawable/rounded_edittext"
-                android:textColorHint="#ffffff"
+                android:textColorHint="#80FFFFFF"
                 android:textColor="#FFFFFF"/>
             <TextView
                 android:id="@+id/search_button"

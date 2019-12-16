@@ -48,8 +48,9 @@ public class FriendsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                str=search.getText().toString();
-               new ChatItemsTask().execute();
-
+               if(!str.equals("")){
+                   new ChatItemsTask().execute();
+               }
             }
         });
         add.setOnClickListener(new View.OnClickListener() {

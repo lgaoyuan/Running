@@ -112,6 +112,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 bottom3.setVisibility(View.INVISIBLE);
                 listViewUtils.setAdapter(adapter);
                 listViewUtils.loadComplete();
+                add.setVisibility(View.VISIBLE);
             }
         });
         gonglue.setOnClickListener(new View.OnClickListener() {
@@ -129,8 +130,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 listViewUtils.setAdapter(adapter1);
                 listViewUtils.loadComplete();
 
-
-
+                add.setVisibility(View.GONE);
             }
         });
         yugao.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +145,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 bottom3.setVisibility(View.VISIBLE);
                 listViewUtils.setAdapter(adapter2);
                 listViewUtils.loadComplete();
-
+                add.setVisibility(View.GONE);
             }
         });
         add = (Button) v.findViewById(R.id.add);

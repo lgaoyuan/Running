@@ -2,6 +2,7 @@ package com.csu.runningapplication;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,10 +81,10 @@ public class GetActivityAdapter extends ArrayAdapter<Join> {
 
         @Override
         protected void onPostExecute(String result) {// 执行完毕后，则更新UI
-            if (result == "-1") {
+            if (result.equals("-1")) {
                 Toast.makeText(getContext().getApplicationContext(), "您已参加过该活动", LENGTH_SHORT).show();
                 return;
-            }else if(result=="1"){
+            }else if(result.equals("1")){
                 Toast.makeText(getContext().getApplicationContext(), "参加成功", LENGTH_SHORT).show();
                 return;
             }else {
