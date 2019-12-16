@@ -8,40 +8,40 @@
         android:id="@+id/change_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#aaaaaa"
-            android:text="修改简介"
             android:padding="10dp"
-            android:textSize="18dp"/>
+            android:text="修改简介"
+            android:textColor="#aaaaaa"
+            android:textSize="18dp" />
 
         <EditText
             android:id="@+id/new_content"
-            android:background="#9FFFFFFF"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:visibility="gone"
+            android:background="#9FFFFFFF"
+            android:textColor="#000000"
             android:textSize="15dp"
-            android:textColor="#000000"/>
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/content_ok"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:background="#3F51B5"
-            android:textColor="#ffffff"
             android:layout_margin="10dp"
-            android:visibility="gone"
-            android:text="确定"/>
+            android:background="#3F51B5"
+            android:text="确定"
+            android:textColor="#ffffff"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="#999999"/>
+            android:background="#999999" />
 
     </LinearLayout>
 
@@ -49,40 +49,40 @@
         android:id="@+id/change_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:layout_below="@+id/change_text"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#aaaaaa"
-            android:text="上传头像"
             android:padding="10dp"
-            android:textSize="18dp"/>
+            android:text="上传头像"
+            android:textColor="#aaaaaa"
+            android:textSize="18dp" />
 
         <ImageView
             android:id="@+id/chooseMyImg"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="10dp"
-            android:visibility="gone"
-            android:src="@drawable/camera"/>
+            android:src="@drawable/camera"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/img_ok"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:background="#3F51B5"
-            android:textColor="#ffffff"
             android:layout_margin="10dp"
-            android:visibility="gone"
-            android:text="确定"/>
+            android:background="#3F51B5"
+            android:text="确定"
+            android:textColor="#ffffff"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="#999999"/>
+            android:background="#999999" />
 
     </LinearLayout>
 
@@ -90,40 +90,108 @@
         android:id="@+id/change_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:layout_below="@+id/change_img"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#aaaaaa"
-            android:text="修改密码"
             android:padding="10dp"
-            android:textSize="18dp"/>
+            android:text="修改密码"
+            android:textColor="#aaaaaa"
+            android:textSize="18dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="#999999"/>
+            android:background="#999999" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/change_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/change_password"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="设置标签"
+            android:textColor="#aaaaaa"
+            android:textSize="18dp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#999999" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="50dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:padding="50dp">
 
         <Button
             android:id="@+id/quit"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:layout_margin="20dp"
             android:background="#C90101"
             android:text="退出登录"
-            android:textSize="15dp"
-            android:layout_margin="20dp"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:textSize="15dp" />
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/picker_rel"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <com.csu.runningapplication.views.PickerScrollView
+            android:id="@+id/pickerscrlllview"
+            android:layout_width="match_parent"
+            android:layout_height="180dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/picker_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:background="#3F51B5"
+                android:text="确定"
+                android:textColor="#ffffff"
+                android:textSize="15dp" />
+
+            <Button
+                android:id="@+id/picker_no"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:background="#C90101"
+                android:text="取消"
+                android:textColor="#ffffff"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
 </RelativeLayout>
