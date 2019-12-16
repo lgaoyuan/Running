@@ -296,7 +296,7 @@ public class Chat_dynamicActivity extends Activity {
 
     // 使用OkHttp上传文件
     private void uploadFile(String id,String path) {
-        path=compressImage(path);
+        //path=compressImage(path);
         File file=new File(path);
         OkHttpClient client = new OkHttpClient();
         MediaType contentType = MediaType.parse("text/plain"); // 上传文件的Content-Type
