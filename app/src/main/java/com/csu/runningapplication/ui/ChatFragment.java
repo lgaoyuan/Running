@@ -206,7 +206,6 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 }
                 listViewUtils.loadComplete();
                 Toast.makeText(getActivity().getApplicationContext(),"已加载更多,继续下滑查看", LENGTH_SHORT).show();
-//                listViewUtils.Firstload();
             }
         }, 1000);
 
@@ -256,9 +255,8 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
 //    }
 
 
-    /*
-     * 打开中南页面第一次发送请求！
-     * */
+
+    //    关注页面的第一次请求
     private class ChatItemsTask extends AsyncTask<Void, Void, String> {
         String mj;
         final Handler handler = new Handler();
@@ -316,10 +314,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             }
         };
     }
-
-    //
-    //
-    //每次上拉的时候发送请求，多加载item
+    //    关注页面的上拉请求
     private class ChatItemsTask1 extends AsyncTask<Void, Void, String> {
         String mj;
 
@@ -356,7 +351,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             }
         }
     }
-
+    //    攻略页面的第一次请求
     private class ChatItemsTask2 extends AsyncTask<Void, Void, String> {
         String mj;
         Handler handler1 = new Handler();
@@ -407,7 +402,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             }
         };
     }
-
+    //    攻略页面的上拉请求
     private class ChatItemsTask3 extends AsyncTask<Void, Void, String> {
         String mj;
 
@@ -440,7 +435,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             listViewUtils.loadComplete();
         }
     }
-
+    //    预告页面的第一次请求
     private class ChatItemsTask4 extends AsyncTask<Void, Void, String> {
         String mj;
         Handler handler1 = new Handler();
@@ -492,7 +487,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
             }
         };
     }
-
+    //    预告页面的上拉请求
     private class ChatItemsTask5 extends AsyncTask<Void, Void, String> {
         String mj;
 

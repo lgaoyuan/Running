@@ -61,4 +61,10 @@ public class Friend_dialog_list extends Activity {
             return mj;
         }
     }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        this.finish();
+
+    }
 }

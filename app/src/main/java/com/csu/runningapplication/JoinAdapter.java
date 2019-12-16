@@ -1,6 +1,7 @@
 package com.csu.runningapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +60,10 @@ public class JoinAdapter extends ArrayAdapter<Join> {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new CancleActTask().execute();
+                Join join1=getItem(position);
+               Intent intent=new Intent(getContext(),Join_Dialog.class);
+               intent.putExtra("cancleid",join1.getId());
+               getContext().startActivity(intent);
             }
         });
 
@@ -68,17 +72,7 @@ public class JoinAdapter extends ArrayAdapter<Join> {
         return view;
 
     }
-    private class CancleActTask extends AsyncTask<Void, Void, String> {
-        String mj;
 
-        @Override
-        protected String doInBackground(Void... voids) {
-            mj = new CancleAct().fetchItems(join.getId(),application.getUserid());
-            System.out.println(mj);
-            return mj;
-        }
-
-        }
 
 
     }

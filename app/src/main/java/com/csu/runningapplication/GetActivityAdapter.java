@@ -75,7 +75,6 @@ public class GetActivityAdapter extends ArrayAdapter<Join> {
         @Override
         protected String doInBackground(Void... voids) {
             mj = new JoinAct().fetchItems(id, application.getUserid());
-            System.out.println(id);
             return mj;
         }
 

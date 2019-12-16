@@ -38,6 +38,7 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+        joinlist.clear();
         new GetMyActivityTask().execute();
     }
 
@@ -47,7 +48,6 @@ public class JoinActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
             mj = new GetMyNotice().fetchItems(application.getUserid());
-            System.out.println(mj);
             return mj;
         }
 
@@ -62,6 +62,7 @@ public class JoinActivity extends AppCompatActivity {
                 Toast.makeText(JoinActivity.this, "你还没有参加任何活动", LENGTH_SHORT).show();
                 return;
             }
+            System.out.println(result);
             try {
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {

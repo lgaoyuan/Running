@@ -25,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".JoinActivity"></activity>
+        <activity android:name=".JoinActivity" />
         <activity android:name=".Friend_own" />
         <activity
             android:name=".Friend_Dialog"
@@ -33,6 +33,7 @@
         <activity
             android:name=".Friend_dialog_list"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity android:name=".Join_Dialog" android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".Friends_list" />
         <activity android:name=".FriendsActivity" />
         <activity android:name=".Dialog" />
