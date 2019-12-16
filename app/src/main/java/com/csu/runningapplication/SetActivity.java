@@ -1,9 +1,7 @@
 package com.csu.runningapplication;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -13,30 +11,40 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.csu.runningapplication.http.ContentFetch;
+import com.csu.runningapplication.http.SetTagFetch;
+import com.csu.runningapplication.http.TagsFetch;
 import com.csu.runningapplication.util.GlideLoadEngine;
+import com.csu.runningapplication.views.PickerScrollView;
+import com.csu.runningapplication.views.Pickers;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.IncapableCause;
 import com.zhihu.matisse.internal.entity.Item;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import okhttp3.Call;
@@ -60,12 +68,32 @@ public class SetActivity extends Activity {
     private Button mImgOk;
     private String content;
     private String imgPath;
+    private LinearLayout bt_scrollchoose; // 滚动选择器按钮
+    private PickerScrollView pickerscrlllview; // 滚动选择器
+    private List<Pickers> list; // 滚动选择器数据
+    private String[] id;
+    private String[] name;
+
+    private Button bt_yes; // 确定按钮
+    private Button bt_no; // 取消按钮
+    private RelativeLayout picker_rel; // 选择器布局
+    private String chooseTag=null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         myApplication = (MyApplication) getApplication();
         setContentView(R.layout.setting_layout);
+        initView();
+        new TagsTask().execute();
+    }
+
+
+
+    /**
+     * 初始化
+     */
+    private void initView() {
         mPassword = (LinearLayout) findViewById(R.id.change_password);
         mPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +170,59 @@ public class SetActivity extends Activity {
                 startActivity(i);
             }
         });
+
+        //标签滚动选择器
+        bt_scrollchoose = (LinearLayout) findViewById(R.id.change_tag);
+        bt_scrollchoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                picker_rel.setVisibility(View.VISIBLE);
+            }
+        });
+        picker_rel = (RelativeLayout) findViewById(R.id.picker_rel);
+        pickerscrlllview = (PickerScrollView) findViewById(R.id.pickerscrlllview);
+        pickerscrlllview.setOnSelectListener(new PickerScrollView.onSelectListener() {
+            @Override
+            public void onSelect(Pickers pickers) {
+                //System.out.println("选择：" + pickers.getShowId() + pickers.getShowConetnt());
+                chooseTag=pickers.getShowConetnt();
+            }
+        });
+        bt_yes = (Button) findViewById(R.id.picker_yes);
+        bt_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SetTagTask().execute();
+                picker_rel.setVisibility(View.GONE);
+            }
+        });
+        bt_no = (Button) findViewById(R.id.picker_no);
+        bt_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                picker_rel.setVisibility(View.GONE);
+            }
+        });
     }
+
+    /**
+     * 初始化标签选择数据
+     */
+    private void initData(String[] idArr,String[] nameArr) {
+        list = new ArrayList<Pickers>();
+        id = idArr;
+        name = nameArr;
+        chooseTag=name[0];
+        for (int i = 0; i < name.length; i++) {
+            list.add(new Pickers(name[i], id[i]));
+        }
+        // 设置数据，默认选择第一条
+        pickerscrlllview.setData(list);
+        pickerscrlllview.setSelected(0);
+    }
+
+
+
 
     private class ContentItemsTask extends AsyncTask<Void, Void, Void> {
 
@@ -319,4 +399,54 @@ public class SetActivity extends Activity {
             }
         });
     }
+
+    /*
+    * 标签列表
+    * */
+    private class TagsTask extends AsyncTask<Void,Void,String>{
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            String tj=new TagsFetch().fetchItems();
+            return tj;
+        }
+
+        @Override
+        protected void onPostExecute(String result){
+            if (result == null) {
+                Toast.makeText(getApplicationContext(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                JSONArray json=new JSONArray(result);
+                ArrayList<String> idList=new ArrayList<String>();
+                ArrayList<String> nameList=new ArrayList<String>();
+                for(int i=0;i<json.length();i++){
+                    JSONObject jb=json.getJSONObject(i);
+                    idList.add(jb.getString("id"));
+                    nameList.add(jb.getString("tag"));
+                }
+                String[] id = new String[idList.size()];
+                String[] name = new String[nameList.size()];
+                idList.toArray(id);
+                nameList.toArray(name);
+                initData(id,name);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /*
+    * 设置标签
+    * */
+    private class SetTagTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            new SetTagFetch().fetchItems(chooseTag,myApplication.getUserid());
+            return null;
+        }
+    }
+
 }
