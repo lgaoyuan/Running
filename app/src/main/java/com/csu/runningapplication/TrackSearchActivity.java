@@ -158,7 +158,7 @@ public class TrackSearchActivity extends Activity {
                             }
                         });
                     } else {
-                        Toast.makeText(TrackSearchActivity.this, "Terminal不存在", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TrackSearchActivity.this, "id不存在", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     showNetErrorHint(queryTerminalResponse.getErrorMsg());
