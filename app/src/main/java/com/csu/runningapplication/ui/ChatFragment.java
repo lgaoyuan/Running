@@ -442,7 +442,6 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 return;
 
             }
-            System.out.println("预告"+result);
             try {
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {

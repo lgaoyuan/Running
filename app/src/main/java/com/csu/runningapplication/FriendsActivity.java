@@ -88,6 +88,7 @@ public class FriendsActivity extends AppCompatActivity {
                 return;
             }
             Toast.makeText(FriendsActivity.this, "搜索成功", Toast.LENGTH_SHORT).show();
+            System.out.println(result);
             try {
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {

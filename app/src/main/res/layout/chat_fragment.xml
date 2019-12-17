@@ -136,8 +136,7 @@
                     android:layout_height="match_parent"
                     android:divider="#0b1529"
                     android:dividerHeight="5dp"
-                    android:background="#252a32"
-                    android:layout_marginBottom="2dp"/>
+                    android:background="#252a32" />
             <LinearLayout
                 android:layout_marginTop="-100dp"
                 android:id="@+id/nav_123"

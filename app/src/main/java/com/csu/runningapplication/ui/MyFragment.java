@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.csu.runningapplication.CircleImageView;
 import com.csu.runningapplication.FriendsActivity;
 import com.csu.runningapplication.Friends_list;
@@ -276,8 +277,10 @@ public class MyFragment extends Fragment {
 
             mMileage.setText(Double.toString((result.getCycling() + result.getRunning()) / 1000));
             mCalorie.setText(Integer.toString(result.getCalorie()));
+            RequestOptions requestOptions=new RequestOptions().error(R.drawable.user_192);
             Glide.with(getContext())
                     .load(result.getAvatarUrl())
+                    .apply(requestOptions)
                     .into(img);
             int second = result.getTime();
             int min = second / 60;
