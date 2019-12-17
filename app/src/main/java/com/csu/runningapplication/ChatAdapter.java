@@ -1,27 +1,43 @@
 package com.csu.runningapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatAdapter extends ArrayAdapter<Chat> {
+public class ChatAdapter extends ArrayAdapter<Chat>{
     private int resourceId;
     private String head;
+    private Fragment fragment;
+    private Activity activity;
+    public ChatAdapter(Context context, int textViewResourceId, List<Chat> objects, Activity activity){
+        super(context,textViewResourceId,objects);
+        resourceId=textViewResourceId;
+        this.activity=activity;
+    }
     public ChatAdapter(Context context, int textViewResourceId, List<Chat> objects){
         super(context,textViewResourceId,objects);
         resourceId=textViewResourceId;
@@ -34,13 +50,13 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         ImageView ChatImage=(ImageView)view.findViewById(R.id.chat_image);
         TextView ChatName=(TextView) view.findViewById(R.id.chat_name);
         TextView ChatName1=(TextView)view.findViewById(R.id.name1);
-        ImageView ChatImage1=(ImageView)view.findViewById(R.id.chat_img);
+        final ImageView ChatImage1=(ImageView)view.findViewById(R.id.chat_img);
         TextView Chatdate=(TextView)view.findViewById(R.id.chat_date);
         Chatdate.setText(chat.getChatdate());
         TextView Chatnumber=(TextView)view.findViewById(R.id.chat_number);
 
             if (!chat.getNumber().equals("0") && !chat.getNumber().equals("1")&&!chat.getNumber().equals("")) {
-                Chatnumber.setText("点击大图查看更多");
+                Chatnumber.setText("点击图片查看更多");
 
             }
 
@@ -54,6 +70,7 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
                 .load(head)
                 .apply(requestOptions)
                 .into(ChatImage);
+
 
         ChatImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,17 +90,18 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         ChatName.setText(chat.getName());
         ChatName1.setText(chat.getName1());
         //说说图片 加载第一张
+
+
+
+
         RequestOptions requestOptions1 = new RequestOptions()
+                .override(2000,2000)
                 .error(null);
         if(!chat.getImgcount().isEmpty()){
         Glide.with(getContext())
                 .load(chat.getImgcount().get(0))
                 .apply(requestOptions1)
                 .into(ChatImage1);
-//        ChatImage1.setMaxHeight(500);
-//         if(ChatImage1.getHeight()>1000){
-//             ChatImage1.setMaxHeight(800);
-//         }
 
         ChatImage1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,4 +116,5 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         }
         return view;
     }
+
 }
