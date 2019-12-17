@@ -458,7 +458,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Join join=new Join(jb.getString("text"),jb.getString("date"),jb.getString("imgUrl"),jb.getString("id"));
+                    Join join=new Join(jb.getString("text"),jb.getString("date"),jb.getString("imgUrl"),jb.getString("id"),jb.getString("is"));
                     chatlist2.add(join);
                     System.out.println(jb.getString("text"));
                     IDrecord2 = jb.getString("id");
@@ -507,7 +507,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jb = json.getJSONObject(i);
-                    Join join=new Join(jb.getString("text"),jb.getString("date"),jb.getString("imgurl"),jb.getString("id"));
+                    Join join=new Join(jb.getString("text"),jb.getString("date"),jb.getString("imgurl"),jb.getString("id"),jb.getString("is"));
                     chatlist2.add(join);
                     IDrecord2 = jb.getString("id");
                     application.setId_yugao(IDrecord2);

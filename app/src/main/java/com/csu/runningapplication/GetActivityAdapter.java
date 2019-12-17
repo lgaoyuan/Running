@@ -57,6 +57,9 @@ public class GetActivityAdapter extends ArrayAdapter<Join> {
 
         final Button button = (Button) view.findViewById(R.id.Join_button);
         button.setText("参加");
+        if(join.getIs().equals("0")){
+            button.setVisibility(View.INVISIBLE);
+        }
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
