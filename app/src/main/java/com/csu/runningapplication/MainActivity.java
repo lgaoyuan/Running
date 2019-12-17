@@ -27,6 +27,7 @@ public class MainActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         chat=findViewById(R.id.chat);
         chatname=findViewById(R.id.chat_name);
         my=findViewById(R.id.my);

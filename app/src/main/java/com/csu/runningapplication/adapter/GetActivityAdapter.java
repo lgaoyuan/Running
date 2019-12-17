@@ -1,4 +1,4 @@
-package com.csu.runningapplication;
+package com.csu.runningapplication.adapter;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -16,6 +16,9 @@ import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.csu.runningapplication.Join;
+import com.csu.runningapplication.MyApplication;
+import com.csu.runningapplication.R;
 import com.csu.runningapplication.http.GetMyNotice;
 import com.csu.runningapplication.http.JoinAct;
 

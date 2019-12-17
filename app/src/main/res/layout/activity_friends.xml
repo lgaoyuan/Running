@@ -83,60 +83,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
-            <LinearLayout
-                android:id="@+id/friends_lin"
+            <ListView
+                android:id="@+id/search_list"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:visibility="invisible"
-                android:orientation="horizontal">
-                <com.csu.runningapplication.CircleImageView
-                    android:id="@+id/friends_image"
-                    android:src="@drawable/user_192"
+                android:layout_height="wrap_content"
+                android:divider="#0b1529"
+                android:dividerHeight="5dp"/>
 
-                    android:layout_marginTop="10dp"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="10dp"
-                    />
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                    android:id="@+id/friends_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:textSize="50px"
-                    android:textColor="#8a8a8a"
-                    android:text="紫薇牛"/>
-                    <TextView
-                        android:id="@+id/friend_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="#8a8a8a"
-                        android:textSize="37px"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
-                <Button
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/friends_add"
-                    android:layout_width="160px"
-                    android:layout_height="90px"
-                    android:background="@drawable/friends_search_button"
-                    android:text="添加"
-                    android:textColor="#ffffff"
-                    android:textSize="45px"/>
-                </LinearLayout>
-
-            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

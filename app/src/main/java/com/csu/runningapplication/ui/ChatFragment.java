@@ -1,10 +1,7 @@
 package com.csu.runningapplication.ui;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,18 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import com.bumptech.glide.Glide;
 import com.csu.runningapplication.Chat;
-import com.csu.runningapplication.ChatAdapter;
+import com.csu.runningapplication.adapter.ChatAdapter;
 import com.csu.runningapplication.Chat_dynamicActivity;
-import com.csu.runningapplication.FriendsActivity;
-import com.csu.runningapplication.GetActivityAdapter;
+import com.csu.runningapplication.adapter.GetActivityAdapter;
 import com.csu.runningapplication.Join;
 import com.csu.runningapplication.MyApplication;
 import com.csu.runningapplication.MyListViewUtils;
@@ -32,16 +25,11 @@ import com.csu.runningapplication.R;
 import com.csu.runningapplication.http.ChatFetch;
 import com.csu.runningapplication.http.Chat_gonglueFetch;
 import com.csu.runningapplication.http.Chat_yugaoFetch;
-import com.csu.runningapplication.jsonbean.JsonBean;
-import com.csu.runningapplication.jsonbean.JsonBean_gonglue;
-import com.csu.runningapplication.jsonbean.MyJsonBean;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +56,7 @@ public class ChatFragment extends Fragment implements MyListViewUtils.LoadListen
     private String IDrecord; //关注
     private String IDrecord1;//攻略
     private String IDrecord2;//预告
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

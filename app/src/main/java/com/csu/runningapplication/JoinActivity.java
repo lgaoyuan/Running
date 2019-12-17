@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.csu.runningapplication.adapter.JoinAdapter;
 import com.csu.runningapplication.http.GetMyNotice;
-import com.csu.runningapplication.http.JoinAct;
 
 import org.json.JSONArray;
 import org.json.JSONException;

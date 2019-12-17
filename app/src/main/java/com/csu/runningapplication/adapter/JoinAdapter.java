@@ -1,4 +1,4 @@
-package com.csu.runningapplication;
+package com.csu.runningapplication.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,10 @@ import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.csu.runningapplication.Join;
+import com.csu.runningapplication.Join_Dialog;
+import com.csu.runningapplication.MyApplication;
+import com.csu.runningapplication.R;
 import com.csu.runningapplication.http.CancleAct;
 import com.csu.runningapplication.http.GetMyNotice;
 
@@ -61,7 +65,7 @@ public class JoinAdapter extends ArrayAdapter<Join> {
             @Override
             public void onClick(View view) {
                 Join join1=getItem(position);
-               Intent intent=new Intent(getContext(),Join_Dialog.class);
+               Intent intent=new Intent(getContext(), Join_Dialog.class);
                intent.putExtra("cancleid",join1.getId());
                getContext().startActivity(intent);
             }

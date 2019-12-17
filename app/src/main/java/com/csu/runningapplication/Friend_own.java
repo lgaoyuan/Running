@@ -1,7 +1,6 @@
 package com.csu.runningapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.csu.runningapplication.adapter.ChatAdapter;
 import com.csu.runningapplication.http.GetFriendBbs;
 
 import org.json.JSONArray;

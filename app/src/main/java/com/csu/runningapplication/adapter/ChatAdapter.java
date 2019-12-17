@@ -1,10 +1,11 @@
-package com.csu.runningapplication;
+package com.csu.runningapplication.adapter;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.csu.runningapplication.Chat;
+import com.csu.runningapplication.Dialog;
+import com.csu.runningapplication.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +68,6 @@ public class ChatAdapter extends ArrayAdapter<Chat>{
 
         //图片加载失败时，显示的图片
         RequestOptions requestOptions = new RequestOptions()
-                .placeholder(R.drawable.user_192)
                 .error(R.drawable.user_192);
         //头像
         Glide.with(getContext())
@@ -77,7 +80,7 @@ public class ChatAdapter extends ArrayAdapter<Chat>{
             @Override
             public void onClick(View view) {
                 Chat chat1=getItem(position);
-                Intent i=new Intent(getContext(),Dialog.class);
+                Intent i=new Intent(getContext(), Dialog.class);
                 i.putExtra("test","0");
                 i.putExtra("headimg",chat1.getUri());
                 getContext().startActivity(i);
@@ -96,7 +99,7 @@ public class ChatAdapter extends ArrayAdapter<Chat>{
 
 
         RequestOptions requestOptions1 = new RequestOptions()
-                .placeholder(R.drawable.user_192)
+                .placeholder(R.drawable.round_corner_btn_bg)
                 .override(5000,2000)
                 .error(null);
         if(!chat.getImgcount().isEmpty()){

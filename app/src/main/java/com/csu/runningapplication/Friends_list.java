@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.csu.runningapplication.adapter.FriendsAdapter;
 import com.csu.runningapplication.http.FriendList;
 import com.csu.runningapplication.http.NewFriend;
 import org.json.JSONArray;
