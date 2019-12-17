@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.csu.runningapplication.CircleImageView;
 import com.csu.runningapplication.Friends;
 import com.csu.runningapplication.R;
@@ -32,8 +33,10 @@ public class FriendsAdapter extends ArrayAdapter<Friends> {
         } else {content1.setText(friends.getcontent());}
 
         FriendsName.setText(friends.getName());
+        RequestOptions requestOptions=new RequestOptions().error(R.drawable.user_192);
         Glide.with(getContext())
                 .load(friends.getImg())
+                .apply(requestOptions)
                 .into(FriendsImg);
 
 
