@@ -64,6 +64,7 @@ public class ChatAdapter extends ArrayAdapter<Chat>{
 
         //图片加载失败时，显示的图片
         RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.user_192)
                 .error(R.drawable.user_192);
         //头像
         Glide.with(getContext())
@@ -95,7 +96,8 @@ public class ChatAdapter extends ArrayAdapter<Chat>{
 
 
         RequestOptions requestOptions1 = new RequestOptions()
-                .override(2000,2000)
+                .placeholder(R.drawable.user_192)
+                .override(5000,2000)
                 .error(null);
         if(!chat.getImgcount().isEmpty()){
         Glide.with(getContext())
