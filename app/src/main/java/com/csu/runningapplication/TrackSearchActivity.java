@@ -139,10 +139,10 @@ public class TrackSearchActivity extends Activity {
                                         }
                                         if (allEmpty) {
                                             Toast.makeText(TrackSearchActivity.this,
-                                                    "所有轨迹都无轨迹点，请尝试放宽过滤限制，如：关闭绑路模式", Toast.LENGTH_SHORT).show();
+                                                    "无轨迹", Toast.LENGTH_SHORT).show();
                                         } else {
                                             StringBuilder sb = new StringBuilder();
-                                            sb.append("共查询到").append(tracks.size()).append("条轨迹，每条轨迹行驶距离分别为：");
+                                            sb.append("共").append(tracks.size()).append("条轨迹，每条轨迹距离分别为：");
                                             for (Track track : tracks) {
                                                 sb.append(track.getDistance()).append("m,");
                                             }
