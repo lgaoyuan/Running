@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.csu.runningapplication.adapter.SearchFriendAdapter;
 import com.csu.runningapplication.http.AddFriend;
+import com.csu.runningapplication.http.GetRecommend;
 import com.csu.runningapplication.http.SearchFriend;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,7 +62,9 @@ public class FriendsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Toast.makeText(FriendsActivity.this, "已为你推荐好友", Toast.LENGTH_SHORT).show();
         friendsList.clear();
+        new GetRecommendTask().execute();
         //推荐好友
     }
 
@@ -84,7 +87,7 @@ public class FriendsActivity extends AppCompatActivity {
                 Toast.makeText(FriendsActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
                 return;
             }
-            System.out.println("输出结果" + result);
+            Toast.makeText(FriendsActivity.this, "搜索成功", Toast.LENGTH_SHORT).show();
             try {
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
@@ -100,5 +103,34 @@ public class FriendsActivity extends AppCompatActivity {
             }
         }
 
+    }
+    private class GetRecommendTask extends AsyncTask<Void,Void,String>{
+        String mj;
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            mj=new GetRecommend().fetchItems(application.getUserid());
+            return mj;
+        }
+        @Override
+        protected void onPostExecute(String result){
+            if (result.equals("")) {
+                Toast.makeText(FriendsActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            System.out.println("推荐好友"+result);
+            try {
+                JSONArray json=new JSONArray(result);
+                for(int i=0;i<json.length();i++){
+                    JSONObject jb=json.getJSONObject(i);
+                    Friends friends=new Friends(jb.getString("name"),jb.getString("studentid"),jb.getString("avatarUrl"),jb.getString("content"));
+                    friendsList.add(friends);
+                }
+                adapter.notifyDataSetChanged();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }
