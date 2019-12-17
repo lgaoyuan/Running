@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.csu.runningapplication.CircleImageView;
 import com.csu.runningapplication.Friends;
 import com.csu.runningapplication.FriendsActivity;
@@ -41,8 +42,10 @@ public class SearchFriendAdapter extends ArrayAdapter<Friends> {
         TextView content=view.findViewById(R.id.friend_content);
         Button button=view.findViewById(R.id.friends_add);
 
+        RequestOptions requestOptions=new RequestOptions().error(R.drawable.user_192);
         Glide.with(getContext())
                 .load(friends.getImg())
+                .apply(requestOptions)
                 .into(imageView);
         friendid.setText(friends.getName());
         content.setText(friends.getcontent());

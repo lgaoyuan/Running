@@ -88,7 +88,6 @@ public class FriendsActivity extends AppCompatActivity {
                 return;
             }
             Toast.makeText(FriendsActivity.this, "搜索成功", Toast.LENGTH_SHORT).show();
-            System.out.println(result);
             try {
                 JSONArray json = new JSONArray(result);
                 for (int i = 0; i < json.length(); i++) {
@@ -119,7 +118,6 @@ public class FriendsActivity extends AppCompatActivity {
                 Toast.makeText(FriendsActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
                 return;
             }
-            System.out.println("推荐好友"+result);
             try {
                 JSONArray json=new JSONArray(result);
                 for(int i=0;i<json.length();i++){
