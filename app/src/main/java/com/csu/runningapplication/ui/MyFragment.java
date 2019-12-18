@@ -31,7 +31,13 @@ import com.csu.runningapplication.R;
 import com.csu.runningapplication.SetActivity;
 import com.csu.runningapplication.http.EchartsFetch;
 import com.csu.runningapplication.http.MyFetch;
+import com.csu.runningapplication.http.MyRank;
 import com.csu.runningapplication.jsonbean.MyJsonBean;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -80,6 +86,9 @@ public class MyFragment extends Fragment {
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     private Button add;
+    private TextView myrank1;
+    private TextView myrank2;
+    private TextView myrank3;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,17 +108,23 @@ public class MyFragment extends Fragment {
     public void onResume() {
         super.onResume();
         init();
+
     }
 
     private View init() {
         mUserName = (TextView) v.findViewById(R.id.my_user_name);
         mUserName.setText(myApplication.getName());
         img = v.findViewById(R.id.my_user_img);
+        myrank1=v.findViewById(R.id.my_rank1);
+        myrank2=v.findViewById(R.id.my_rank2);
+        myrank3=v.findViewById(R.id.my_rank3);
 
         new MyItemsTask().execute();
+
         x = "['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']";
         new EchartsItemsTask().execute("0");//获取数据
         getDay(0);
+        new GetMyRankTask().execute();
         //初始化add添加好友按钮
         add = (Button) v.findViewById(R.id.add_friends);
         add.setOnClickListener(new View.OnClickListener() {
@@ -180,6 +195,7 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getDay(0);
+                new GetMyRankTask().execute();
                 setMDate();
                 x = "['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']";
                 new EchartsItemsTask().execute("0");
@@ -193,6 +209,7 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getDay(1);
+                new GetMyRankTask().execute();
                 setMDate();
                 new EchartsItemsTask().execute("0");
                 mWeek.setBackgroundResource(R.color.colorTrans);
@@ -205,6 +222,7 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getDay(2);
+                new GetMyRankTask().execute();
                 setMDate();
                 x = "['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']";
                 new EchartsItemsTask().execute("1");
@@ -383,6 +401,32 @@ public class MyFragment extends Fragment {
             }
             runData = result;
             initEcharts();
+        }
+    }
+
+    private class GetMyRankTask extends AsyncTask<Void,Void,String>{
+        String mj;
+        @Override
+        protected String doInBackground(Void... voids) {
+            mj=new MyRank().fetchItems(myApplication.getUserid(),String.valueOf(startDate.getTime()),String.valueOf(endDate.getTime()));
+            return mj;
+        }
+        @Override
+        protected void onPostExecute(String result){
+            if (result == null) {
+                return;
+            }
+            try {
+
+                    JSONObject jb=new JSONObject(result);
+                  myrank1.setText(jb.getString("r2"));
+                  myrank2.setText(jb.getString("r0"));
+                  myrank3.setText(jb.getString("r1"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
