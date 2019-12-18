@@ -173,6 +173,7 @@ public class MyFragment extends Fragment {
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), SetActivity.class);
                 i.putExtra("content", mContent.getText());
+                i.putExtra("nick", mUserName.getText());
                 startActivity(i);
             }
         });
@@ -183,6 +184,7 @@ public class MyFragment extends Fragment {
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), SetActivity.class);
                 i.putExtra("content", mContent.getText());
+                i.putExtra("nick", mContent.getText());
                 startActivity(i);
             }
         });
@@ -277,8 +279,9 @@ public class MyFragment extends Fragment {
             mTime = (TextView) getActivity().findViewById(R.id.my_time);
             mSpeed = (TextView) getActivity().findViewById(R.id.my_speed);
             mCalorie = (TextView) getActivity().findViewById(R.id.my_calorie);
+            mUserName = (TextView) getActivity().findViewById(R.id.my_user_name);
 
-
+            mUserName.setText(result.getName());
             String contentStr = result.getContent();
             if (contentStr == null) {
                 contentStr = "这个人很懒，什么都没有写";
@@ -301,8 +304,9 @@ public class MyFragment extends Fragment {
                     .apply(requestOptions)
                     .into(img);
             int second = result.getTime();
-            int min = second / 60;
+
             int hour = second / 3600;
+            int min = second / 60-hour*60;
             second = second % 60;
             DecimalFormat df = new DecimalFormat("00");
             mTime.setText(df.format(hour) + ":" + df.format(min) + ":" + df.format(second));

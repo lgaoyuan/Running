@@ -5,10 +5,52 @@
     android:background="@drawable/activity_login">
 
     <LinearLayout
+        android:id="@+id/change_nick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="修改昵称"
+            android:textColor="#aaaaaa"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/new_nick"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="#9FFFFFFF"
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/nick_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="#3F51B5"
+            android:text="确定"
+            android:textColor="#ffffff"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#999999" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/change_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_below="@+id/change_nick"
         android:padding="10dp">
 
         <TextView

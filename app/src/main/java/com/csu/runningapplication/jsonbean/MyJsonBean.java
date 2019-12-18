@@ -20,6 +20,15 @@ public class MyJsonBean {
     private String content;
     private int actnum;
     private String tag;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getTag() {
         return tag;

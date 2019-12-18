@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.csu.runningapplication.http.ContentFetch;
+import com.csu.runningapplication.http.NickFetch;
 import com.csu.runningapplication.http.SetTagFetch;
 import com.csu.runningapplication.http.TagsFetch;
 import com.csu.runningapplication.util.GlideLoadEngine;
@@ -59,14 +60,18 @@ import okhttp3.Response;
 public class SetActivity extends Activity {
     private MyApplication myApplication;
     private LinearLayout mContent;
+    private LinearLayout mNick;
     private LinearLayout mImg;
     private LinearLayout mPassword;
     private Button mQuit;
     private EditText mEditContent;
+    private EditText mEditNick;
     private Button mContentOk;
+    private Button mNickOk;
     private ImageView mMyImg;
     private Button mImgOk;
     private String content;
+    private String nick;
     private String imgPath;
     private LinearLayout bt_scrollchoose; // 滚动选择器按钮
     private PickerScrollView pickerscrlllview; // 滚动选择器
@@ -103,6 +108,9 @@ public class SetActivity extends Activity {
             }
         });
 
+        mNick = (LinearLayout) findViewById(R.id.change_nick);
+        mEditNick = (EditText) findViewById(R.id.new_nick);
+
         mContent = (LinearLayout) findViewById(R.id.change_text);
         mEditContent = (EditText) findViewById(R.id.new_content);
         Intent i = getIntent();
@@ -115,6 +123,16 @@ public class SetActivity extends Activity {
                 new ContentItemsTask().execute();
             }
         });
+        nick = i.getStringExtra("nick");
+        mNickOk = (Button) findViewById(R.id.nick_ok);
+        mNickOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nick=mEditNick.getText().toString();
+                new NickItemsTask().execute();
+            }
+        });
+
         mImgOk = (Button) findViewById(R.id.img_ok);
         mImgOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +152,17 @@ public class SetActivity extends Activity {
                 chooseImg();
             }
         });
+
+        mNick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mEditNick.setText(nick);
+                mEditNick.setVisibility(View.VISIBLE);
+                mNickOk.setVisibility(View.VISIBLE);
+            }
+        });
+
         mContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -237,6 +266,22 @@ public class SetActivity extends Activity {
             Toast.makeText(SetActivity.this, "修改成功！", Toast.LENGTH_SHORT).show();
             mEditContent.setVisibility(View.GONE);
             mContentOk.setVisibility(View.GONE);
+        }
+    }
+
+    private class NickItemsTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            new NickFetch().fetchItems(myApplication.getUserid(), nick);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            Toast.makeText(SetActivity.this, "修改成功！", Toast.LENGTH_SHORT).show();
+            mEditNick.setVisibility(View.GONE);
+            mNickOk.setVisibility(View.GONE);
         }
     }
 
