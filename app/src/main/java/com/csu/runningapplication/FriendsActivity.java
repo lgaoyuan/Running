@@ -62,7 +62,7 @@ public class FriendsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(FriendsActivity.this, "已为你推荐好友", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(FriendsActivity.this, "已为你推荐好友", Toast.LENGTH_SHORT).show();
         friendsList.clear();
         new GetRecommendTask().execute();
         //推荐好友

@@ -289,7 +289,7 @@ public class MyFragment extends Fragment {
             DecimalFormat df = new DecimalFormat("00");
             mTime.setText(df.format(hour) + ":" + df.format(min) + ":" + df.format(second));
             if (result.getCycling() + result.getRunning() != 0) {
-                int speed = (int) (result.getTime() / ((result.getCycling() + result.getRunning()) / 1000));
+                int speed = (int) (result.getTime() / (((result.getCycling()/2) + result.getRunning()) / 1000));
                 min = speed / 60;
                 speed = speed % 60;
                 mSpeed.setText(min + "'" + df.format(speed) + "''");

@@ -99,7 +99,7 @@ public class RunningActivity extends Activity {
     private OnTrackLifecycleListener onTrackListener = new SimpleOnTrackLifecycleListener() {
         @Override
         public void onBindServiceCallback(int status, String msg) {
-            Log.w(TAG, "onBindServiceCallback, status: " + status + ", msg: " + msg);
+            //Log.w(TAG, "onBindServiceCallback, status: " + "请打开定位");
         }
 
         @Override
@@ -117,10 +117,10 @@ public class RunningActivity extends Activity {
                 isServiceRunning = true;
 
             } else {
-                Log.w(TAG, "error onStartTrackCallback, status: " + status + ", msg: " + msg);
+                //Log.w(TAG, "error onStartTrackCallback, status: " + "请打开定位");
                 Toast.makeText(RunningActivity.this,
-                        "error onStartTrackCallback, status: " + status + ", msg: " + msg,
-                        Toast.LENGTH_LONG).show();
+                        "请打开定位",
+                        Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -133,10 +133,10 @@ public class RunningActivity extends Activity {
                 isGatherRunning = false;
 
             } else {
-                Log.w(TAG, "error onStopTrackCallback, status: " + status + ", msg: " + msg);
+                //Log.w(TAG, "error onStopTrackCallback, status: " + "请打开定位");
                 Toast.makeText(RunningActivity.this,
-                        "error onStopTrackCallback, status: " + status + ", msg: " + msg,
-                        Toast.LENGTH_LONG).show();
+                        "请打开定位",
+                        Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -151,10 +151,10 @@ public class RunningActivity extends Activity {
                 isGatherRunning = true;
 
             } else {
-                Log.w(TAG, "error onStartGatherCallback, status: " + status + ", msg: " + msg);
+                //Log.w(TAG, "error onStartGatherCallback, status: " + "请打开定位");
                 Toast.makeText(RunningActivity.this,
-                        "error onStartGatherCallback, status: " + status + ", msg: " + msg,
-                        Toast.LENGTH_LONG).show();
+                        "请打开定位",
+                        Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -165,10 +165,10 @@ public class RunningActivity extends Activity {
                 isGatherRunning = false;
 
             } else {
-                Log.w(TAG, "error onStopGatherCallback, status: " + status + ", msg: " + msg);
+                //Log.w(TAG, "error onStopGatherCallback, status: " + "请打开定位");
                 Toast.makeText(RunningActivity.this,
-                        "error onStopGatherCallback, status: " + status + ", msg: " + msg,
-                        Toast.LENGTH_LONG).show();
+                        "请打开定位",
+                        Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -177,6 +177,7 @@ public class RunningActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.running_layout);
+        Toast.makeText(RunningActivity.this, "请确保GPS开启", Toast.LENGTH_SHORT).show();
         myApplication=(MyApplication) getApplication();
         mSpeed = (TextView) findViewById(R.id.speed_text);
         mTime = (TextView) findViewById(R.id.time_text);
