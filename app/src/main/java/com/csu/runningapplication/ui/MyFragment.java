@@ -82,7 +82,7 @@ public class MyFragment extends Fragment {
     private Calendar endCal = Calendar.getInstance();
     private Date startDate;
     private Date endDate;
-
+    private String cx = "0";
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     private Button add;
@@ -115,9 +115,9 @@ public class MyFragment extends Fragment {
         mUserName = (TextView) v.findViewById(R.id.my_user_name);
         mUserName.setText(myApplication.getName());
         img = v.findViewById(R.id.my_user_img);
-        myrank1=v.findViewById(R.id.my_rank1);
-        myrank2=v.findViewById(R.id.my_rank2);
-        myrank3=v.findViewById(R.id.my_rank3);
+        myrank1 = v.findViewById(R.id.my_rank1);
+        myrank2 = v.findViewById(R.id.my_rank2);
+        myrank3 = v.findViewById(R.id.my_rank3);
 
         new MyItemsTask().execute();
 
@@ -146,7 +146,7 @@ public class MyFragment extends Fragment {
         act.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(getContext(), JoinActivity.class);
+                Intent i = new Intent(getContext(), JoinActivity.class);
                 startActivity(i);
 
             }
@@ -178,7 +178,7 @@ public class MyFragment extends Fragment {
             }
         });
 
-        Button mSetButton=(Button)v.findViewById(R.id.ic_setting);
+        Button mSetButton = (Button) v.findViewById(R.id.ic_setting);
         mSetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -274,7 +274,7 @@ public class MyFragment extends Fragment {
             mBbsNum = (TextView) getActivity().findViewById(R.id.bbs_num);
             mFriendsNum = (TextView) getActivity().findViewById(R.id.friends_num);
             mActNum = (TextView) getActivity().findViewById(R.id.act_num);
-            mTag=(TextView)getActivity().findViewById(R.id.my_tag);
+            mTag = (TextView) getActivity().findViewById(R.id.my_tag);
             mMileage = (TextView) getActivity().findViewById(R.id.mileage);
             mTime = (TextView) getActivity().findViewById(R.id.my_time);
             mSpeed = (TextView) getActivity().findViewById(R.id.my_speed);
@@ -290,15 +290,15 @@ public class MyFragment extends Fragment {
             mBbsNum.setText(Integer.toString(result.getBbsnum()));
             mFriendsNum.setText(Integer.toString(result.getFriends()));
             mActNum.setText(Integer.toString(result.getActnum()));
-            if(result.getTag().equals("")){
+            if (result.getTag().equals("")) {
                 mTag.setVisibility(View.GONE);
-            }else{
+            } else {
                 mTag.setText(result.getTag());
             }
 
             mMileage.setText(Double.toString((result.getCycling() + result.getRunning()) / 1000));
             mCalorie.setText(Integer.toString(result.getCalorie()));
-            RequestOptions requestOptions=new RequestOptions().error(R.drawable.user_192);
+            RequestOptions requestOptions = new RequestOptions().error(R.drawable.user_192);
             Glide.with(getContext())
                     .load(result.getAvatarUrl())
                     .apply(requestOptions)
@@ -306,12 +306,12 @@ public class MyFragment extends Fragment {
             int second = result.getTime();
 
             int hour = second / 3600;
-            int min = second / 60-hour*60;
+            int min = second / 60 - hour * 60;
             second = second % 60;
             DecimalFormat df = new DecimalFormat("00");
             mTime.setText(df.format(hour) + ":" + df.format(min) + ":" + df.format(second));
             if (result.getCycling() + result.getRunning() != 0) {
-                int speed = (int) (result.getTime() / (((result.getCycling()/2) + result.getRunning()) / 1000));
+                int speed = (int) (result.getTime() / (((result.getCycling() / 2) + result.getRunning()) / 1000));
                 min = speed / 60;
                 speed = speed % 60;
                 mSpeed.setText(min + "'" + df.format(speed) + "''");
@@ -394,7 +394,7 @@ public class MyFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            str = new EchartsFetch().fetchItems(myApplication.getUserid(), params[0], String.valueOf(startDate.getTime()), String.valueOf(endDate.getTime()));
+            str = new EchartsFetch().fetchItems(myApplication.getUserid(), cx, params[0], String.valueOf(startDate.getTime()), String.valueOf(endDate.getTime()));
             return str;
         }
 
@@ -408,24 +408,26 @@ public class MyFragment extends Fragment {
         }
     }
 
-    private class GetMyRankTask extends AsyncTask<Void,Void,String>{
+    private class GetMyRankTask extends AsyncTask<Void, Void, String> {
         String mj;
+
         @Override
         protected String doInBackground(Void... voids) {
-            mj=new MyRank().fetchItems(myApplication.getUserid(),String.valueOf(startDate.getTime()),String.valueOf(endDate.getTime()));
+            mj = new MyRank().fetchItems(myApplication.getUserid(), String.valueOf(startDate.getTime()), String.valueOf(endDate.getTime()));
             return mj;
         }
+
         @Override
-        protected void onPostExecute(String result){
+        protected void onPostExecute(String result) {
             if (result == null) {
                 return;
             }
             try {
 
-                    JSONObject jb=new JSONObject(result);
-                  myrank1.setText(jb.getString("r2"));
-                  myrank2.setText(jb.getString("r0"));
-                  myrank3.setText(jb.getString("r1"));
+                JSONObject jb = new JSONObject(result);
+                myrank1.setText(jb.getString("r2"));
+                myrank2.setText(jb.getString("r0"));
+                myrank3.setText(jb.getString("r1"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
