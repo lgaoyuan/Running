@@ -412,7 +412,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="个人周排名(院)"
+                            android:text="个人排名(院)"
                             android:textColor="#999999"
                             android:textSize="10dp" />
 
@@ -439,7 +439,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="个人周排名(校)"
+                            android:text="个人排名(校)"
                             android:textColor="#999999"
                             android:textSize="10dp" />
 
