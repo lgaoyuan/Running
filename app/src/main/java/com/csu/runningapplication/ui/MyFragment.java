@@ -89,6 +89,8 @@ public class MyFragment extends Fragment {
     private TextView myrank1;
     private TextView myrank2;
     private TextView myrank3;
+    private TextView myruntext;
+    private TextView mycircletext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -118,6 +120,21 @@ public class MyFragment extends Fragment {
         myrank1 = v.findViewById(R.id.my_rank1);
         myrank2 = v.findViewById(R.id.my_rank2);
         myrank3 = v.findViewById(R.id.my_rank3);
+        myruntext=v.findViewById(R.id.my_runtext);
+        mycircletext=v.findViewById(R.id.my_circletext);
+
+        myruntext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cx="0";
+            }
+        });
+        mycircletext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cx="1";
+            }
+        });
 
         new MyItemsTask().execute();
 
