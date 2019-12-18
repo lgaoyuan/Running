@@ -127,12 +127,30 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 cx="0";
+                getDay(0);
+                new GetMyRankTask().execute();
+                setMDate();
+                x = "['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']";
+                new EchartsItemsTask().execute("0");
+                mWeek.setBackgroundResource(R.drawable.back_circle);
+                mMonth.setBackgroundResource(R.color.colorTrans);
+                mYear.setBackgroundResource(R.color.colorTrans);
+                chartshow_wb.reload();
             }
         });
         mycircletext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cx="1";
+                getDay(0);
+                new GetMyRankTask().execute();
+                setMDate();
+                x = "['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']";
+                new EchartsItemsTask().execute("0");
+                mWeek.setBackgroundResource(R.drawable.back_circle);
+                mMonth.setBackgroundResource(R.color.colorTrans);
+                mYear.setBackgroundResource(R.color.colorTrans);
+                chartshow_wb.reload();
             }
         });
 
